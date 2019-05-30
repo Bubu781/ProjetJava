@@ -2,9 +2,12 @@ package Modele;
 
 public class Trimestre {
     
+    private int id;
     private AnneeScolaire annee;
     
+    
     public Trimestre(){
+        this.id=0;
         this.annee= null;
     }
     
@@ -15,6 +18,10 @@ public class Trimestre {
     
     public AnneeScolaire getAnneeScolaire(){
         return this.annee;
+    }
+    
+     public int getId(){
+        return this.id;
     }
     
 }

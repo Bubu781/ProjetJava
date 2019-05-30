@@ -2,22 +2,25 @@ package Modele;
 
 public class AnneeScolaire {
       private int id;
-    private int note;
-    private String appreciation;
+      private int annee;
     
     public AnneeScolaire()
     {
-        id=0;
-        
+        this.id=0;
+        this.annee=0;
     }
-    public AnneeScolaire(int id)
+    public AnneeScolaire(int id, int a)
     {
         this.id=id;
+        this.annee=a;
        
     }
     
     public int getId(){
-        return id;
+        return this.id;
+    }
+    public int getAnnee(){
+        return this.annee;
     }
     
 }
