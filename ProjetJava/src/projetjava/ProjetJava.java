@@ -6,7 +6,9 @@
 package projetjava;
 
 import BDD.*;
+import Vue.DisplayEnseignant;
 import Vue.Menu;
+import java.sql.SQLException;
 /**
  *
  * @author iGamer
@@ -16,9 +18,9 @@ public class ProjetJava {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        Menu m=new Menu();
-        LectureBDD l = new LectureBDD();
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+     DisplayEnseignant ens=new DisplayEnseignant();
+     // Connexion connection= new Connexion("localhost","root","");
         l.initFromFile();
         System.out.println("heyyy");
     }
