@@ -6,6 +6,7 @@
 package projetjava;
 
 import BDD.*;
+import Vue.Connex;
 import Vue.DisplayEnseignant;
 import Vue.Menu;
 import java.sql.SQLException;
@@ -19,9 +20,9 @@ public class ProjetJava {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-     DisplayEnseignant ens=new DisplayEnseignant();
+     Connex con=new Connex();
      // Connexion connection= new Connexion("localhost","root","");
-        l.initFromFile();
+        //l.initFromFile();
         System.out.println("heyyy");
     }
     

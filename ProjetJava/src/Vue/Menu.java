@@ -29,12 +29,24 @@ public class Menu extends JFrame implements  ActionListener {
     private JPanel pan2= new JPanel();
     private JPanel pan= new JPanel();
     private JPanel pan3= new JPanel();
-    
+
     private Ecole ecole=new Ecole();
 
     public Menu()
     {
         setTitle("Menu");
+        
+         
+         
+         //frame.setVisible(true); 
+         //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+     //ImageIcon icone = new ImageIcon(imgUrl);
+     
+     //JLabel jlabel = new JLabel(icone, JLabel.CENTER);
+     //jlabel.setSize(new Dimension(800, 600));
+
+     //this.getContentPane().add(jlabel);
+        
         this.eleves.setSize(2,2);
         this.eleves.addActionListener(this);
         this.enseignants.addActionListener(this);
@@ -60,12 +72,17 @@ public class Menu extends JFrame implements  ActionListener {
         
         
         this.setLayout(new FlowLayout());
-        this.setSize(new Dimension(1000,800));
+        this.setSize(new Dimension(830,730));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.getContentPane().add("Center",pan2);
         this.getContentPane().add("South",pan);
         this.getContentPane().add("South",pan3);
-        
+         this.add(new JLabel(new ImageIcon("test.jpg"))); 
+          //this.add(new JLabel(new ImageIcon("image.png"))); 
+         //this.pack();
+         //this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //this.setSize(830, 730);
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
         
     }
@@ -75,13 +92,14 @@ public class Menu extends JFrame implements  ActionListener {
     public void actionPerformed(ActionEvent arg0) {      
         if(arg0.getSource()==this.eleves)
         {
-         
+            this.dispose();
+            DisplayEleve ens=new DisplayEleve();
             
         }
        else if(arg0.getSource()==this.enseignants)
         {
-           
-            
+           this.dispose();
+            DisplayEnseignant ens=new DisplayEnseignant();
         }
         else if(arg0.getSource()==this.classes)
         { 
