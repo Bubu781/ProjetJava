@@ -8,9 +8,6 @@ package projetjava;
 import BDD.*;
 import java.sql.SQLException;
 import Modele.*;
-import Vue.Connex;
-import Vue.DisplayEnseignant;
-import Vue.Menu;
 import java.sql.SQLException;
 import java.util.ArrayList;
 /**
@@ -33,6 +30,7 @@ public class ProjetJava {
                 System.out.println(val);
             }
         }
+        Ecole ecole = new Ecole(); 
     }
     public static void initConnexion(Connexion connexion){
         connexion.ajouterTable("AnneeScolaire");

@@ -40,10 +40,7 @@ public class DisplayEleve extends JFrame implements  ActionListener{
     private Eleve eleve=new Eleve();
     
     public DisplayEleve(){
-        
     
-     
-
         setTitle("Eleve");
         
         
@@ -57,9 +54,9 @@ public class DisplayEleve extends JFrame implements  ActionListener{
        // final JLabel label = new JLabel("",JLabel.CENTER);
         this.titre.setText("Fiche eleve");
         
-        pan.setLayout(new BorderLayout());
-        pan2.setLayout(new BorderLayout());
-        pan3.setLayout(new BorderLayout());
+        this.pan.setLayout(new BorderLayout());
+        this.pan2.setLayout(new BorderLayout());
+        this.pan3.setLayout(new BorderLayout());
         
         this.nom.setText("Nom: "+this.eleve.getNom());
         this.prenom.setText("Prénom: "+this.eleve.getPrenom());
@@ -72,9 +69,9 @@ public class DisplayEleve extends JFrame implements  ActionListener{
         //Dimension d = label.getPreferredSize();
        
        // this.label.setPreferredSize(new Dimension(100, 70));
-       pan.setPreferredSize(new Dimension(450,100));
-       pan2.setPreferredSize(new Dimension(350,100));
-       pan3.setPreferredSize(new Dimension(80,80));
+        this.pan.setPreferredSize(new Dimension(450,100));
+        this.pan2.setPreferredSize(new Dimension(350,100));
+        this.pan3.setPreferredSize(new Dimension(80,80));
         this.pan.add(this.titre,BorderLayout.NORTH);
         this.pan2.add(this.nom,BorderLayout.WEST);
         this.pan2.add(this.prenom,BorderLayout.EAST);

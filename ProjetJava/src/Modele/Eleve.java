@@ -2,7 +2,7 @@ package Modele;
 
 public class Eleve extends Personne {
     
-    Eleve(){
+    public Eleve(){
         super();
     }
 }
