@@ -8,6 +8,7 @@ package projetjava;
 import BDD.*;
 import java.sql.SQLException;
 import Modele.*;
+import Vue.Connex;
 import Vue.DisplayEnseignant;
 import Vue.Menu;
 import java.sql.SQLException;
