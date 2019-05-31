@@ -30,10 +30,11 @@ public class Menu extends JFrame implements  ActionListener {
     private JPanel pan= new JPanel();
     private JPanel pan3= new JPanel();
 
-    private Ecole ecole=new Ecole();
+    private Ecole ecole;
 
-    public Menu()
+    public Menu(Ecole ecole)
     {
+        this.ecole = ecole;
         setTitle("Menu");
         
          
