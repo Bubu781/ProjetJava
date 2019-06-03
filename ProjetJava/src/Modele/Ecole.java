@@ -7,14 +7,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Ecole {
-    
+    private Connexion connexion;
     private int id;
     private String nom;
     private Menu display;
     private ArrayList<Eleve> eleves;
     private ArrayList<Enseignant> enseignants;
     private ArrayList<Classe> classes;
+    private ArrayList<Discipline> disciplines;
+    private ArrayList<Niveau> niveaux;
+    private ArrayList<AnneeScolaire> annees;
+    private ArrayList<Trimestre> trimestres;
     public Ecole(Connexion connexion) throws SQLException{
+        this.connexion = connexion;
         ArrayList<String> requetes;
         ArrayList<AnneeScolaire> annees = new ArrayList<AnneeScolaire>();
         ArrayList<Bulletin> bulletins = new ArrayList<Bulletin>();
@@ -103,7 +108,14 @@ public class Ecole {
         for(Trimestre trimestre : trimestres){
             trimestre.remplirClasses(connexion, annees);
         }
-        display = new Menu(this);
+        this.eleves = eleves;
+        this.classes = classes;
+        this.enseignants = enseignants;
+        this.disciplines = disciplines;
+        this.niveaux = niveaux;
+        this.annees = annees;
+        this.trimestres = trimestres;
+        this.display = new Menu(this);
     }
     
     public int getId(){
