@@ -20,7 +20,11 @@ public class Personne {
         this.prenom = requetes.get(0).substring(0,requetes.get(0).length()-1);
     }
     
-    public Personne(String nom, String prenom, Ecole ecole){
+    public Personne(Connexion connexion,String nom, String prenom, Ecole ecole) throws SQLException{
+         ArrayList<String> requetes;
+        connexion.executeUpdate("INSERT INTO Personne(Nom, Prenom) VALUES("+nom+","+prenom+");");
+        requetes = connexion.remplirChampsRequete("SELECT Id FROM Personne WHERE Nom = '"+nom+"' AND Prenom = '"+prenom+"'");
+        this.id = Integer.parseInt(requetes.get(0).substring(0, requetes.get(0).length()-1));
         this.nom=nom;
         this.prenom=prenom;
         this.ecole = ecole;

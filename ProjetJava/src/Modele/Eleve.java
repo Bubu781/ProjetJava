@@ -11,8 +11,11 @@ public class Eleve extends Personne {
         super(connexion, id, ecole);
     }
     
-    public Eleve (String nom, String prenom, Ecole ecole){
-        super(nom, prenom, ecole);
+    public Eleve (Connexion connexion, String nom, String prenom, Ecole ecole) throws SQLException{
+        super(connexion, nom, prenom, ecole);
+        connexion.executeUpdate("INSERT INTO Eleve(personne) VALUES("+this.id+");");
+        
+        
         
     }
     public void remplirClasses(Connexion connexion, ArrayList<Inscription> inscriptions) throws SQLException{

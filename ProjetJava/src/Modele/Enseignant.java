@@ -10,6 +10,11 @@ public class Enseignant extends Personne {
     public Enseignant(Connexion connexion, int id, Ecole ecole) throws SQLException{
         super(connexion, id, ecole);
     }
+    
+    public Enseignant(Connexion connexion, String nom, String prenom, Ecole ecole) throws SQLException {
+        super(connexion, nom, prenom,ecole);
+        connexion.executeUpdate("INSERT INTO Enseignant(personne) VALUES("+this.id+");");
+    }
     public void remplirClasses(Connexion connexion, ArrayList<Enseignement> enseignements) throws SQLException{
         ArrayList<String> requetes;
         requetes = connexion.remplirChampsRequete("SELECT id FROM Enseignement WHERE enseignant ='"+id+"'");

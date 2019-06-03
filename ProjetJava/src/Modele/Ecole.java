@@ -118,13 +118,24 @@ public class Ecole {
         this.display = new Menu(this);
     }
     public void ajoutEleve(String nom, String prenom, Classe classe) throws SQLException{
-        Eleve eleve = new Eleve(nom, prenom, this);
+        Eleve eleve = new Eleve(this.connexion,nom, prenom, this);
         this.eleves.add(eleve);
         this.classes.add(classe);
         Inscription inscription = new Inscription(this.connexion, this, classe, eleve);
         eleve.remplirClasses(inscription);
         classe.ajoutInscription(inscription);
     }
+    
+    public void ajoutEnseignant(String nom, String prenom) throws SQLException{
+        Enseignant enseignant= new Enseignant(this.connexion, nom, prenom, this);
+        this.enseignants.add(enseignant);
+    }
+    
+    public void ajoutEnseignement(Enseignant enseignant, Classe classe, Discipline discipline) throws SQLException{
+        Enseignement enseignement= new Enseignement(this.connexion, enseignant, classe,  discipline,this);
+        classe.ajoutEnseignement(enseignement);
+    }
+            
     public int getId(){
         return this.id;
     }

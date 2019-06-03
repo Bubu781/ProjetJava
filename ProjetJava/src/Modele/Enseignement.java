@@ -16,6 +16,17 @@ public class Enseignement {
         this.ecole = ecole;
         this.id = id;
     }
+    
+    public Enseignement(Connexion connexion, Enseignant enseignant, Classe classe, Discipline discipline, Ecole ecole ) throws SQLException{
+        
+        ArrayList<String> requetes;
+        connexion.executeUpdate("INSERT INTO Enseignement(classe,discipline, enseignant) VALUES("+classe.getId()+","+discipline.getId()+","+enseignant.getId()+");");
+        requetes = connexion.remplirChampsRequete("SELECT Id FROM Enseignement WHERE classe = '"+classe+"' AND discipline = '"+discipline+"'AND enseignant = '"+enseignant+"'");
+        this.id = Integer.parseInt(requetes.get(0).substring(0, requetes.get(0).length()-1));        
+        this.enseignant=enseignant;
+        this.classe=classe;
+        this.discipline=discipline;
+    }
     public void remplirClasses(Connexion connexion, ArrayList<Classe> classes, ArrayList<Discipline> disciplines, ArrayList<Enseignant> enseignants) throws SQLException{
         ArrayList<String> requetes;
         requetes = connexion.remplirChampsRequete("SELECT classe FROM Enseignement WHERE Id = '"+this.id+"'");
