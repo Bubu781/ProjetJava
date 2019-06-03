@@ -1,25 +1,50 @@
 package Modele;
 
+import BDD.Connexion;
+import static java.lang.Integer.parseInt;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 public class DetailBulletin {
-    
+    private Ecole ecole;
     private int id;
     private String appreciation;
-    private Enseignant enseignant;
+    private Enseignement enseignement;
     private Bulletin bulletin;
+    private ArrayList<Evaluation> evals = new ArrayList<Evaluation>();
 
     
-    public DetailBulletin(){
-        this.id=0;
-        this.appreciation="";
-        this.enseignant=new Enseignant();
-        this.bulletin=new Bulletin();
-        
+    public DetailBulletin(Connexion connexion, int id, Ecole ecole) throws SQLException{
+        ArrayList<String> requetes;
+        this.id = id;
+        this.ecole = ecole;
+        requetes = connexion.remplirChampsRequete("SELECT appreciation FROM DetailBulletin WHERE id = '"+id+"'");
+        this.appreciation = requetes.get(0).substring(0,requetes.get(0).length()-1);
     }
-    public DetailBulletin(int id, String appreciation,Enseignant e, Bulletin b){
-        this.id=id;
-        this.appreciation=appreciation;
-        this.enseignant=e;
-        this.bulletin=b;
+    public void remplirClasses(Connexion connexion, ArrayList<Enseignement> enseignements, ArrayList<Bulletin> bulletins, ArrayList<Evaluation> evaluations) throws SQLException{
+        ArrayList<String> requetes;
+        requetes = connexion.remplirChampsRequete("SELECT enseignement FROM DetailBulletin WHERE Id = '"+this.id+"'");
+        for(Enseignement enseignement : enseignements){
+            if(Integer.parseInt(requetes.get(0).substring(0,requetes.get(0).length()-1)) == enseignement.getId()){
+                this.enseignement = enseignement;
+                break;
+            }
+        }
+        requetes = connexion.remplirChampsRequete("SELECT bulletin FROM DetailBulletin WHERE Id = '"+this.id+"'");
+        for(Bulletin bulletin : bulletins){
+            if(Integer.parseInt(requetes.get(0).substring(0,requetes.get(0).length()-1)) == bulletin.getId()){
+                this.bulletin = bulletin;
+                break;
+            }
+        }
+        requetes = connexion.remplirChampsRequete("SELECT Id FROM Evaluation WHERE detail_bulletin = '"+this.id+"'");
+        for(String requete : requetes){
+            for(Evaluation evaluation : evaluations){
+                if(Integer.parseInt(requete.substring(0,requete.length()-1)) == evaluation.getId()){
+                    this.evals.add(evaluation);
+                }
+            }
+        }
     }
    
     public String getAppreciation(){
@@ -27,10 +52,6 @@ public class DetailBulletin {
     }
     public int getId(){
         return this.id;
-    }
-    
-    public Enseignant getEnseignant(){
-        return this.enseignant;
     }
     
     public Bulletin getBulletin(){

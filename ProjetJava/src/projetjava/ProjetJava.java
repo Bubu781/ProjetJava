@@ -30,7 +30,7 @@ public class ProjetJava {
                 System.out.println(val);
             }
         }
-        Ecole ecole = new Ecole(); 
+        Ecole ecole = new Ecole(connexion); 
     }
     public static void initConnexion(Connexion connexion){
         connexion.ajouterTable("AnneeScolaire");

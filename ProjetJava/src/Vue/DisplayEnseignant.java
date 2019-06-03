@@ -33,7 +33,7 @@ public class DisplayEnseignant extends JFrame implements  ActionListener {
     private JPanel pan= new JPanel();
     private JPanel pan3= new JPanel();
     
-    private Enseignant enseignant=new Enseignant();
+    private Enseignant enseignant;
     
     public DisplayEnseignant(){
         

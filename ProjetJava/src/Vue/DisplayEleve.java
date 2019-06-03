@@ -37,7 +37,7 @@ public class DisplayEleve extends JFrame implements  ActionListener{
     private JPanel pan= new JPanel();
     private JPanel pan3= new JPanel();
     
-    private Eleve eleve=new Eleve();
+    private Eleve eleve;
     
     public DisplayEleve(){
     

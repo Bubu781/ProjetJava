@@ -52,7 +52,7 @@ public class Login {
                 b.addActionListener(new ActionListener() {  
                 public void actionPerformed(ActionEvent e) {  
                     f.dispose();
-                Menu menu=new Menu();       
+                //Menu menu=new Menu();       
                 }  
              });   
 }  
