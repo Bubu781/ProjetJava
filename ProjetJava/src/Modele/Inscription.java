@@ -16,6 +16,16 @@ public class Inscription {
         this.id = id;
         this.ecole = ecole;
     }
+    
+    public Inscription(Connexion connexion, Ecole ecole, Classe classe, Eleve eleve) throws SQLException{
+        ArrayList<String> requetes;
+        connexion.executeUpdate("INSERT INTO Inscription(classe, eleve) VALUES("+classe.getId()+","+eleve.getId()+");");
+        requetes = connexion.remplirChampsRequete("SELECT Id FROM Inscription WHERE classe = '"+classe.getId()+"' AND eleve = '"+eleve.getId()+"'");
+        this.id = Integer.parseInt(requetes.get(0).substring(0, requetes.get(0).length()-1));
+        this.ecole=ecole;
+        this.classe=classe;
+        this.eleve=eleve;
+    }
     public void remplirClasses(Connexion connexion, ArrayList<Classe> classes, ArrayList<Eleve> eleves,ArrayList<Bulletin> bulletins) throws SQLException{
         ArrayList<String> requetes;
         requetes = connexion.remplirChampsRequete("SELECT classe FROM Inscription WHERE Id = '"+this.id+"'");

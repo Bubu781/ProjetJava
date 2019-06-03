@@ -10,6 +10,11 @@ public class Eleve extends Personne {
     public Eleve(Connexion connexion, int id, Ecole ecole) throws SQLException{
         super(connexion, id, ecole);
     }
+    
+    public Eleve (String nom, String prenom, Ecole ecole){
+        super(nom, prenom, ecole);
+        
+    }
     public void remplirClasses(Connexion connexion, ArrayList<Inscription> inscriptions) throws SQLException{
         ArrayList<String> requetes;
         requetes = connexion.remplirChampsRequete("SELECT Id FROM Inscription WHERE eleve ='"+this.id+"'");
@@ -19,6 +24,9 @@ public class Eleve extends Personne {
                 break;
             }
         }
+    }
+    public void remplirClasses(Inscription inscription){
+        this.inscription = inscription;
     }
     public Inscription getInscription(){
         return this.inscription;

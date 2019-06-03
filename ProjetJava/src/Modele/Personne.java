@@ -20,6 +20,12 @@ public class Personne {
         this.prenom = requetes.get(0).substring(0,requetes.get(0).length()-1);
     }
     
+    public Personne(String nom, String prenom, Ecole ecole){
+        this.nom=nom;
+        this.prenom=prenom;
+        this.ecole = ecole;
+    }
+    
     public int getId(){
         return this.id;
     }

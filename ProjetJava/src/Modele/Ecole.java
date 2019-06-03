@@ -117,7 +117,14 @@ public class Ecole {
         this.trimestres = trimestres;
         this.display = new Menu(this);
     }
-    
+    public void ajoutEleve(String nom, String prenom, Classe classe) throws SQLException{
+        Eleve eleve = new Eleve(nom, prenom, this);
+        this.eleves.add(eleve);
+        this.classes.add(classe);
+        Inscription inscription = new Inscription(this.connexion, this, classe, eleve);
+        eleve.remplirClasses(inscription);
+        classe.ajoutInscription(inscription);
+    }
     public int getId(){
         return this.id;
     }

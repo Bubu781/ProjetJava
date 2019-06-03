@@ -55,6 +55,11 @@ public class Classe {
         }
     }
     
+    
+    public void ajoutInscription(Inscription inscription){
+        this.inscriptions.add(inscription);
+    }
+    
     public int getId(){
         return this.id;
     }
