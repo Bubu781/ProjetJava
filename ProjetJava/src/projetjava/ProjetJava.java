@@ -22,7 +22,9 @@ public class ProjetJava {
      * @throws java.lang.ClassNotFoundException
      */
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        Connexion connexion = new Connexion("school","root","root");
+        Connex con=new Connex();
+        con.dispose();
+        Connexion connexion = new Connexion("school","root","");
         initConnexion(connexion);
         for(String values : connexion.tables){
             ArrayList<String> x = connexion.remplirChampsRequete("Select * FROM " + values);
