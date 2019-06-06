@@ -32,6 +32,11 @@ public class Evaluation {
         }
     }
     
+    public void modifier(int note, String appreciation){
+        this.note = note;
+        this.appreciation = appreciation;
+    }
+    
     public int getNote(){
         return this.note;
     }

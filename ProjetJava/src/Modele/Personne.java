@@ -30,6 +30,11 @@ public class Personne {
         this.ecole = ecole;
     }
     
+    public void modifier(String nom, String prenom){
+        this.nom = nom;
+        this.prenom = prenom;
+    }
+    
     public int getId(){
         return this.id;
     }

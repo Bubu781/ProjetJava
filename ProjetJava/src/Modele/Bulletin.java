@@ -47,6 +47,18 @@ public class Bulletin {
         }
     }
     
+    public void modifier(String appreciation, Trimestre trimestre){
+        this.appreciation = appreciation;
+        this.trimestre = trimestre;
+    }
+    
+    public void suppression(){
+        for(DetailBulletin detail : this.details){
+            detail.suppression();
+        }
+        this.details.removeAll(this.details);
+    }
+    
     public int getId(){
         return this.id;
     }

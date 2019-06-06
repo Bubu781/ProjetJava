@@ -46,6 +46,14 @@ public class DetailBulletin {
             }
         }
     }
+    
+    public void modifier(String appreciation){
+        this.appreciation = appreciation;
+    }
+    
+    public void suppression(){
+        this.evals.removeAll(this.evals);
+    }
    
     public String getAppreciation(){
         return this.appreciation;

@@ -35,6 +35,14 @@ public class Trimestre {
             }
         }
     }
+    
+    public void modifier(String debut, String fin, AnneeScolaire annee, int numero){
+        this.debut = debut;
+        this.fin = fin;
+        this.annee = annee;
+        this.numero = numero;
+    }
+    
     public AnneeScolaire getAnneeScolaire(){
         return this.annee;
     }

@@ -49,6 +49,13 @@ public class Inscription {
             }
         }
     }
+    
+    public void suppression(){
+        for(Bulletin bulletin : this.bulletins){
+            bulletin.suppression();
+        }
+        this.bulletins.removeAll(this.bulletins);
+    }
             
     public int getId(){
         return this.id;

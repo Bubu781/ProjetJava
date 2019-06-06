@@ -26,4 +26,7 @@ public class Enseignant extends Personne {
             }
         }
     }
+    public void suppression(){
+        this.enseignements.removeAll(this.enseignements);
+    }
 }
