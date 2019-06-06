@@ -73,7 +73,7 @@ public class Menu extends JFrame implements  ActionListener {
         
         
         this.setLayout(new FlowLayout());
-        this.setSize(new Dimension(830,730));
+        this.setSize(new Dimension(830,820));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.getContentPane().add("Center",pan2);
         this.getContentPane().add("South",pan);

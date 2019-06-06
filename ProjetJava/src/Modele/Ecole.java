@@ -162,7 +162,10 @@ public class Ecole {
     public void setVisibleDisplayEleves(boolean bool){
         this.displayEleves.setVisible(bool);
     }
-            
+    
+    public void setVisibleMenu(boolean bool){
+        this.display.setVisible(bool);
+    }
     public Eleve getEleve(){
         //System.out.print(this.eleves.get(0).getNom());
         return this.eleves.get(0);

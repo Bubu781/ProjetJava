@@ -27,6 +27,7 @@ public class DisplayEleve extends JFrame implements  ActionListener{
      // private JButton eleves= new JButton("Eleves");
     //private JButton enseignants= new JButton("Enseignants");
    // private JButton classes= new JButton("Classes");
+    private JButton retour= new JButton("Retour");
     private JButton quitter= new JButton("Quitter");
     
     private JLabel titre = new JLabel("");
@@ -80,7 +81,9 @@ public class DisplayEleve extends JFrame implements  ActionListener{
         this.pan.add(this.titre,BorderLayout.NORTH);
         this.pan2.add(this.nom,BorderLayout.WEST);
         this.pan2.add(this.prenom,BorderLayout.EAST);
+        this.pan3.add(this.retour, BorderLayout.SOUTH);
         this.pan3.add(this.quitter,BorderLayout.SOUTH);
+        
         
         
         
@@ -105,6 +108,11 @@ public class DisplayEleve extends JFrame implements  ActionListener{
             //action a faire quand on clique sur le bouton4
             System.exit(0);
         }
+       else if(arg0.getSource()==this.retour){
+           
+           //this.ecole.setVisibleDisplayEleves(false);
+          // this.ecole.setVisibleMenu(true);
+       }
       
         
     } 

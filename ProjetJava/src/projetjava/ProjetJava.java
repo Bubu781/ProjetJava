@@ -24,7 +24,6 @@ public class ProjetJava {
      */
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
          Connex con=new Connex();
-        Connexion connexion = new Connexion("school","root","");
-        Ecole ecole = new Ecole(connexion); 
+        
     }
 }
