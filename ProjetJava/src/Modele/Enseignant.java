@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class Enseignant extends Personne {
     private ArrayList<Enseignement> enseignements = new ArrayList<Enseignement>();
+   
     public Enseignant(Connexion connexion, int id, Ecole ecole) throws SQLException{
         super(connexion, id, ecole);
     }
@@ -26,4 +27,11 @@ public class Enseignant extends Personne {
             }
         }
     }
+    
+    
+    public void ajoutEnseignement(Enseignement enseignement ) throws SQLException{
+        this.enseignements.add(enseignement);
+        
+    }
+            
 }

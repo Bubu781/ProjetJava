@@ -63,7 +63,6 @@ public class Classe {
     public void ajoutEnseignement(Enseignement enseignement){
         this.enseignements.add(enseignement);
     }
-            
     
     public int getId(){
         return this.id;
@@ -83,4 +82,9 @@ public class Classe {
     public String getNom(){
         return this.nom;
     }
+    
+    public ArrayList<Enseignement> getListeEnseignements(){
+        return this.enseignements;
+    }
+            
 }

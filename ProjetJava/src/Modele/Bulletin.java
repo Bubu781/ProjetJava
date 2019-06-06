@@ -21,6 +21,16 @@ public class Bulletin {
         this.appreciation = requetes.get(0);
     }
     
+    public Bulletin(Connexion connexion, Ecole ecole, Classe classe) throws SQLException{
+        ArrayList<String> requetes;
+        connexion.executeUpdate("INSERT INTO Bulletin() VALUES("+")");
+        requetes = connexion.remplirChampsRequete("SELECT MAX(Id) FROM Bulletin ");
+        this.id = Integer.parseInt(requetes.get(0).substring(0, requetes.get(0).length()-1));
+        this.ecole= ecole;
+        for(Enseignement enseignement : classe.getListeEnseignements()){
+            this.details.add(new DetailBulletin(connexion, enseignement, ecole));
+        }
+    }
     public void remplirClasses(Connexion connexion, ArrayList<Trimestre> trimestres, ArrayList<Inscription> inscriptions, ArrayList<DetailBulletin> details) throws SQLException{
         ArrayList<String> requetes;
         requetes = connexion.remplirChampsRequete("SELECT trimestre FROM Bulletin WHERE id='"+this.id+"'");
@@ -47,6 +57,7 @@ public class Bulletin {
         }
     }
     
+
     public int getId(){
         return this.id;
     }

@@ -24,6 +24,7 @@ public class Enseignement {
         requetes = connexion.remplirChampsRequete("SELECT Id FROM Enseignement WHERE classe = '"+classe+"' AND discipline = '"+discipline+"'AND enseignant = '"+enseignant+"'");
         this.id = Integer.parseInt(requetes.get(0).substring(0, requetes.get(0).length()-1));        
         this.enseignant=enseignant;
+        this.enseignant.ajoutEnseignement(this);
         this.classe=classe;
         this.discipline=discipline;
     }

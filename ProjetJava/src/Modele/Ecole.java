@@ -135,6 +135,11 @@ public class Ecole {
         Enseignement enseignement= new Enseignement(this.connexion, enseignant, classe,  discipline,this);
         classe.ajoutEnseignement(enseignement);
     }
+    
+    public void ajouterNiveau(String nom) throws SQLException{
+        Niveau niveau= new Niveau(this.connexion, nom, this);
+        this.niveaux.add(niveau);
+    }
             
     public int getId(){
         return this.id;
