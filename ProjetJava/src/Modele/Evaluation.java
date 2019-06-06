@@ -22,6 +22,16 @@ public class Evaluation {
         this.appreciation = requetes.get(0).substring(0,requetes.get(0).length()-1);
     }
     
+    public Evaluation(Connexion connexion, String appreciation,int note,Ecole ecole) throws SQLException{
+        ArrayList<String> requetes;
+        connexion.executeUpdate("INSERT INTO Evaluation(Appreciation, Note) VALUES("+appreciation+","+note+");");
+        requetes = connexion.remplirChampsRequete("SELECT MAX(Id) FROM Evaluation WHERE Appreciation = '"+appreciation+"' AND Note = '"+note+"'");
+        this.id = Integer.parseInt(requetes.get(0).substring(0, requetes.get(0).length()-1));
+        this.ecole=ecole;
+        this.appreciation=appreciation;
+        this.note=note;
+        
+    }
     public void remplirClasses(Connexion connexion, ArrayList<DetailBulletin> details) throws SQLException{
         ArrayList<String> requetes;
         requetes = connexion.remplirChampsRequete("SELECT detail_bulletin FROM Evaluation WHERE Id = '"+this.id+"'");
