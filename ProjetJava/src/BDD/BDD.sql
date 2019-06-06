@@ -22,10 +22,10 @@ CREATE TABLE Eleve(personne int NOT NULL, FOREIGN KEY(personne) REFERENCES perso
 
 CREATE TABLE Enseignement(Id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,classe int NOT NULL, FOREIGN KEY(classe) REFERENCES classe(Id), discipline int NOT NULL, FOREIGN KEY(discipline) REFERENCES discipline(Id), enseignant int NOT NULL, FOREIGN KEY(enseignant) REFERENCES Enseignant(personne) );
 CREATE TABLE Inscription(Id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,classe int NOT NULL, FOREIGN KEY(classe) REFERENCES classe(Id), eleve int NOT NULL, FOREIGN KEY(eleve) REFERENCES Eleve(personne));
-CREATE TABLE Bulletin(Id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,Appreciation varchar(50) NOT NULL, trimestre int NOT NULL, FOREIGN KEY(trimestre) REFERENCES trimestre(Id),inscription int NOT NULL, FOREIGN KEY(inscription) REFERENCES inscription(Id));
+CREATE TABLE Bulletin(Id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,Appreciation varchar(50) , trimestre int NOT NULL, FOREIGN KEY(trimestre) REFERENCES trimestre(Id),inscription int NOT NULL, FOREIGN KEY(inscription) REFERENCES inscription(Id));
 
 
-CREATE TABLE DetailBulletin(Id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,Appreciation varchar(50) NOT NULL, enseignement int NOT NULL, FOREIGN KEY(enseignement) REFERENCES enseignement(Id), bulletin int NOT NULL, FOREIGN KEY(bulletin) REFERENCES bulletin(Id));
+CREATE TABLE DetailBulletin(Id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,Appreciation varchar(50), enseignement int NOT NULL, FOREIGN KEY(enseignement) REFERENCES enseignement(Id), bulletin int NOT NULL, FOREIGN KEY(bulletin) REFERENCES bulletin(Id));
 CREATE TABLE Evaluation(Id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,Appreciation varchar(50) NOT NULL,Note int NOT NULL, detail_bulletin int NOT NULL, FOREIGN KEY(detail_bulletin) REFERENCES DetailBulletin(Id));
 
 

@@ -95,4 +95,9 @@ public class Classe {
     public String getNom(){
         return this.nom;
     }
+    
+    public ArrayList<Enseignement> getListeEnseignements(){
+        return this.enseignements;
+    }
+            
 }

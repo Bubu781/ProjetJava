@@ -69,4 +69,8 @@ public class DetailBulletin {
     public void ajoutEnseignement(Enseignement enseignement){
         this.enseignement= enseignement;
     }
+    
+    public void ajoutEvaluation(Evaluation evaluation){
+        evals.add(evaluation);
+    }
 }
