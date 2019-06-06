@@ -8,6 +8,7 @@ package projetjava;
 import BDD.*;
 import java.sql.SQLException;
 import Modele.*;
+import Vue.Connex;
 import java.sql.SQLException;
 import java.util.ArrayList;
 /**
@@ -22,9 +23,11 @@ public class ProjetJava {
      * @throws java.lang.ClassNotFoundException
      */
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        Connex con=new Connex();
-        con.dispose();
+         Connex con=new Connex();
+        
+        /*
         Connexion connexion = new Connexion("school","root","");
+        
         initConnexion(connexion);
         for(String values : connexion.tables){
             ArrayList<String> x = connexion.remplirChampsRequete("Select * FROM " + values);

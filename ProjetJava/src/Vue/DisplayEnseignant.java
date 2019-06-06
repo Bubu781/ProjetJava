@@ -35,7 +35,8 @@ public class DisplayEnseignant extends JFrame implements  ActionListener {
     
     private Enseignant enseignant;
     
-    public DisplayEnseignant(){
+    
+    public DisplayEnseignant(Enseignant enseignant){
         
     
      
@@ -55,8 +56,11 @@ public class DisplayEnseignant extends JFrame implements  ActionListener {
         pan2.setLayout(new BorderLayout());
         pan3.setLayout(new BorderLayout());
         
-        this.nom.setText("Nom: "+this.enseignant.getNom());
-        this.prenom.setText("Prénom: "+this.enseignant.getPrenom());
+         this.enseignant = enseignant;
+         JLabel titre = new JLabel("Nom "+this.enseignant.getNom() + ", Prenom : "+this.enseignant.getPrenom());
+        this.add(titre);
+        //this.nom.setText("Nom: "+this.enseignant.getNom());
+        //this.prenom.setText("Prénom: "+this.enseignant.getPrenom());
         this.titre.setFont(new Font("Serif", Font.BOLD, 50));
         this.prenom.setFont(new Font("Serif", Font.BOLD, 20));
         this.nom.setFont(new Font("Serif", Font.BOLD, 20));
@@ -77,7 +81,8 @@ public class DisplayEnseignant extends JFrame implements  ActionListener {
         
         
         this.setLayout(new FlowLayout());
-        this.setSize(new Dimension(1000,800));
+         this.setSize(new Dimension(830,730));
+        this.setLocationRelativeTo(null);
         
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.getContentPane().add("North",pan);
@@ -85,7 +90,7 @@ public class DisplayEnseignant extends JFrame implements  ActionListener {
         this.getContentPane().add("South",pan3);
         
         
-        this.setVisible(true);
+        //this.setVisible(true);
         
     }
     

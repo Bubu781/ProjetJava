@@ -106,6 +106,18 @@ public class Ecole {
         display = new Menu(this);
     }
     
+    public Eleve getEleve(){
+        //System.out.print(this.eleves.get(0).getNom());
+        return this.eleves.get(0);
+    }
+    public Enseignant getEnseignant(){
+        //System.out.print(this.eleves.get(0).getNom());
+        return this.enseignants.get(0);
+    }
+    public Classe getClasse(){
+        //System.out.print(this.eleves.get(0).getNom());
+        return this.classes.get(0);
+    }
     public int getId(){
         return this.id;
     }

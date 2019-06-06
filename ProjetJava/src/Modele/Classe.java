@@ -1,11 +1,13 @@
 package Modele;
 
 import BDD.Connexion;
+import Vue.DisplayClasse;
 import static java.lang.Integer.parseInt;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Classe {
+    private DisplayClasse display;
     private int id;
     private String nom;
     private AnneeScolaire annee; //
@@ -53,6 +55,7 @@ public class Classe {
                 }
             }
         }
+        this.display=new DisplayClasse(this);
     }
     
     public int getId(){
@@ -72,5 +75,8 @@ public class Classe {
     
     public String getNom(){
         return this.nom;
+    }
+    public void setVisible(boolean bool){
+        this.display.setVisible(bool);
     }
 }

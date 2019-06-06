@@ -5,10 +5,6 @@
  */
 package Vue;
 
-/**
- *
- * @author Mathilde
- */
 import Modele.*;
 import java.awt.*;
 import static java.awt.BorderLayout.*;
@@ -21,10 +17,11 @@ import javax.swing.*;
 
 /**
  *
- * @author Mathilde
+ * @author Admin
  */
-public class DisplayEleve extends JFrame implements  ActionListener{
-     // private JButton eleves= new JButton("Eleves");
+public class DisplayClasse extends JFrame implements  ActionListener {
+    
+   // private JButton eleves= new JButton("Eleves");
     //private JButton enseignants= new JButton("Enseignants");
    // private JButton classes= new JButton("Classes");
     private JButton quitter= new JButton("Quitter");
@@ -36,16 +33,24 @@ public class DisplayEleve extends JFrame implements  ActionListener{
     private JPanel pan2= new JPanel();
     private JPanel pan= new JPanel();
     private JPanel pan3= new JPanel();
+    private Classe classe;
     
-    private Eleve eleve;
     
+    //private Enseignant enseignant;
     
-    public DisplayEleve(Eleve eleve){
+   
+    public DisplayClasse(Classe classe){
+       
+        
+        //this.setVisible(true);
         
     
-     
+    
+    
+    
 
-        setTitle("Eleve");
+
+        setTitle("Classe");
         //this.eleves.setSize(2,2);
         //this.eleves.addActionListener(this);
         //this.enseignants.addActionListener(this);
@@ -54,14 +59,16 @@ public class DisplayEleve extends JFrame implements  ActionListener{
         
        // this.pan.setSize(500,500);
        // final JLabel label = new JLabel("",JLabel.CENTER);
-        this.titre.setText("Fiche eleve");
+        this.titre.setText("Fiche classe");
+        
+        
         
         pan.setLayout(new BorderLayout());
         pan2.setLayout(new BorderLayout());
         pan3.setLayout(new BorderLayout());
         
-         this.eleve = eleve;
-         JLabel titre = new JLabel("Nom "+this.eleve.getNom() + ", Prenom : "+this.eleve.getPrenom());
+         this.classe = classe;
+         JLabel titre = new JLabel("Classe "+this.classe.getNom() + ", Annee : "+this.classe.getAnneeScolaire().getAnnee());
         this.add(titre);
         //this.nom.setText("Nom: "+this.enseignant.getNom());
         //this.prenom.setText("Prénom: "+this.enseignant.getPrenom());
@@ -94,6 +101,7 @@ public class DisplayEleve extends JFrame implements  ActionListener{
         this.getContentPane().add("South",pan3);
         
         
+       // this.setVisible(true);
         
     }
     
