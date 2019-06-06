@@ -2,6 +2,7 @@ package Modele;
 
 import BDD.Connexion;
 import Vue.DisplayEleves;
+import Vue.DisplayEnseignants;
 import Vue.Menu;
 import static java.lang.Integer.parseInt;
 import java.sql.SQLException;
@@ -13,6 +14,7 @@ public class Ecole {
     private String nom;
     private Menu display;
     private DisplayEleves displayEleves;
+    private DisplayEnseignants displayEnseignants;
     private ArrayList<Eleve> eleves;
     private ArrayList<Enseignant> enseignants;
     private ArrayList<Classe> classes;
@@ -83,11 +85,14 @@ public class Ecole {
         for(String requete : requetes){
             trimestres.add(new Trimestre(connexion,Integer.parseInt(requete.substring(0,requete.length()-1)), this));
         }
-        for(Enseignant enseignant : enseignants){
-            enseignant.remplirClasses(connexion, enseignements);
-        }
         for(Enseignement enseignement : enseignements){
             enseignement.remplirClasses(connexion, classes, disciplines, enseignants);
+        }
+        for(Classe classe : classes){
+            classe.remplirClasses(connexion, annees, niveaux, inscriptions, enseignements);
+        }
+        for(Enseignant enseignant : enseignants){
+            enseignant.remplirClasses(connexion, enseignements);
         }
         for(Evaluation evaluation : evaluations){
             evaluation.remplirClasses(connexion, details);
@@ -97,9 +102,6 @@ public class Ecole {
         }
         for(Bulletin bulletin : bulletins){
             bulletin.remplirClasses(connexion, trimestres, inscriptions, details);
-        }
-        for(Classe classe : classes){
-            classe.remplirClasses(connexion, annees, niveaux, inscriptions, enseignements);
         }
         for(Eleve eleve : eleves){
             eleve.remplirClasses(connexion, inscriptions);
@@ -119,6 +121,7 @@ public class Ecole {
         this.trimestres = trimestres;
         this.display = new Menu(this);
         this.displayEleves = new DisplayEleves(this);
+        this.displayEnseignants = new DisplayEnseignants(this);
     }
     public void ajoutEleve(String nom, String prenom, Classe classe) throws SQLException{
         Eleve eleve = new Eleve(this.connexion,nom, prenom, this);
@@ -163,20 +166,28 @@ public class Ecole {
         this.displayEleves.setVisible(bool);
     }
     
+     public void setVisibleDisplayEnseignants(boolean bool){
+        this.displayEnseignants.setVisible(bool);
+    }
+    
     public void setVisibleMenu(boolean bool){
         this.display.setVisible(bool);
     }
-    public Eleve getEleve(){
+    public Eleve getEleve(int id){
         //System.out.print(this.eleves.get(0).getNom());
-        return this.eleves.get(0);
+        return this.eleves.get(id);
     }
      public ArrayList<Eleve> getEleves(){
         //System.out.print(this.eleves.get(0).getNom());
         return this.eleves;
     }
-    public Enseignant getEnseignant(){
+    public Enseignant getEnseignant(int id){
         //System.out.print(this.eleves.get(0).getNom());
-        return this.enseignants.get(0);
+        return this.enseignants.get(id);
+    }
+     public ArrayList<Enseignant> getEnseignants(){
+        //System.out.print(this.eleves.get(0).getNom());
+        return this.enseignants;
     }
     public Classe getClasse(){
         //System.out.print(this.eleves.get(0).getNom());
@@ -189,4 +200,6 @@ public class Ecole {
     public String getNom(){
         return this.nom;
     }
+
+    
 }

@@ -62,7 +62,8 @@ private void build(){
 		JPanel panel2 = new JPanel();
                 final JLabel label2 = new JLabel();            
                 label2.setBounds(20,250, 200,50);
-       
+                this.nom_base.setText("school");
+                this.login.setText("root");
       
        
      password.setBounds(140,250,100,30);  
@@ -127,8 +128,9 @@ private void build(){
        else if(arg0.getSource()==this.bouton && !nom_base.getText().equals("")&& !login.getText().equals(""))
         { 
             try {
-                Ecole ecole = new Ecole(new Connexion(nom_base.getText(),login.getText(),password.getText()));
                 f.dispose();
+                Ecole ecole = new Ecole(new Connexion(nom_base.getText(),login.getText(),password.getText()));
+                
             } catch (SQLException ex) {
                 this.error.setText("Impossible de ce connecter à la BDD");
             } catch (ClassNotFoundException ex) {

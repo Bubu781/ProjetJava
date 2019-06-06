@@ -38,4 +38,7 @@ public class Enseignant extends Personne {
     public void setVisible(boolean bool){
         this.display.setVisible(bool);
     }
+    public ArrayList<Enseignement> getEnseignement(){
+        return this.enseignements;
+    }
 }

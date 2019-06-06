@@ -94,7 +94,7 @@ public class Menu extends JFrame implements  ActionListener {
         if(arg0.getSource()==this.eleves)
         {
             
-            this.dispose();
+            this.ecole.setVisibleMenu(false);
             //this.ecole.getEnseignant().setVisible(false);
             //this.ecole.getClasse().setVisible(false);
             //this.ecole.getEleve().setVisible(true);
@@ -103,15 +103,15 @@ public class Menu extends JFrame implements  ActionListener {
         }
        else if(arg0.getSource()==this.enseignants)
         {
-           this.dispose();
-           this.ecole.getEnseignant().setVisible(true);
+           this.ecole.setVisibleMenu(false);
+           this.ecole.setVisibleDisplayEnseignants(true);
            //this.ecole.getClasse().setVisible(false);
            //this.ecole.getEleve().setVisible(false);
            
         }
         else if(arg0.getSource()==this.classes)
         { 
-         this.dispose();
+         this.ecole.setVisibleMenu(false);
          this.ecole.getClasse().setVisible(true);
          //this.ecole.getEnseignant().setVisible(false);
          //this.ecole.getEleve().setVisible(false);

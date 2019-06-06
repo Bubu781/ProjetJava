@@ -89,9 +89,6 @@ public class DetailBulletin {
         return this.evals;
     }
     
-    public Enseignement getEnseignement(){
-        return this.enseignement;
-    }
     public void ajoutEnseignement(Enseignement enseignement){
         this.enseignement= enseignement;
     }

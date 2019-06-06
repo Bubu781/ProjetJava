@@ -10,6 +10,7 @@ import static java.awt.BorderLayout.*;
 import java.awt.event.*;
 import java.io.File;
 import static java.lang.Thread.sleep;
+import java.util.ArrayList;
 import java.util.Random;
 import javafx.scene.layout.Border;
 import javax.swing.*;
@@ -24,6 +25,7 @@ public class DisplayEnseignant extends JFrame implements  ActionListener {
     //private JButton enseignants= new JButton("Enseignants");
    // private JButton classes= new JButton("Classes");
     private JButton quitter= new JButton("Quitter");
+    private JPanel container = new JPanel();
     
     private JLabel titre = new JLabel("");
     private JLabel nom = new JLabel("");
@@ -32,6 +34,7 @@ public class DisplayEnseignant extends JFrame implements  ActionListener {
     private JPanel pan2= new JPanel();
     private JPanel pan= new JPanel();
     private JPanel pan3= new JPanel();
+    private ArrayList<JButton> supprimer= new ArrayList <JButton>();
     
     private Enseignant enseignant;
     
@@ -58,7 +61,29 @@ public class DisplayEnseignant extends JFrame implements  ActionListener {
         
          this.enseignant = enseignant;
          JLabel titre = new JLabel("Nom "+this.enseignant.getNom() + ", Prenom : "+this.enseignant.getPrenom());
+         
         this.add(titre);
+        
+         this.container.setLayout(new GridLayout(this.enseignant.getEnseignement().size()+1,4));
+         this.container.add(new JLabel("Nom Classe"));
+         this.container.add(new JLabel("Niveau "));
+         this.container.add(new JLabel("Discipline "));
+         this.container.add(new JLabel(""));
+          
+        for(Enseignement enseignement : enseignant.getEnseignement()){
+            JLabel nom_classe= new JLabel(enseignement.getClasse().getNom()+"   ");
+            JLabel niveau= new JLabel( enseignement.getClasse().getNiveau().getNom()+"   ");
+            JLabel discipline= new JLabel( enseignement.getDiscipline().getNom()+"   ");
+            this.supprimer.add(new JButton(new ImageIcon("loupe.jpg")));
+            this.supprimer.get(this.supprimer.size()-1).addActionListener(this);
+            this.container.add(nom_classe);
+            this.container.add(niveau);
+            this.container.add(discipline);
+            this.container.add(this.supprimer.get(this.supprimer.size()-1));
+            
+        }
+        this.add(this.container);
+         
         //this.nom.setText("Nom: "+this.enseignant.getNom());
         //this.prenom.setText("Prénom: "+this.enseignant.getPrenom());
         this.titre.setFont(new Font("Serif", Font.BOLD, 50));
@@ -90,7 +115,6 @@ public class DisplayEnseignant extends JFrame implements  ActionListener {
         this.getContentPane().add("South",pan3);
         
         
-        //this.setVisible(true);
         
     }
     
