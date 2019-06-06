@@ -15,6 +15,7 @@ import static java.awt.BorderLayout.*;
 import java.awt.event.*;
 import java.io.File;
 import static java.lang.Thread.sleep;
+import java.util.ArrayList;
 import java.util.Random;
 import javafx.scene.layout.Border;
 import javax.swing.*;
@@ -23,26 +24,26 @@ import javax.swing.*;
  *
  * @author Mathilde
  */
-public class DisplayEleve extends JFrame implements  ActionListener{
+public class DisplayEleves extends JFrame implements  ActionListener{
      // private JButton eleves= new JButton("Eleves");
     //private JButton enseignants= new JButton("Enseignants");
    // private JButton classes= new JButton("Classes");
-    private JButton retour= new JButton("Retour");
     private JButton quitter= new JButton("Quitter");
-    
+    private JButton retour= new JButton(new ImageIcon("r2.png")); 
+    private ArrayList<JPanel> eleves = new ArrayList<JPanel>();
     private JLabel titre = new JLabel("");
     private JLabel nom = new JLabel("");
     private JLabel prenom = new JLabel("");
-    private JLabel ecole = new JLabel("");
+    private JLabel nomEcole = new JLabel("");
     private JPanel pan2= new JPanel();
     private JPanel pan= new JPanel();
     private JPanel pan3= new JPanel();
+    private Ecole ecole;
+    private ArrayList<JPanel> ArrayList;
     
-    private Eleve eleve;
     
-    
-    public DisplayEleve(Eleve eleve){
-        
+    public DisplayEleves(Ecole ecole){
+        this.ecole = ecole;
     
      
 
@@ -61,14 +62,19 @@ public class DisplayEleve extends JFrame implements  ActionListener{
         pan2.setLayout(new BorderLayout());
         pan3.setLayout(new BorderLayout());
         
-         this.eleve = eleve;
-         JLabel titre = new JLabel("Nom "+this.eleve.getNom() + ", Prenom : "+this.eleve.getPrenom());
-        this.add(titre);
+         for(Eleve eleve : this.ecole.getEleves())
+        {
+            
+            JLabel titre= new JLabel("Nom "+eleve.getNom() + ", Prenom : "+eleve.getPrenom());
+            //titre.setLayout(new GridLayout(5,5));
+            this.add(titre);
+        }
+         
         //this.nom.setText("Nom: "+this.enseignant.getNom());
         //this.prenom.setText("Prénom: "+this.enseignant.getPrenom());
         this.titre.setFont(new Font("Serif", Font.BOLD, 50));
-        this.prenom.setFont(new Font("Serif", Font.BOLD, 20));
-        this.nom.setFont(new Font("Serif", Font.BOLD, 20));
+        this.prenom.setFont(new Font("Serif", Font.BOLD, 25));
+        this.nom.setFont(new Font("Serif", Font.BOLD, 25));
         
         this.quitter.setSize(200,200);
         //this.label.setForeground(Color.GRAY);
@@ -77,13 +83,12 @@ public class DisplayEleve extends JFrame implements  ActionListener{
        // this.label.setPreferredSize(new Dimension(100, 70));
        pan.setPreferredSize(new Dimension(450,300));
        pan2.setPreferredSize(new Dimension(350,300));
-       pan3.setPreferredSize(new Dimension(80,80));
+       pan3.setPreferredSize(new Dimension(190,50));
         this.pan.add(this.titre,BorderLayout.NORTH);
         this.pan2.add(this.nom,BorderLayout.WEST);
         this.pan2.add(this.prenom,BorderLayout.EAST);
-        this.pan3.add(this.retour, BorderLayout.SOUTH);
-        this.pan3.add(this.quitter,BorderLayout.SOUTH);
-        
+        this.pan3.add(this.retour,BorderLayout.WEST);
+        this.pan3.add(this.quitter,BorderLayout.EAST);
         
         
         
@@ -97,7 +102,6 @@ public class DisplayEleve extends JFrame implements  ActionListener{
         this.getContentPane().add("South",pan3);
         
         
-        
     }
     
     
@@ -108,10 +112,10 @@ public class DisplayEleve extends JFrame implements  ActionListener{
             //action a faire quand on clique sur le bouton4
             System.exit(0);
         }
+       
        else if(arg0.getSource()==this.retour){
-           
-           //this.ecole.setVisibleDisplayEleves(false);
-          // this.ecole.setVisibleMenu(true);
+           this.ecole.setVisibleDisplayEleves(false);
+           this.ecole.setVisibleMenu(true);
        }
       
         

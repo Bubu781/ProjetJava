@@ -73,12 +73,12 @@ public class Menu extends JFrame implements  ActionListener {
         
         
         this.setLayout(new FlowLayout());
-        this.setSize(new Dimension(830,730));
+        this.setSize(new Dimension(830,820));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.getContentPane().add("Center",pan2);
         this.getContentPane().add("South",pan);
         this.getContentPane().add("South",pan3);
-         this.add(new JLabel(new ImageIcon("test.jpg"))); 
+         this.add(new JLabel(new ImageIcon("test2.jpg"))); 
           //this.add(new JLabel(new ImageIcon("image.png"))); 
          //this.pack();
          //this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -93,18 +93,28 @@ public class Menu extends JFrame implements  ActionListener {
     public void actionPerformed(ActionEvent arg0) {      
         if(arg0.getSource()==this.eleves)
         {
+            
             this.dispose();
-            DisplayEleve ens=new DisplayEleve();
+            //this.ecole.getEnseignant().setVisible(false);
+            //this.ecole.getClasse().setVisible(false);
+            //this.ecole.getEleve().setVisible(true);
+            this.ecole.setVisibleDisplayEleves(true);
             
         }
        else if(arg0.getSource()==this.enseignants)
         {
            this.dispose();
-            DisplayEnseignant ens=new DisplayEnseignant();
+           this.ecole.getEnseignant().setVisible(true);
+           //this.ecole.getClasse().setVisible(false);
+           //this.ecole.getEleve().setVisible(false);
+           
         }
         else if(arg0.getSource()==this.classes)
         { 
-         
+         this.dispose();
+         this.ecole.getClasse().setVisible(true);
+         //this.ecole.getEnseignant().setVisible(false);
+         //this.ecole.getEleve().setVisible(false);
           
         }
        else if(arg0.getSource()==this.quitter)

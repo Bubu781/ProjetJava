@@ -89,11 +89,17 @@ public class DetailBulletin {
         return this.evals;
     }
     
+    public Enseignement getEnseignement(){
+        return this.enseignement;
+    }
     public void ajoutEnseignement(Enseignement enseignement){
         this.enseignement= enseignement;
     }
     
-    public void ajoutEvaluation(Evaluation evaluation){
+    public void ajoutEvaluation(Connexion connexion, int note, String appreciation) throws SQLException{
+        Evaluation evaluation= new Evaluation(connexion, appreciation, note, this.ecole);
         evals.add(evaluation);
     }
+    
+   
 }

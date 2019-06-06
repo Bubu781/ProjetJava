@@ -1,13 +1,14 @@
 package Modele;
 
 import BDD.Connexion;
+import Vue.DisplayEnseignant;
 import static java.lang.Integer.parseInt;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Enseignant extends Personne {
     private ArrayList<Enseignement> enseignements = new ArrayList<Enseignement>();
-   
+    private DisplayEnseignant display;
     public Enseignant(Connexion connexion, int id, Ecole ecole) throws SQLException{
         super(connexion, id, ecole);
     }
@@ -26,11 +27,15 @@ public class Enseignant extends Personne {
                 }
             }
         }
+        this.display=new DisplayEnseignant(this);
     }
     public void ajoutEnseignement(Enseignement enseignement ) throws SQLException{
         this.enseignements.add(enseignement);
     }
     public void suppression(){
         this.enseignements.removeAll(this.enseignements);
+    }
+    public void setVisible(boolean bool){
+        this.display.setVisible(bool);
     }
 }
