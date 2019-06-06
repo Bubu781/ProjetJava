@@ -1,6 +1,7 @@
 package Modele;
 
 import BDD.Connexion;
+import Vue.DisplayEleves;
 import Vue.Menu;
 import static java.lang.Integer.parseInt;
 import java.sql.SQLException;
@@ -11,6 +12,7 @@ public class Ecole {
     private int id;
     private String nom;
     private Menu display;
+    private DisplayEleves displayEleves;
     private ArrayList<Eleve> eleves;
     private ArrayList<Enseignant> enseignants;
     private ArrayList<Classe> classes;
@@ -116,6 +118,7 @@ public class Ecole {
         this.annees = annees;
         this.trimestres = trimestres;
         this.display = new Menu(this);
+        this.displayEleves = new DisplayEleves(this);
     }
     public void ajoutEleve(String nom, String prenom, Classe classe) throws SQLException{
         Eleve eleve = new Eleve(this.connexion,nom, prenom, this);
@@ -135,10 +138,17 @@ public class Ecole {
         Enseignement enseignement= new Enseignement(this.connexion, enseignant, classe,  discipline,this);
         classe.ajoutEnseignement(enseignement);
     }
+    public void setVisibleDisplayEleves(boolean bool){
+        this.displayEleves.setVisible(bool);
+    }
             
     public Eleve getEleve(){
         //System.out.print(this.eleves.get(0).getNom());
         return this.eleves.get(0);
+    }
+     public ArrayList<Eleve> getEleves(){
+        //System.out.print(this.eleves.get(0).getNom());
+        return this.eleves;
     }
     public Enseignant getEnseignant(){
         //System.out.print(this.eleves.get(0).getNom());

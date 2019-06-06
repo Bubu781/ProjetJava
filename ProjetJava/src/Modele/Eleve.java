@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class Eleve extends Personne {
     private Inscription inscription;
     private DisplayEleve display;
+    //private DisplayEleves displayEleves;
     public Eleve(Connexion connexion, int id, Ecole ecole) throws SQLException{
         super(connexion, id, ecole);
     }
@@ -30,6 +31,7 @@ public class Eleve extends Personne {
             }
         }
          this.display=new DisplayEleve(this);
+         
     }
     public void setVisible(boolean bool){
         this.display.setVisible(bool);
