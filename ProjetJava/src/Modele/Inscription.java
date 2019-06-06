@@ -25,6 +25,10 @@ public class Inscription {
         this.ecole=ecole;
         this.classe=classe;
         this.eleve=eleve;
+        
+        //Creation d'un bulletin lors de l'inscription d'un eleve et son ajout dans l'arrayList bulletins
+        Bulletin bulletin = new Bulletin(connexion,this.ecole,classe);
+        this.bulletins.add(bulletin);
     }
     public void remplirClasses(Connexion connexion, ArrayList<Classe> classes, ArrayList<Eleve> eleves,ArrayList<Bulletin> bulletins) throws SQLException{
         ArrayList<String> requetes;
@@ -48,6 +52,13 @@ public class Inscription {
                 }
             }
         }
+    }
+    
+    public void suppression(){
+        for(Bulletin bulletin : this.bulletins){
+            bulletin.suppression();
+        }
+        this.bulletins.removeAll(this.bulletins);
     }
             
     public int getId(){

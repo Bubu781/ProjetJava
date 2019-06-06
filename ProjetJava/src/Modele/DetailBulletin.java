@@ -21,6 +21,15 @@ public class DetailBulletin {
         requetes = connexion.remplirChampsRequete("SELECT appreciation FROM DetailBulletin WHERE id = '"+id+"'");
         this.appreciation = requetes.get(0).substring(0,requetes.get(0).length()-1);
     }
+    
+    public DetailBulletin(Connexion connexion, Enseignement enseignement, Ecole ecole) throws SQLException{
+         ArrayList<String> requetes;
+        connexion.executeUpdate("INSERT INTO DetailBulletin(enseignement) VALUES("+enseignement+");");
+        requetes = connexion.remplirChampsRequete("SELECT Id FROM DetailBulletin WHERE enseignemenent = '"+enseignement+"'");
+        this.id = Integer.parseInt(requetes.get(0).substring(0, requetes.get(0).length()-1));
+        this.enseignement= enseignement;
+        this.ecole= ecole;
+    }
     public void remplirClasses(Connexion connexion, ArrayList<Enseignement> enseignements, ArrayList<Bulletin> bulletins, ArrayList<Evaluation> evaluations) throws SQLException{
         ArrayList<String> requetes;
         requetes = connexion.remplirChampsRequete("SELECT enseignement FROM DetailBulletin WHERE Id = '"+this.id+"'");
@@ -46,6 +55,14 @@ public class DetailBulletin {
             }
         }
     }
+    
+    public void modifier(String appreciation){
+        this.appreciation = appreciation;
+    }
+    
+    public void suppression(){
+        this.evals.removeAll(this.evals);
+    }
    
     public String getAppreciation(){
         return this.appreciation;
@@ -60,5 +77,9 @@ public class DetailBulletin {
     
     public void ajoutEnseignement(Enseignement enseignement){
         this.enseignement= enseignement;
+    }
+    
+    public void ajoutEvaluation(Evaluation evaluation){
+        evals.add(evaluation);
     }
 }

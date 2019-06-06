@@ -29,6 +29,12 @@ public class Enseignant extends Personne {
         }
         this.display=new DisplayEnseignant(this);
     }
+    public void ajoutEnseignement(Enseignement enseignement ) throws SQLException{
+        this.enseignements.add(enseignement);
+    }
+    public void suppression(){
+        this.enseignements.removeAll(this.enseignements);
+    }
     public void setVisible(boolean bool){
         this.display.setVisible(bool);
     }

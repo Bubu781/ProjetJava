@@ -58,6 +58,11 @@ public class Classe {
         this.display=new DisplayClasse(this);
     }
     
+    public void modifier(String nom, AnneeScolaire annee, Niveau niveau){
+        this.nom = nom;
+        this.annee = annee;
+        this.niveau = niveau;
+    }
     
     public void ajoutInscription(Inscription inscription){
         this.inscriptions.add(inscription);
@@ -67,6 +72,13 @@ public class Classe {
         this.enseignements.add(enseignement);
     }
             
+    public void suppression(){
+        for(Inscription inscription : this.inscriptions){
+            inscription.suppression();
+        }
+        this.inscriptions.removeAll(this.inscriptions);
+        this.enseignements.removeAll(this.enseignements);
+    }
     
     public int getId(){
         return this.id;
@@ -86,6 +98,11 @@ public class Classe {
     public String getNom(){
         return this.nom;
     }
+    
+    public ArrayList<Enseignement> getListeEnseignements(){
+        return this.enseignements;
+    }
+            
     public void setVisible(boolean bool){
         this.display.setVisible(bool);
     }

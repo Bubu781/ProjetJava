@@ -19,6 +19,10 @@ public class AnneeScolaire {
         this.ecole = ecole;
     }
     
+    public void modifier(int annee){
+        this.annee = annee;
+    }
+    
     public int getId(){
         return this.id;
     }

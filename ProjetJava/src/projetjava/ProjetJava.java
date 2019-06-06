@@ -25,29 +25,6 @@ public class ProjetJava {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
          Connex con=new Connex();
         Connexion connexion = new Connexion("school","root","");
-        initConnexion(connexion);
-        for(String values : connexion.tables){
-            ArrayList<String> x = connexion.remplirChampsRequete("Select * FROM " + values);
-            for(String val : x){
-                System.out.println(val);
-            }
-        }
         Ecole ecole = new Ecole(connexion); 
-    }
-    public static void initConnexion(Connexion connexion){
-        connexion.ajouterTable("AnneeScolaire");
-        connexion.ajouterTable("Bulletin");
-        connexion.ajouterTable("Classe");
-        connexion.ajouterTable("DetailBulletin");
-        connexion.ajouterTable("Discipline");
-        connexion.ajouterTable("Ecole");
-        connexion.ajouterTable("Eleve");
-        connexion.ajouterTable("Enseignant");
-        connexion.ajouterTable("Enseignement");
-        connexion.ajouterTable("Evaluation");
-        connexion.ajouterTable("Inscription");
-        connexion.ajouterTable("Niveau");
-        connexion.ajouterTable("Personne");
-        connexion.ajouterTable("Trimestre");
     }
 }

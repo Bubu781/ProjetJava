@@ -39,6 +39,10 @@ public class Eleve extends Personne {
     public void remplirClasses(Inscription inscription){
         this.inscription = inscription;
     }
+    public void suppression(){
+        this.inscription.suppression();
+        this.inscription = null;
+    }
     public Inscription getInscription(){
         return this.inscription;
     }

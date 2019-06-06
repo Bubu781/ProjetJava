@@ -138,6 +138,27 @@ public class Ecole {
         Enseignement enseignement= new Enseignement(this.connexion, enseignant, classe,  discipline,this);
         classe.ajoutEnseignement(enseignement);
     }
+    
+    public void ajouterNiveau(String nom) throws SQLException{
+        Niveau niveau= new Niveau(this.connexion, nom, this);
+        this.niveaux.add(niveau);
+    }
+    public void supprimerEleve(Eleve eleve){
+        eleve.suppression();
+        eleve = null;
+    }
+    public void supprimerEnseignant(Enseignant enseignant){
+        enseignant.suppression();
+        enseignant = null;
+    }
+    public void supprimerClasse(Classe classe){
+        classe.suppression();
+        classe = null;
+    }
+    
+    public void modifier(String nom){
+        this.nom = nom;
+    }
     public void setVisibleDisplayEleves(boolean bool){
         this.displayEleves.setVisible(bool);
     }

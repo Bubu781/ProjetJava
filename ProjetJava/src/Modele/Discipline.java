@@ -18,6 +18,10 @@ public class Discipline {
         this.nom = requetes.get(0).substring(0,requetes.get(0).length()-1);
     }
     
+    public void modifier(String nom){
+        this.nom = nom;
+    }
+    
     public int getId(){
         return this.id;
     }
