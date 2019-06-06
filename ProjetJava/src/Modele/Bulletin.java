@@ -69,6 +69,13 @@ public class Bulletin {
         this.details.removeAll(this.details);
     }
     
+     public void ajouterEvaluation(Connexion connexion, Enseignement enseignement, int note, String appreciation) throws SQLException{
+        for(DetailBulletin detail : this.details){
+            if(enseignement==detail.getEnseignement()){
+                detail.ajoutEvaluation(connexion, note, appreciation);
+            }
+        }
+    }
     public int getId(){
         return this.id;
     }
