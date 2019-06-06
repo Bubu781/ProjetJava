@@ -81,18 +81,6 @@ public class Ecole {
         for(String requete : requetes){
             trimestres.add(new Trimestre(connexion,Integer.parseInt(requete.substring(0,requete.length()-1)), this));
         }
-        for(Bulletin bulletin : bulletins){
-            bulletin.remplirClasses(connexion, trimestres, inscriptions, details);
-        }
-        for(Classe classe : classes){
-            classe.remplirClasses(connexion, annees, niveaux, inscriptions, enseignements);
-        }
-        for(DetailBulletin detail : details){
-            detail.remplirClasses(connexion, enseignements, bulletins, evaluations);
-        }
-        for(Eleve eleve : eleves){
-            eleve.remplirClasses(connexion, inscriptions);
-        }
         for(Enseignant enseignant : enseignants){
             enseignant.remplirClasses(connexion, enseignements);
         }
@@ -101,6 +89,18 @@ public class Ecole {
         }
         for(Evaluation evaluation : evaluations){
             evaluation.remplirClasses(connexion, details);
+        }
+        for(DetailBulletin detail : details){
+            detail.remplirClasses(connexion, enseignements, bulletins, evaluations);
+        }
+        for(Bulletin bulletin : bulletins){
+            bulletin.remplirClasses(connexion, trimestres, inscriptions, details);
+        }
+        for(Classe classe : classes){
+            classe.remplirClasses(connexion, annees, niveaux, inscriptions, enseignements);
+        }
+        for(Eleve eleve : eleves){
+            eleve.remplirClasses(connexion, inscriptions);
         }
         for(Inscription inscription : inscriptions){
             inscription.remplirClasses(connexion, classes, eleves, bulletins);

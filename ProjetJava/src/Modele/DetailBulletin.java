@@ -1,6 +1,7 @@
 package Modele;
 
 import BDD.Connexion;
+import Vue.DisplayDetailBulletin;
 import static java.lang.Integer.parseInt;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 public class DetailBulletin {
     private Ecole ecole;
     private int id;
+    private DisplayDetailBulletin display;
     private String appreciation;
     private Enseignement enseignement;
     private Bulletin bulletin;
@@ -29,6 +31,7 @@ public class DetailBulletin {
         this.id = Integer.parseInt(requetes.get(0).substring(0, requetes.get(0).length()-1));
         this.enseignement= enseignement;
         this.ecole= ecole;
+        this.display = new DisplayDetailBulletin(this);
     }
     public void remplirClasses(Connexion connexion, ArrayList<Enseignement> enseignements, ArrayList<Bulletin> bulletins, ArrayList<Evaluation> evaluations) throws SQLException{
         ArrayList<String> requetes;
@@ -54,6 +57,7 @@ public class DetailBulletin {
                 }
             }
         }
+        this.display = new DisplayDetailBulletin(this);
     }
     
     public void modifier(String appreciation){
@@ -71,8 +75,18 @@ public class DetailBulletin {
         return this.id;
     }
     
+    public DisplayDetailBulletin getDisplay(){
+        return this.display;
+    }
+    
     public Bulletin getBulletin(){
         return this.bulletin;
+    }
+    public Enseignement getEnseignement(){
+        return this.enseignement;
+    }
+    public ArrayList<Evaluation> getEvaluations(){
+        return this.evals;
     }
     
     public void ajoutEnseignement(Enseignement enseignement){
