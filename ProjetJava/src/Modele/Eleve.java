@@ -12,6 +12,14 @@ public class Eleve extends Personne {
     public Eleve(Connexion connexion, int id, Ecole ecole) throws SQLException{
         super(connexion, id, ecole);
     }
+    
+    public Eleve (Connexion connexion, String nom, String prenom, Ecole ecole) throws SQLException{
+        super(connexion, nom, prenom, ecole);
+        connexion.executeUpdate("INSERT INTO Eleve(personne) VALUES("+this.id+");");
+        
+        
+        
+    }
     public void remplirClasses(Connexion connexion, ArrayList<Inscription> inscriptions) throws SQLException{
         ArrayList<String> requetes;
         requetes = connexion.remplirChampsRequete("SELECT Id FROM Inscription WHERE eleve ='"+this.id+"'");
@@ -25,6 +33,9 @@ public class Eleve extends Personne {
     }
     public void setVisible(boolean bool){
         this.display.setVisible(bool);
+    }
+    public void remplirClasses(Inscription inscription){
+        this.inscription = inscription;
     }
     public Inscription getInscription(){
         return this.inscription;

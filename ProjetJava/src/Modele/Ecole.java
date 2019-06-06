@@ -7,14 +7,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Ecole {
-    
+    private Connexion connexion;
     private int id;
     private String nom;
     private Menu display;
     private ArrayList<Eleve> eleves;
     private ArrayList<Enseignant> enseignants;
     private ArrayList<Classe> classes;
+    private ArrayList<Discipline> disciplines;
+    private ArrayList<Niveau> niveaux;
+    private ArrayList<AnneeScolaire> annees;
+    private ArrayList<Trimestre> trimestres;
     public Ecole(Connexion connexion) throws SQLException{
+        this.connexion = connexion;
         ArrayList<String> requetes;
         ArrayList<AnneeScolaire> annees = new ArrayList<AnneeScolaire>();
         ArrayList<Bulletin> bulletins = new ArrayList<Bulletin>();
@@ -103,9 +108,34 @@ public class Ecole {
         for(Trimestre trimestre : trimestres){
             trimestre.remplirClasses(connexion, annees);
         }
-        display = new Menu(this);
+        this.eleves = eleves;
+        this.classes = classes;
+        this.enseignants = enseignants;
+        this.disciplines = disciplines;
+        this.niveaux = niveaux;
+        this.annees = annees;
+        this.trimestres = trimestres;
+        this.display = new Menu(this);
+    }
+    public void ajoutEleve(String nom, String prenom, Classe classe) throws SQLException{
+        Eleve eleve = new Eleve(this.connexion,nom, prenom, this);
+        this.eleves.add(eleve);
+        this.classes.add(classe);
+        Inscription inscription = new Inscription(this.connexion, this, classe, eleve);
+        eleve.remplirClasses(inscription);
+        classe.ajoutInscription(inscription);
     }
     
+    public void ajoutEnseignant(String nom, String prenom) throws SQLException{
+        Enseignant enseignant= new Enseignant(this.connexion, nom, prenom, this);
+        this.enseignants.add(enseignant);
+    }
+    
+    public void ajoutEnseignement(Enseignant enseignant, Classe classe, Discipline discipline) throws SQLException{
+        Enseignement enseignement= new Enseignement(this.connexion, enseignant, classe,  discipline,this);
+        classe.ajoutEnseignement(enseignement);
+    }
+            
     public Eleve getEleve(){
         //System.out.print(this.eleves.get(0).getNom());
         return this.eleves.get(0);

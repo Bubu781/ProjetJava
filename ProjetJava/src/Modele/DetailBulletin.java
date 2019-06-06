@@ -57,4 +57,8 @@ public class DetailBulletin {
     public Bulletin getBulletin(){
         return this.bulletin;
     }
+    
+    public void ajoutEnseignement(Enseignement enseignement){
+        this.enseignement= enseignement;
+    }
 }

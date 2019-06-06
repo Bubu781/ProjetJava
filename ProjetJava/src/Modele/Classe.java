@@ -58,6 +58,16 @@ public class Classe {
         this.display=new DisplayClasse(this);
     }
     
+    
+    public void ajoutInscription(Inscription inscription){
+        this.inscriptions.add(inscription);
+    }
+    
+    public void ajoutEnseignement(Enseignement enseignement){
+        this.enseignements.add(enseignement);
+    }
+            
+    
     public int getId(){
         return this.id;
     }
