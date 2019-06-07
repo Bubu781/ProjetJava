@@ -29,7 +29,7 @@ public class Bulletin {
         requetes = connexion.remplirChampsRequete("SELECT MAX(Id) FROM Bulletin ");
         this.id = Integer.parseInt(requetes.get(0).substring(0, requetes.get(0).length()-1));
         this.ecole= ecole;
-        for(Enseignement enseignement : classe.getListeEnseignements()){
+        for(Enseignement enseignement : classe.getEnseignements()){
             this.details.add(new DetailBulletin(connexion, enseignement, ecole));
         }
         this.display = new DisplayBulletin(this);
@@ -95,5 +95,8 @@ public class Bulletin {
     }
     public String getAppreciation(){
         return this.appreciation;
+    }
+    public void setVisible(boolean bool){
+        this.display.setVisible(bool);
     }
 }

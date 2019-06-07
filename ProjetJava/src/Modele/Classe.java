@@ -100,8 +100,13 @@ public class Classe {
         return this.nom;
     }
     
-    public ArrayList<Enseignement> getListeEnseignements(){
+    
+    public ArrayList<Enseignement> getEnseignements(){
         return this.enseignements;
+    }
+    
+    public ArrayList<Inscription> getInscriptions(){
+        return this.inscriptions;
     }
             
     public void setVisible(boolean bool){

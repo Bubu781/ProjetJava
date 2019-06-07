@@ -90,6 +90,9 @@ public class Ecole {
         for(Enseignement enseignement : enseignements){
             enseignement.remplirClasses(connexion, classes, disciplines, enseignants);
         }
+         for(Inscription inscription : inscriptions){
+            inscription.remplirClasses(connexion, classes, eleves, bulletins);
+        }
         for(Classe classe : classes){
             classe.remplirClasses(connexion, annees, niveaux, inscriptions, enseignements);
         }
@@ -105,12 +108,11 @@ public class Ecole {
         for(Bulletin bulletin : bulletins){
             bulletin.remplirClasses(connexion, trimestres, inscriptions, details);
         }
+       
         for(Eleve eleve : eleves){
             eleve.remplirClasses(connexion, inscriptions);
         }
-        for(Inscription inscription : inscriptions){
-            inscription.remplirClasses(connexion, classes, eleves, bulletins);
-        }
+        
         for(Trimestre trimestre : trimestres){
             trimestre.remplirClasses(connexion, annees);
         }

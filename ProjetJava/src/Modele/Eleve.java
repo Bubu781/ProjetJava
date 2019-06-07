@@ -18,7 +18,7 @@ public class Eleve extends Personne {
         super(connexion, nom, prenom, ecole);
         connexion.executeUpdate("INSERT INTO Eleve(personne) VALUES("+this.id+");");
         
-        
+        this.display=new DisplayEleve(this);
         
     }
     public void remplirClasses(Connexion connexion, ArrayList<Inscription> inscriptions) throws SQLException{

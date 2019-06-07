@@ -64,6 +64,10 @@ public class Inscription {
     public int getId(){
         return this.id;
     }
+    
+    public Bulletin getBulletin(){
+        return this.bulletins.get(0);
+    }
     public Classe getClasse(){
         return this.classe;
     }
