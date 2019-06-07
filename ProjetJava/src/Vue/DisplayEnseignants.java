@@ -30,8 +30,9 @@ public class DisplayEnseignants extends JFrame implements  ActionListener{
    // private JButton classes= new JButton("Classes");
     private JButton quitter= new JButton("Quitter");
     private JButton retour= new JButton(new ImageIcon("r2.png")); 
+    private JButton menu= new JButton("Menu");
     private ArrayList<JButton> rechercher= new ArrayList <JButton>();
-    private ArrayList<JButton> supprimer= new ArrayList <JButton>();
+   
     private ArrayList<JPanel> enseignants = new ArrayList<JPanel>();
     private JLabel titre = new JLabel("");
     private JPanel container = new JPanel();
@@ -73,7 +74,7 @@ public class DisplayEnseignants extends JFrame implements  ActionListener{
         for(Enseignant enseignant : this.ecole.getEnseignants()){
             JLabel nom= new JLabel(enseignant.getNom()+"   ");
             JLabel prenom= new JLabel( enseignant.getPrenom());
-            this.rechercher.add(new JButton(new ImageIcon("loupe.jpg")));
+            this.rechercher.add(new JButton(new ImageIcon("loupe.png")));
             this.rechercher.get(this.rechercher.size()-1).addActionListener(this);
             this.container.add(nom);
             this.container.add(prenom);
@@ -95,11 +96,12 @@ public class DisplayEnseignants extends JFrame implements  ActionListener{
        // this.label.setPreferredSize(new Dimension(100, 70));
        pan.setPreferredSize(new Dimension(450,300));
        pan2.setPreferredSize(new Dimension(350,300));
-       pan3.setPreferredSize(new Dimension(190,50));
+       pan3.setPreferredSize(new Dimension(250,50));
         this.pan.add(this.titre,BorderLayout.NORTH);
         this.pan2.add(this.nom,BorderLayout.WEST);
         this.pan2.add(this.prenom,BorderLayout.EAST);
         this.pan3.add(this.retour,BorderLayout.WEST);
+        this.pan3.add(this.menu,BorderLayout.CENTER);
         this.pan3.add(this.quitter,BorderLayout.EAST);
         
         
@@ -125,6 +127,11 @@ public class DisplayEnseignants extends JFrame implements  ActionListener{
             System.exit(0);
         }
        
+       else if(arg0.getSource()==this.menu)
+        {
+            //action a faire quand on clique sur le bouton4
+            //System.exit(0);
+        }
        else if(arg0.getSource()==this.retour){
            this.ecole.setVisibleDisplayEnseignants(false);
            this.ecole.setVisibleMenu(true);

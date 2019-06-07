@@ -71,4 +71,5 @@ public class Inscription {
     public Eleve getEleve(){
         return this.eleve;
     }
+    
 }

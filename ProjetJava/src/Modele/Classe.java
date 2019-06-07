@@ -2,6 +2,7 @@ package Modele;
 
 import BDD.Connexion;
 import Vue.DisplayClasse;
+import Vue.DisplayClasses;
 import static java.lang.Integer.parseInt;
 import java.sql.SQLException;
 import java.util.ArrayList;

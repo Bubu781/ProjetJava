@@ -3,6 +3,7 @@ package Modele;
 import BDD.Connexion;
 import Vue.DisplayEleves;
 import Vue.DisplayEnseignants;
+import Vue.DisplayClasses;
 import Vue.Menu;
 import static java.lang.Integer.parseInt;
 import java.sql.SQLException;
@@ -15,6 +16,7 @@ public class Ecole {
     private Menu display;
     private DisplayEleves displayEleves;
     private DisplayEnseignants displayEnseignants;
+    private DisplayClasses displayClasses;
     private ArrayList<Eleve> eleves;
     private ArrayList<Enseignant> enseignants;
     private ArrayList<Classe> classes;
@@ -122,6 +124,7 @@ public class Ecole {
         this.display = new Menu(this);
         this.displayEleves = new DisplayEleves(this);
         this.displayEnseignants = new DisplayEnseignants(this);
+        this.displayClasses = new DisplayClasses(this);
     }
     public void ajoutEleve(String nom, String prenom, Classe classe) throws SQLException{
         Eleve eleve = new Eleve(this.connexion,nom, prenom, this);
@@ -169,6 +172,9 @@ public class Ecole {
      public void setVisibleDisplayEnseignants(boolean bool){
         this.displayEnseignants.setVisible(bool);
     }
+     public void setVisibleDisplayClasses(boolean bool){
+        this.displayClasses.setVisible(bool);
+    }
     
     public void setVisibleMenu(boolean bool){
         this.display.setVisible(bool);
@@ -189,9 +195,13 @@ public class Ecole {
         //System.out.print(this.eleves.get(0).getNom());
         return this.enseignants;
     }
-    public Classe getClasse(){
+    public Classe getClasse(int id){
         //System.out.print(this.eleves.get(0).getNom());
-        return this.classes.get(0);
+        return this.classes.get(id);
+    }
+     public ArrayList<Classe> getClasses(){
+        //System.out.print(this.eleves.get(0).getNom());
+        return this.classes;
     }
     public int getId(){
         return this.id;
