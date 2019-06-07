@@ -37,7 +37,7 @@ public class Connex extends JFrame implements  ActionListener{
 	private JTextField nom_base = new JTextField();
         private JFrame f=new JFrame("LOGIN");
         private JButton bouton = new JButton("ENTRER");
-        private JButton quitter= new JButton("Quitter");
+        private JButton quitter= new JButton("QUITTER");
         private JLabel l=new JLabel("CONNECTEZ-VOUS A LA BDD:");
         private JLabel l1=new JLabel("Serveur de la base:");  
         private JLabel l2=new JLabel("Nom de la base:"); 
@@ -77,14 +77,15 @@ private void build(){
         JLabel l4=new JLabel("Mot de passe:");    
         l4.setBounds(20,250, 130,30); 
           
-        bouton.setBounds(100,290, 150,30); 
-        quitter.setBounds(350,290, 400,30);  
+        bouton.setBounds(20,320, 150,35); 
+        quitter.setBounds(190,320, 150,35);  
         serveur_base.setBounds(140,100, 100,30); 
         nom_base.setBounds(140,150, 100,30); 
         login.setBounds(140,200, 100,30); 
         error.setBounds(50,350,400,30);
         error.setForeground(Color.red);
         error.setFont(new Font("Serif", Font.BOLD, 25));
+        
                 f.add(l);
                 f.add(password); 
                 f.add(l1); 

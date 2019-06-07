@@ -41,6 +41,7 @@ public class DisplayEleve extends JFrame implements  ActionListener {
     private ArrayList<JButton> supprimer= new ArrayList <JButton>();
     private Eleve eleve;
     
+    
     private JLabel l=new JLabel("MODIFICATION DES INFORMATIONS:");
         private JLabel l1=new JLabel("Nom de la classe:");  
         private JLabel l2=new JLabel("Niveau:"); 
@@ -64,7 +65,8 @@ public class DisplayEleve extends JFrame implements  ActionListener {
         //this.enseignants.addActionListener(this);
         //this.classes.addActionListener(this);
         this.quitter.addActionListener(this);
-        
+        this.retour.addActionListener(this);
+        this.menu.addActionListener(this);
        // this.pan.setSize(500,500);
        // final JLabel label = new JLabel("",JLabel.CENTER);
         this.titre.setText("Fiche eleve");
@@ -222,7 +224,8 @@ public class DisplayEleve extends JFrame implements  ActionListener {
         }
        else if(arg0.getSource()==this.menu){
            
-           //this.ecole.setVisibleMenu(true);
+           this.eleve.setVisible(false);
+           this.eleve.getEcole().setVisibleMenu(true);
        }
        else if(arg0.getSource()==this.bulletin){
            this.eleve.setVisible(false);
@@ -235,8 +238,8 @@ public class DisplayEleve extends JFrame implements  ActionListener {
            
        }
         else if(arg0.getSource()==this.retour){
-           //this.ecole.setVisibleDisplayEnseignant(false);
-           //this.ecole.setVisibleMenu(true);
+           this.eleve.setVisible(false);
+           this.eleve.getEcole().setVisibleDisplayEleves(true);
        }
       
         

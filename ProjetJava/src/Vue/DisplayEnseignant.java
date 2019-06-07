@@ -54,7 +54,7 @@ public class DisplayEnseignant extends JFrame implements  ActionListener {
         
      
         private JFrame f=new JFrame("LOGIN");
-        private JButton bouton = new JButton("ENTRER");
+        private JButton entrer = new JButton("ENTRER");
        // private JButton quitter= new JButton("Quitter");
         /*
         private JLabel label_titre=new JLabel("MODIFIDICATION DES DONNEES DE L'ENSEIGNANT:");
@@ -81,6 +81,9 @@ public class DisplayEnseignant extends JFrame implements  ActionListener {
         //this.classes.addActionListener(this);
         this.quitter.addActionListener(this);
         this.modifier.addActionListener(this);
+        this.retour.addActionListener(this);
+        this.menu.addActionListener(this);
+        this.entrer.addActionListener(this);
        // this.pan.setSize(500,500);
        // final JLabel label = new JLabel("",JLabel.CENTER);
         this.titre.setText("Fiche enseignant");
@@ -167,25 +170,30 @@ public class DisplayEnseignant extends JFrame implements  ActionListener {
         }
        else if(arg0.getSource()==this.menu){
            
-           //this.ecole.setVisibleMenu(true);
+           this.enseignant.setVisible(false);
+           this.enseignant.getEcole().setVisibleMenu(true); 
        }
        
         else if(arg0.getSource()==this.retour){
-           //this.ecole.setVisibleDisplayEnseignant(false);
-           //this.ecole.setVisibleMenu(true);
-       }
-        else if(arg0.getSource()==this.retour){
-           //this.ecole.setVisibleDisplayEnseignant(false);
-           //this.ecole.setVisibleMenu(true);
+           this.enseignant.setVisible(false);
+           this.enseignant.getEcole().setVisibleDisplayEnseignants(true);
        }
        else if(arg0.getSource()==this.modifier){
-           //this.ecole.setVisibleDisplayEnseignant(false);
-           //this.ecole.setVisibleMenu(true);
+           //this.enseignant.setVisible(false);
+           //this.enseignant.getEcole().setVisibleMenu(true);
            this.dispose();
            modifier();
        }
        
-       
+       else if(arg0.getSource()==this.entrer){
+           //this.enseignant.setVisible(false);
+           //this.enseignant.getEcole().setVisibleMenu(true);
+           String nom =nomtext.getText();
+           String prenom=prenomtext.getText();
+           this.enseignant.modifier(nom,prenom);
+           
+           this.enseignant.setVisible(true);
+       }
        for(int i=0; i<this.supprimer.size();i++){
            if(arg0.getSource()==this.supprimer.get(i)){
                this.dispose();
@@ -208,7 +216,7 @@ public class DisplayEnseignant extends JFrame implements  ActionListener {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
                  
                  this.quitter.addActionListener(this);
-                  this.bouton.addActionListener(this);
+                  this.entrer.addActionListener(this);
                   this.retour.addActionListener(this);
 		JPanel panel2 = new JPanel();
                 final JLabel label2 = new JLabel();            
@@ -234,7 +242,7 @@ public class DisplayEnseignant extends JFrame implements  ActionListener {
            
         l3.setBounds(20,200, 130,30);
           
-        bouton.setBounds(100,290, 150,30); 
+        entrer.setBounds(100,290, 150,30); 
         retour.setBounds(350,290, 400,60);  
         nomtext.setBounds(140,100, 100,30); 
         prenomtext.setBounds(140,150, 100,30); 
@@ -250,7 +258,7 @@ public class DisplayEnseignant extends JFrame implements  ActionListener {
                 f.add(prenomtext);
                 //f.add(discipline);
                 f.add(retour);
-                f.add(bouton);
+                f.add(entrer);
                 
                 f.add(this.error);
                

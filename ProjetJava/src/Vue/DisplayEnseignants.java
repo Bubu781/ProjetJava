@@ -30,6 +30,7 @@ public class DisplayEnseignants extends JFrame implements  ActionListener{
    // private JButton classes= new JButton("Classes");
     private JButton quitter= new JButton("Quitter");
     private JButton retour= new JButton(new ImageIcon("r2.png")); 
+    private JButton retour2= new JButton(new ImageIcon("r2.png")); 
     private JButton menu= new JButton("Menu");
     private ArrayList<JButton> rechercher= new ArrayList <JButton>();
     private ArrayList<JButton> supprimer= new ArrayList <JButton>();
@@ -76,7 +77,8 @@ public class DisplayEnseignants extends JFrame implements  ActionListener{
         //this.classes.addActionListener(this);
         this.quitter.addActionListener(this);
         this.ajouter.addActionListener(this);
-        
+        this.retour.addActionListener(this);
+        this.menu.addActionListener(this);
        // this.pan.setSize(500,500);
        // final JLabel label = new JLabel("",JLabel.CENTER);
         this.titre.setText("Fiche enseignants");
@@ -85,7 +87,7 @@ public class DisplayEnseignants extends JFrame implements  ActionListener{
         pan2.setLayout(new BorderLayout());
        pan3.setLayout(new BorderLayout()); 
          
-        this.container.setLayout(new GridLayout(this.ecole.getEnseignants().size()+2,4));
+        this.container.setLayout(new GridLayout(this.ecole.getEnseignants().size()+3,4));
          this.container.add(new JLabel("Nom"));
           this.container.add(new JLabel("Prenom"));
           this.container.add(new JLabel(""));
@@ -104,9 +106,13 @@ public class DisplayEnseignants extends JFrame implements  ActionListener{
             
         }
         this.container.add(new JLabel(""));
-          this.container.add(this.ajouter);
-          this.container.add(new JLabel(""));
-          this.container.add(new JLabel(""));
+        this.container.add(new JLabel(""));
+        this.container.add(new JLabel(""));
+        this.container.add(new JLabel(""));
+        this.container.add(this.ajouter);
+        this.container.add(new JLabel(""));
+        this.container.add(new JLabel(""));
+        this.container.add(new JLabel(""));
         this.add(this.container);
          
         //this.nom.setText("Nom: "+this.enseignant.getNom());
@@ -155,8 +161,8 @@ public class DisplayEnseignants extends JFrame implements  ActionListener{
        
        else if(arg0.getSource()==this.menu)
         {
-            //action a faire quand on clique sur le bouton4
-            //System.exit(0);
+           this.ecole.setVisibleDisplayEleves(false);
+           this.ecole.setVisibleMenu(true);
         }
        else if(arg0.getSource()==this.ajouter)
         {
@@ -168,6 +174,9 @@ public class DisplayEnseignants extends JFrame implements  ActionListener{
        else if(arg0.getSource()==this.retour){
            this.ecole.setVisibleDisplayEnseignants(false);
            this.ecole.setVisibleMenu(true);
+       }
+       else if(arg0.getSource()==this.retour2){
+           this.ecole.setVisibleDisplayEnseignants(true);
        }
        
        for(int i=0; i<this.rechercher.size();i++){
@@ -189,7 +198,7 @@ public class DisplayEnseignants extends JFrame implements  ActionListener{
                  
                  this.quitter.addActionListener(this);
                   this.bouton.addActionListener(this);
-                  this.retour.addActionListener(this);
+                  this.retour2.addActionListener(this);
 		JPanel panel2 = new JPanel();
                 final JLabel label2 = new JLabel();            
                 label2.setBounds(20,250, 200,50);
@@ -211,7 +220,7 @@ public class DisplayEnseignants extends JFrame implements  ActionListener{
         l5.setBounds(20,300, 130,30);
           
         bouton.setBounds(100,350, 150,30); 
-        retour.setBounds(350,350, 400,60);  
+        retour2.setBounds(350,350, 400,60);  
         nomclasse.setBounds(140,100, 100,30); 
         niveau.setBounds(140,150, 100,30); 
         discipline.setBounds(140,200, 100,30); 
@@ -231,7 +240,7 @@ public class DisplayEnseignants extends JFrame implements  ActionListener{
                 f.add(l5);
                 f.add(niveau);
                 f.add(discipline);
-                f.add(retour);
+                f.add(retour2);
                 f.add(bouton);
                 
                 f.add(this.error);

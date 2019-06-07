@@ -47,4 +47,8 @@ public class Personne {
         return this.prenom;
     }
     
+    public Ecole getEcole(){
+        return this.ecole;
+    }
+    
 }

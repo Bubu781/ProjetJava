@@ -32,6 +32,7 @@ public class DisplayEleves extends JFrame implements  ActionListener{
    // private JButton classes= new JButton("Classes");
     private JButton quitter= new JButton("Quitter");
     private JButton retour= new JButton(new ImageIcon("r2.png"));
+    private JButton retour2= new JButton(new ImageIcon("r2.png"));
     private JButton ajouter= new JButton(new ImageIcon("ajouter.png"));
     private JButton menu= new JButton("Menu");
     private ArrayList<JPanel> eleves = new ArrayList<JPanel>();
@@ -77,6 +78,8 @@ public class DisplayEleves extends JFrame implements  ActionListener{
         //this.classes.addActionListener(this);
         this.quitter.addActionListener(this);
         this.ajouter.addActionListener(this);
+        this.retour.addActionListener(this);
+        this.menu.addActionListener(this);
        // this.pan.setSize(500,500);
        // final JLabel label = new JLabel("",JLabel.CENTER);
         this.titre.setText("Fiche eleves");
@@ -85,9 +88,9 @@ public class DisplayEleves extends JFrame implements  ActionListener{
         pan2.setLayout(new BorderLayout());
         pan3.setLayout(new BorderLayout());
         
-        this.container.setLayout(new GridLayout(this.ecole.getEleves().size()+2,4));
-         this.container.add(new JLabel("Nom"));
-          this.container.add(new JLabel("Prenom"));
+        this.container.setLayout(new GridLayout(this.ecole.getEleves().size()+3,4));
+         this.container.add(new JLabel("NOM"));
+          this.container.add(new JLabel("PRENOM"));
           this.container.add(new JLabel(""));
           this.container.add(new JLabel(""));
           
@@ -108,7 +111,11 @@ public class DisplayEleves extends JFrame implements  ActionListener{
           
           //this.ajouter.addActionListener();
           this.container.add(new JLabel(""));
+          this.container.add(new JLabel(""));
+          this.container.add(new JLabel(""));
+          this.container.add(new JLabel(""));
           this.container.add(this.ajouter);
+          this.container.add(new JLabel(""));
           this.container.add(new JLabel(""));
           this.container.add(new JLabel(""));
           
@@ -159,7 +166,8 @@ public class DisplayEleves extends JFrame implements  ActionListener{
                  
                  this.quitter.addActionListener(this);
                   this.bouton.addActionListener(this);
-                  this.retour.addActionListener(this);
+                  this.retour2.addActionListener(this);
+                  this.menu.addActionListener(this);
 		JPanel panel2 = new JPanel();
                 final JLabel label2 = new JLabel();            
                 label2.setBounds(20,250, 200,50);
@@ -181,7 +189,7 @@ public class DisplayEleves extends JFrame implements  ActionListener{
         l5.setBounds(20,300, 130,30);
           
         bouton.setBounds(100,350, 150,30); 
-        retour.setBounds(350,350, 400,60);  
+        retour2.setBounds(350,350, 400,60);  
         nomclasse.setBounds(140,100, 100,30); 
         niveau.setBounds(140,150, 100,30); 
         anneescolaire.setBounds(140,200, 100,30); 
@@ -201,7 +209,7 @@ public class DisplayEleves extends JFrame implements  ActionListener{
                 f.add(l5);
                 f.add(niveau);
                 f.add(anneescolaire);
-                f.add(retour);
+                f.add(retour2);
                 f.add(bouton);
                 
                 f.add(this.error);
@@ -230,8 +238,8 @@ public class DisplayEleves extends JFrame implements  ActionListener{
         }
        else if(arg0.getSource()==this.menu)
         {
-            //action a faire quand on clique sur le bouton4
-            //System.exit(0);
+           this.ecole.setVisibleDisplayEleves(false);
+           this.ecole.setVisibleMenu(true);
         }
        else if(arg0.getSource()==this.ajouter){
            this.dispose();
@@ -241,6 +249,10 @@ public class DisplayEleves extends JFrame implements  ActionListener{
        else if(arg0.getSource()==this.retour){
            this.ecole.setVisibleDisplayEleves(false);
            this.ecole.setVisibleMenu(true);
+       }
+       
+       else if(arg0.getSource()==this.retour2){
+           this.ecole.setVisibleDisplayEleves(true);
        }
        
         
