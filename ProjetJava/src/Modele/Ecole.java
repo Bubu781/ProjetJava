@@ -24,6 +24,12 @@ public class Ecole {
     private ArrayList<Niveau> niveaux;
     private ArrayList<AnneeScolaire> annees;
     private ArrayList<Trimestre> trimestres;
+    
+    /**
+     * Consctructeur surchargé
+     * @param connexion
+     * @throws SQLException 
+     */
     public Ecole(Connexion connexion) throws SQLException{
         this.connexion = connexion;
         ArrayList<String> requetes;
@@ -128,6 +134,14 @@ public class Ecole {
         this.displayEnseignants = new DisplayEnseignants(this);
         this.displayClasses = new DisplayClasses(this);
     }
+    
+    /**
+     * Fonction d'ajout d'un eleve
+     * @param nom
+     * @param prenom
+     * @param classe
+     * @throws SQLException 
+     */
     public void ajoutEleve(String nom, String prenom, Classe classe) throws SQLException{
         Eleve eleve = new Eleve(this.connexion,nom, prenom, this);
         this.eleves.add(eleve);
@@ -137,78 +151,162 @@ public class Ecole {
         classe.ajoutInscription(inscription);
     }
     
+    /**
+     * Fonction d'ajout d'un enseignant
+     * @param nom
+     * @param prenom
+     * @throws SQLException 
+     */
     public void ajoutEnseignant(String nom, String prenom) throws SQLException{
         Enseignant enseignant= new Enseignant(this.connexion, nom, prenom, this);
         this.enseignants.add(enseignant);
     }
     
+    /**
+     * Fonction d'ajout d'un enseignement
+     * @param enseignant
+     * @param classe
+     * @param discipline
+     * @throws SQLException 
+     */
     public void ajoutEnseignement(Enseignant enseignant, Classe classe, Discipline discipline) throws SQLException{
         Enseignement enseignement= new Enseignement(this.connexion, enseignant, classe,  discipline,this);
         classe.ajoutEnseignement(enseignement);
     }
-    
+    /**
+     * Ajout d'un niveau
+     * @param nom
+     * @throws SQLException 
+     */
     public void ajouterNiveau(String nom) throws SQLException{
         Niveau niveau= new Niveau(this.connexion, nom, this);
         this.niveaux.add(niveau);
     }
+    /**
+     * Suppression d'un eleve
+     * @param eleve 
+     */
     public void supprimerEleve(Eleve eleve){
         eleve.suppression();
         eleve = null;
     }
+    
+    /**
+     * suppression d'un enseignant
+     * @param enseignant 
+     */
     public void supprimerEnseignant(Enseignant enseignant){
         enseignant.suppression();
         enseignant = null;
     }
+    
+    /**
+     * Suppression de classe
+     * @param classe 
+     */
     public void supprimerClasse(Classe classe){
         classe.suppression();
         classe = null;
     }
     
+    /**
+     * Modification du nom
+     * @param nom 
+     */
     public void modifier(String nom){
         this.nom = nom;
     }
+    /**
+     * Affichage de collection d'eleves
+     * @param bool 
+     */
     public void setVisibleDisplayEleves(boolean bool){
         this.displayEleves.setVisible(bool);
     }
-    
+    /**
+     * Affichage de collection d'enseignants
+     * @param bool 
+     */
      public void setVisibleDisplayEnseignants(boolean bool){
         this.displayEnseignants.setVisible(bool);
     }
+     /**
+     * Affichage de collection de classes
+     * @param bool 
+     */
      public void setVisibleDisplayClasses(boolean bool){
         this.displayClasses.setVisible(bool);
     }
-    
+    /**
+     * Affichage du menu
+     * @param bool 
+     */
     public void setVisibleMenu(boolean bool){
         this.display.setVisible(bool);
     }
+    
+    /**
+     * getter eleve
+     * @param id
+     * @return id
+     */
     public Eleve getEleve(int id){
         //System.out.print(this.eleves.get(0).getNom());
         return this.eleves.get(id);
     }
+    /**
+     * getter eleves
+     * @return arraylist eleves
+     */
      public ArrayList<Eleve> getEleves(){
         //System.out.print(this.eleves.get(0).getNom());
         return this.eleves;
     }
+     
+     /**
+     * getter eenseignant
+     * @return id
+     */
     public Enseignant getEnseignant(int id){
         //System.out.print(this.eleves.get(0).getNom());
         return this.enseignants.get(id);
     }
+    /**
+     * getter enseignants
+     * @return arraylist enseignant
+     */
      public ArrayList<Enseignant> getEnseignants(){
         //System.out.print(this.eleves.get(0).getNom());
         return this.enseignants;
     }
+     /**
+     * getter classe
+     * @return id
+     */
     public Classe getClasse(int id){
         //System.out.print(this.eleves.get(0).getNom());
         return this.classes.get(id);
     }
+    /**
+     * getter classes
+     * @return arraylist classes
+     */
      public ArrayList<Classe> getClasses(){
         //System.out.print(this.eleves.get(0).getNom());
         return this.classes;
     }
+     /**
+     * getter id
+     * @return id
+     */
     public int getId(){
         return this.id;
     }
     
+    /**
+     * getter nom
+     * @return nom
+     */
     public String getNom(){
         return this.nom;
     }

@@ -17,6 +17,13 @@ public class Classe {
     private ArrayList<Inscription> inscriptions = new ArrayList<Inscription>(); //
     private ArrayList<Enseignement> enseignements = new ArrayList<Enseignement>(); //
     
+    /**
+     * Constructeur surchargé
+     * @param connexion
+     * @param id
+     * @param ecole
+     * @throws SQLException 
+     */
     public Classe(Connexion connexion, int id, Ecole ecole) throws SQLException{
         ArrayList<String> requetes;
         this.id = id;
@@ -24,6 +31,15 @@ public class Classe {
         this.nom = requetes.get(0).substring(0,requetes.get(0).length()-1);
     }
     
+    /**
+     * Fonction de remplissage des classes d'apres la BDD
+     * @param connexion
+     * @param annees
+     * @param niveaux
+     * @param inscriptions
+     * @param enseignements
+     * @throws SQLException 
+     */
     public void remplirClasses(Connexion connexion, ArrayList<AnneeScolaire> annees, ArrayList<Niveau> niveaux, ArrayList<Inscription> inscriptions, ArrayList<Enseignement> enseignements) throws SQLException{
         ArrayList<String> requetes;
         requetes = connexion.remplirChampsRequete("SELECT annee_scolaire FROM Classe WHERE id='"+this.id+"'");
@@ -59,20 +75,37 @@ public class Classe {
         this.display=new DisplayClasse(this);
     }
     
+    /**
+     * Fonction de modification d'une classe
+     * @param nom
+     * @param annee
+     * @param niveau 
+     */
     public void modifier(String nom, AnneeScolaire annee, Niveau niveau){
         this.nom = nom;
         this.annee = annee;
         this.niveau = niveau;
     }
     
+    /**
+     * Fonction d'ajout d'un eleve a une classe ( en ajoutant l'inscription)
+     * @param inscription 
+     */
     public void ajoutInscription(Inscription inscription){
         this.inscriptions.add(inscription);
     }
     
+    /**
+     * Fonction d'ajout d'un enseignant a une classe
+     * @param enseignement 
+     */
     public void ajoutEnseignement(Enseignement enseignement){
         this.enseignements.add(enseignement);
     }
-            
+    
+    /**
+     * Fonction de suppression d'une classe
+     */
     public void suppression(){
         for(Inscription inscription : this.inscriptions){
             inscription.suppression();
@@ -80,31 +113,57 @@ public class Classe {
         this.inscriptions.removeAll(this.inscriptions);
         this.enseignements.removeAll(this.enseignements);
     }
-    
+    /**
+     * Geter de id
+     * @return id
+     */
     public int getId(){
         return this.id;
     }
+    
+    /**
+     * Geter d'annee scolaire
+     * @return annee scolaire
+     */
     public AnneeScolaire getAnneeScolaire(){
         return this.annee;
     }
     
+    /**
+     * Getter d'une ecole
+     * @return 
+     */
     public Ecole getEcole(){
         return this.ecole;
     }
-    
+    /**
+     * getter du niveau de la classe
+     * @return niveau
+     */
     public Niveau getNiveau(){
         return this.niveau;
     }
     
+    /**
+     * getter du nom de la classe
+     * @return nom
+     */
     public String getNom(){
         return this.nom;
     }
     
-    
+    /**
+     * Getter d'enseignement
+     * @return enseignements
+     */
     public ArrayList<Enseignement> getEnseignements(){
         return this.enseignements;
     }
     
+    /**
+     * getter des inscriptions
+     * @return inscriptions
+     */
     public ArrayList<Inscription> getInscriptions(){
         return this.inscriptions;
     }

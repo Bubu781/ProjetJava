@@ -7,6 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Bulletin {
+    /**
+     * Attributs de bulletin
+     *
+     */
     private Ecole ecole;
     private int id;
     private DisplayBulletin display;
@@ -15,6 +19,14 @@ public class Bulletin {
     private Inscription inscription; //
     private ArrayList<DetailBulletin> details = new ArrayList<DetailBulletin>(); //
     
+    /**
+     * constructeur surcharché de bulletin
+     * @param connexion
+     * @param id
+     * @param ecole
+     * @throws SQLException 
+     * 
+     */
     public Bulletin(Connexion connexion, int id, Ecole ecole) throws SQLException{
         ArrayList<String> requetes;
         this.id = id;
@@ -22,7 +34,14 @@ public class Bulletin {
         requetes = connexion.remplirChampsRequete("SELECT Appreciation FROM Bulletin WHERE id ='"+id+"'");
         this.appreciation = requetes.get(0);
     }
-    
+    /**
+     * constructeur surcharché de bulletin
+     * @param connexion
+     * @param ecole
+     * @param classe
+     * @throws SQLException 
+     * 
+     */
     public Bulletin(Connexion connexion, Ecole ecole, Classe classe) throws SQLException{
         ArrayList<String> requetes;
         connexion.executeUpdate("INSERT INTO Bulletin() VALUES("+")");
@@ -34,6 +53,15 @@ public class Bulletin {
         }
         this.display = new DisplayBulletin(this);
     }
+    
+    /**
+     * Fonction de remplissage des bulletins a partir de la BDD
+     * @param connexion
+     * @param trimestres
+     * @param inscriptions
+     * @param details
+     * @throws SQLException 
+     */
     public void remplirClasses(Connexion connexion, ArrayList<Trimestre> trimestres, ArrayList<Inscription> inscriptions, ArrayList<DetailBulletin> details) throws SQLException{
         ArrayList<String> requetes;
         requetes = connexion.remplirChampsRequete("SELECT trimestre FROM Bulletin WHERE id='"+this.id+"'");
@@ -60,16 +88,27 @@ public class Bulletin {
         }
         this.display = new DisplayBulletin(this);
     }
-    
+    /**
+     * Getter du detail bulletin
+     * @return detailBulletin
+     */
     public ArrayList<DetailBulletin> getDetails(){
         return this.details;
     }
     
+    /**
+     * Fonction modifier
+     * @param appreciation
+     * @param trimestre 
+     */
     public void modifier(String appreciation, Trimestre trimestre){
         this.appreciation = appreciation;
         this.trimestre = trimestre;
     }
     
+    /**
+     * Fonction de suppression de bulletin
+     */
     public void suppression(){
         for(DetailBulletin detail : this.details){
             detail.suppression();
@@ -77,6 +116,14 @@ public class Bulletin {
         this.details.removeAll(this.details);
     }
     
+    /**
+     * Fonction d'ajout d'evalution
+     * @param connexion
+     * @param enseignement
+     * @param note
+     * @param appreciation
+     * @throws SQLException 
+     */
      public void ajouterEvaluation(Connexion connexion, Enseignement enseignement, int note, String appreciation) throws SQLException{
         for(DetailBulletin detail : this.details){
             if(enseignement==detail.getEnseignement()){
@@ -84,18 +131,40 @@ public class Bulletin {
             }
         }
     }
+     /**
+      * Getter de l'id
+      * @return id
+      */
     public int getId(){
         return this.id;
     }
+    /**
+     * Getter de trimestre
+     * @return trimestre
+     */
     public Trimestre getTrimestre(){
         return this.trimestre;
     }
+    /**
+     * Getter d'inscription
+     * @return inscription
+     */
     public Inscription getInscription(){
         return this.inscription;
     }
+    
+    /**
+     * getter d'appreciation
+     * @return appreciation
+     */
     public String getAppreciation(){
         return this.appreciation;
     }
+    
+    /**
+     * Fonction set visible pour graphisme
+     * @param bool 
+     */
     public void setVisible(boolean bool){
         this.display.setVisible(bool);
     }

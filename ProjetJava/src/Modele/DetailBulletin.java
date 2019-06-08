@@ -15,7 +15,13 @@ public class DetailBulletin {
     private Bulletin bulletin;
     private ArrayList<Evaluation> evals = new ArrayList<Evaluation>();
 
-    
+    /**
+     * Constructeur surchargé
+     * @param connexion
+     * @param id
+     * @param ecole
+     * @throws SQLException 
+     */
     public DetailBulletin(Connexion connexion, int id, Ecole ecole) throws SQLException{
         ArrayList<String> requetes;
         this.id = id;
@@ -24,6 +30,13 @@ public class DetailBulletin {
         this.appreciation = requetes.get(0).substring(0,requetes.get(0).length()-1);
     }
     
+    /**
+     * Constructeur surchargé
+     * @param connexion
+     * @param enseignement
+     * @param ecole
+     * @throws SQLException 
+     */
     public DetailBulletin(Connexion connexion, Enseignement enseignement, Ecole ecole) throws SQLException{
          ArrayList<String> requetes;
         connexion.executeUpdate("INSERT INTO DetailBulletin(enseignement) VALUES("+enseignement+");");
@@ -33,6 +46,15 @@ public class DetailBulletin {
         this.ecole= ecole;
         this.display = new DisplayDetailBulletin(this);
     }
+    
+    /**
+     * Remplissage du detail bulletin
+     * @param connexion
+     * @param enseignements
+     * @param bulletins
+     * @param evaluations
+     * @throws SQLException 
+     */
     public void remplirClasses(Connexion connexion, ArrayList<Enseignement> enseignements, ArrayList<Bulletin> bulletins, ArrayList<Evaluation> evaluations) throws SQLException{
         ArrayList<String> requetes;
         requetes = connexion.remplirChampsRequete("SELECT enseignement FROM DetailBulletin WHERE Id = '"+this.id+"'");
@@ -60,21 +82,39 @@ public class DetailBulletin {
         this.display = new DisplayDetailBulletin(this);
     }
     
+    /**
+     * Modification 
+     * @param appreciation 
+     */
     public void modifier(String appreciation){
         this.appreciation = appreciation;
     }
     
+    /**
+     * Suppression de detail bulletin
+     */
     public void suppression(){
         this.evals.removeAll(this.evals);
     }
-   
+    /**
+     * Getter d'appreciation
+     * @return appreciation
+     */
     public String getAppreciation(){
         return this.appreciation;
     }
+    /**
+     * Getter d'id
+     * @return id
+     */
     public int getId(){
         return this.id;
     }
     
+    /**
+     * Fonction affichage detail bulletin
+     * @return affichage
+     */
     public DisplayDetailBulletin getDisplay(){
         return this.display;
     }
@@ -89,10 +129,21 @@ public class DetailBulletin {
         return this.evals;
     }
     
+    /**
+     * Donction d'ajout d'enseignement
+     * @param enseignement 
+     */
     public void ajoutEnseignement(Enseignement enseignement){
         this.enseignement= enseignement;
     }
     
+    /**
+     * Fonction d'ajout d'evaluation
+     * @param connexion
+     * @param note
+     * @param appreciation
+     * @throws SQLException 
+     */
     public void ajoutEvaluation(Connexion connexion, int note, String appreciation) throws SQLException{
         Evaluation evaluation= new Evaluation(connexion, appreciation, note, this.ecole);
         evals.add(evaluation);

@@ -5,11 +5,14 @@
  */
 package Vue;
 
+import BDD.Connexion;
 import Modele.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.sql.SQLException;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -44,4 +47,7 @@ public class DisplayDetailBulletin extends JPanel{
         this.add(panel);
         this.container.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
     }
+    
+   
+    
 }

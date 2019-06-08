@@ -9,6 +9,8 @@ import java.util.ArrayList;
 public class Enseignant extends Personne {
     private ArrayList<Enseignement> enseignements = new ArrayList<Enseignement>();
     private DisplayEnseignant display;
+    
+    
     public Enseignant(Connexion connexion, int id, Ecole ecole) throws SQLException{
         super(connexion, id, ecole);
     }

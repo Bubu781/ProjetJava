@@ -6,10 +6,21 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class AnneeScolaire {
+    
+    /**
+     * attributs d'annee scolaire
+     */
       private Ecole ecole;
       private int id;
       private int annee;
     
+      /**
+       * constructeur surchargé d'annee scolaire
+       * @param connexion
+       * @param id
+       * @param ecole
+       * @throws SQLException 
+       */
     public AnneeScolaire(Connexion connexion, int id, Ecole ecole) throws SQLException
     {
         ArrayList<String> requetes;
@@ -19,13 +30,26 @@ public class AnneeScolaire {
         this.ecole = ecole;
     }
     
+    /**
+     * 
+     * @param annee 
+     * fonction de modification d'année
+     */
     public void modifier(int annee){
         this.annee = annee;
     }
     
+    /**
+     * getter de l'id d'annee scolaire
+     * @return id
+     */
     public int getId(){
         return this.id;
     }
+    /**
+     * getter de l'annee
+     * @return annee
+     */
     public int getAnnee(){
         return this.annee;
     }

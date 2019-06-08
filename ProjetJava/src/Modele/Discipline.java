@@ -10,6 +10,13 @@ public class Discipline {
     private int id;
     private String nom;
     
+    /**
+     * consctructeur surchargé
+     * @param connexion
+     * @param id
+     * @param ecole
+     * @throws SQLException 
+     */
     public Discipline(Connexion connexion, int id, Ecole ecole) throws SQLException{
         ArrayList<String> requetes;
         this.id = id;
@@ -18,14 +25,25 @@ public class Discipline {
         this.nom = requetes.get(0).substring(0,requetes.get(0).length()-1);
     }
     
+    /**
+     * Modification
+     * @param nom 
+     */
     public void modifier(String nom){
         this.nom = nom;
     }
     
+    /**
+     * getter id
+     * @return id
+     */
     public int getId(){
         return this.id;
     }
-    
+    /**
+     * Getter de nom
+     * @return nom 
+     */
     public String getNom(){
         return this.nom;
     }
