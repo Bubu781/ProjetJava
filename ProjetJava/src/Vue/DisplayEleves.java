@@ -66,6 +66,12 @@ public class DisplayEleves extends JFrame implements  ActionListener{
         private JFrame f=new JFrame("AJOUT");
         private JButton bouton = new JButton("AJOUTER");
         
+        
+         /**
+         * permet l'affichage d'une page graphique qui liste tous les eleves de l'ecole avec un bouton permet d'accéder à plus d'infos sur l'eleve et un autre pour supprimer un eleve
+         * un bouton pour ajouter un eleve est egalement present, et des boutons permettant de quitter et retourner au menu sont ajoutées
+         * @param ecole 
+         */
     public DisplayEleves(Ecole ecole){
         this.ecole = ecole;
     
@@ -156,6 +162,10 @@ public class DisplayEleves extends JFrame implements  ActionListener{
         
         
     }
+    /**
+     * fonction qui permet d'afficher une page graphique pour saisir toutes les donnees de l'eleve à ajouter
+     */
+  
      private void ajouter()
     {
         setTitle("AJOUTER"); 
@@ -229,6 +239,10 @@ public class DisplayEleves extends JFrame implements  ActionListener{
     
     }
     
+     /**
+      * cette fonction permet de realiser des actions lorqu'on clique sur les boutons 
+      * @param arg0 
+      */
      @Override
     public void actionPerformed(ActionEvent arg0) {      
        if(arg0.getSource()==this.quitter)

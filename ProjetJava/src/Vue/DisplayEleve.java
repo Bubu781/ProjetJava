@@ -54,6 +54,13 @@ public class DisplayEleve extends JFrame implements  ActionListener {
      
         private JFrame f=new JFrame("Modifier");
         private JButton bouton = new JButton("MODFIER");
+        
+        /**
+         * permet d'afficher tous les details de l'eleve : son nom, prenom,son niveau, l'annee scolaire et sa classe
+         * ajout d'un bouton pour modifier les donnees de l'eleve
+         * ajout de boutons pour : aller au menu, retourner à la page précédente et quitter
+         * @param eleve 
+         */
     public DisplayEleve(Eleve eleve){
        this.eleve =eleve; 
     
@@ -148,6 +155,9 @@ public class DisplayEleve extends JFrame implements  ActionListener {
         
     }
     
+    /**
+     * fonction permet d'afficher une page graphique pour modifier les infos concernant un eleve 
+     */
      private void modifier() {
         setTitle("MODIFICICATION"); 
 		setSize(830,730); 
@@ -216,6 +226,9 @@ public class DisplayEleve extends JFrame implements  ActionListener {
     }
      
      @Override
+     /**
+      * fonction qui permet de réaliser des actions quand on clique sur les boutons 
+      */
     public void actionPerformed(ActionEvent arg0) {      
        if(arg0.getSource()==this.quitter)
         {

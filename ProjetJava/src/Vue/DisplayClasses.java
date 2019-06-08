@@ -61,11 +61,18 @@ public class DisplayClasses extends JFrame implements  ActionListener{
      
         private JFrame f=new JFrame("LOGIN");
         private JButton bouton = new JButton("ENTRER");
+        
+        /**
+         * permet l'affichage d'une page graphique qui liste toutes les classes de l'ecole avec un bouton permettant d'accéder à plus d'infos sur une classe en particulier et un autre pour supprimer une classe
+         * un bouton pour ajouter une classe est egalement present, et des boutons permettant de quitter et retourner au menu sont ajoutées
+         * @param ecole 
+         */
     public DisplayClasses(Ecole ecole){
         this.ecole = ecole;
     
      
 
+        
         setTitle("Classes");
         //this.eleves.setSize(2,2);
         //this.eleves.addActionListener(this);
@@ -218,6 +225,9 @@ public class DisplayClasses extends JFrame implements  ActionListener{
     
     }
      @Override
+     /**
+      * cette fonction permet de realiser des actions lorqu'on clique sur les boutons 
+      */
     public void actionPerformed(ActionEvent arg0) {      
        if(arg0.getSource()==this.quitter)
         {

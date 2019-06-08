@@ -21,10 +21,10 @@ import javax.swing.*;
  * @author Admin
  */
 public class DisplayClasse extends JFrame implements  ActionListener {
-    
-   // private JButton eleves= new JButton("Eleves");
-    //private JButton enseignants= new JButton("Enseignants");
-   // private JButton classes= new JButton("Classes");
+   
+    /**
+     * attributs de la classe 
+     */
     private JButton quitter= new JButton("Quitter");
     private JButton retour= new JButton(new ImageIcon("r2.png")); 
     private JButton modifier= new JButton(new ImageIcon("modifier.png")); 
@@ -56,34 +56,26 @@ public class DisplayClasse extends JFrame implements  ActionListener {
      
         private JFrame f=new JFrame("LOGIN");
         private JButton bouton = new JButton("ENTRER");
-       // private JButton quitter= new JButton("Quitter");
-        /*
-        private JLabel label_titre=new JLabel("MODIFIDICATION DES DONNEES DE L'ENSEIGNANT:");
-        private JLabel label_nomclass=new JLabel("Nom des classes :");  
-        private JLabel label_niveau=new JLabel("Niveau des classes:"); 
-        private JLabel label_discipline=new JLabel("Discipline(s) enseignée(s):"); 
-        private JLabel error = new JLabel("");
-        private JTextField nomclass = new JTextField();
-        private JTextField niveau = new JTextField(); 
-        private JTextField discipline = new JTextField(); */
     
     private Classe classe;
     
-    
+    /**
+     * Permet l'affichage graphique d'une classe en particulier avec toutes les informations liee a une classe : nom, niveau, discpiline
+     * ajout de bouton pour modifier les informations d'une classe
+     * @param classe 
+     */
     public DisplayClasse(Classe classe){
         
     
      
 
         setTitle("Classe");
-        //this.eleves.setSize(2,2);
-        //this.eleves.addActionListener(this);
-        //this.enseignants.addActionListener(this);
-        //this.classes.addActionListener(this);
+        
         this.quitter.addActionListener(this);
         this.modifier.addActionListener(this);
-       // this.pan.setSize(500,500);
-       // final JLabel label = new JLabel("",JLabel.CENTER);
+        /**
+         * titre en haut de la page graphique
+         */
         this.titre.setText("Fiche classe");
         
         
@@ -91,9 +83,14 @@ public class DisplayClasse extends JFrame implements  ActionListener {
         pan2.setLayout(new BorderLayout());
         pan3.setLayout(new BorderLayout());
         
-         
-       this.titre.setFont(new Font("Serif", Font.BOLD, 50));  
+         /**
+          * taille du titre
+          */
+       this.titre.setFont(new Font("Serif", Font.BOLD, 50)); 
        pan.setPreferredSize(new Dimension(450,300));
+       /**
+        * on ajoute le titre au panel nomme pan
+        */
        this.pan.add(this.titre,BorderLayout.NORTH);
        
          this.classe = classe;
@@ -102,9 +99,10 @@ public class DisplayClasse extends JFrame implements  ActionListener {
           
         this.pan.add(info);
 
+        /**
+         * on cree un container pour afficher les infos d'une classe : nom classe, niveau et discipline
+         */
         this.getContentPane().add("North",pan);
-        
-        //this.container.setPreferredSize(new Dimension(450,300));
          this.container.setLayout(new GridLayout(this.classe.getEnseignements().size()+1,4));
          this.container.add(new JLabel("Nom Classe"));
          this.container.add(new JLabel("Niveau "));
@@ -124,6 +122,9 @@ public class DisplayClasse extends JFrame implements  ActionListener {
         }
           this.add(this.container);
           
+         /**
+          * on affiche le nom et prenom des eleves dans la classe
+          */
          this.container2.setLayout(new GridLayout(this.classe.getInscriptions().size()+1,2));
          this.container2.add(new JLabel("Nom"));
           this.container2.add(new JLabel("Prenom"));
@@ -153,9 +154,9 @@ public class DisplayClasse extends JFrame implements  ActionListener {
        pan2.setPreferredSize(new Dimension(300,50));
        pan3.setPreferredSize(new Dimension(250,50));
         
-        //this.pan2.add(this.nom,BorderLayout.WEST);
-        //this.pan2.add(this.modifier,BorderLayout.EAST);
-       // this.pan2.add(this.prenom,BorderLayout.EAST);
+       /**
+        * on ajoute les boutons au panel
+        */
         this.pan2.add(this.modifier,BorderLayout.CENTER);
         this.pan3.add(this.retour,BorderLayout.WEST);
         this.pan3.add(this.menu,BorderLayout.CENTER);
@@ -178,6 +179,9 @@ public class DisplayClasse extends JFrame implements  ActionListener {
    
     
      @Override
+     /**
+      * cette fonction permet de realiser des actions lorqu'on clique sur les boutons 
+      */
     public void actionPerformed(ActionEvent arg0) {      
        if(arg0.getSource()==this.quitter)
         {
@@ -218,7 +222,9 @@ public class DisplayClasse extends JFrame implements  ActionListener {
     } 
     
    
-
+/**
+ * affichage graphique d'une page pour modifier les infos d'une classe : nom de la classe, niveau et annee scolaire
+ */
     private void modifier() {
         setTitle("MODIFICICATION"); 
 		setSize(830,730); 

@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Evaluation {
+    /**
+     * attributs prives de la classe Evaluation
+     */
     private Ecole ecole;
     private int id;
     private int note;
@@ -14,6 +17,13 @@ public class Evaluation {
     private String appreciation;
     private DetailBulletin detail;
     
+    /**
+     * Constructeur surchargé
+     * @param connexion
+     * @param id
+     * @param ecole
+     * @throws SQLException 
+     */
     public Evaluation(Connexion connexion, int id, Ecole ecole) throws SQLException{
         ArrayList<String> requetes;
         this.id = id;
@@ -25,6 +35,14 @@ public class Evaluation {
         this.display = new DisplayEvaluation(this);
     }
     
+    /**
+     * Constructeur surchargé
+     * @param connexion
+     * @param appreciation
+     * @param note
+     * @param ecole
+     * @throws SQLException 
+     */
     public Evaluation(Connexion connexion, String appreciation,int note,Ecole ecole) throws SQLException{
         ArrayList<String> requetes;
         connexion.executeUpdate("INSERT INTO Evaluation(Appreciation, Note) VALUES("+appreciation+","+note+");");
@@ -35,6 +53,13 @@ public class Evaluation {
         this.note=note;
         
     }
+    
+    /**
+     * Remplissage d'une évaluation dans la bdd
+     * @param connexion
+     * @param details
+     * @throws SQLException 
+     */
     public void remplirClasses(Connexion connexion, ArrayList<DetailBulletin> details) throws SQLException{
         ArrayList<String> requetes;
         requetes = connexion.remplirChampsRequete("SELECT detail_bulletin FROM Evaluation WHERE Id = '"+this.id+"'");
@@ -45,24 +70,49 @@ public class Evaluation {
         }
     }
     
+    /**
+     * Modifier la valeur de la note et le string de l'appréciation
+     * @param note
+     * @param appreciation 
+     */
     public void modifier(int note, String appreciation){
         this.note = note;
         this.appreciation = appreciation;
     }
-    
+    /**
+     * Affichage de l'évaluation
+     * @return 
+     */
     public DisplayEvaluation getDisplay(){
         return this.display;
     }
+    /**
+     * getter de la note
+     * @return la note
+     */
     public int getNote(){
         return this.note;
     }
+    /**
+     * getter de l'appréciation
+     * @return l'appréciation
+     */
     public String getAppreciation(){
         return this.appreciation;
     }
+    
+    /**
+     * getter de l'id
+     * @return l'id
+     */
     public int getId(){
         return this.id;
     }
     
+    /**
+     * getter de detail
+     * @return 
+     */
     public DetailBulletin getDetailBulletin(){
         return this.detail;
     }

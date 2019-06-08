@@ -29,6 +29,10 @@ public class DisplayDetailBulletin extends JPanel{
     JPanel container = new JPanel();
     JPanel panel = new JPanel();
     
+    /**
+     * affichage graphisme d'un bulletin pour un eleve en particulier
+     * @param detail 
+     */
     public DisplayDetailBulletin(DetailBulletin detail){
         this.setLayout(new BorderLayout());
         setPreferredSize(new Dimension(300,300));

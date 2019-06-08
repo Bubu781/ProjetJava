@@ -32,6 +32,10 @@ public class Menu extends JFrame implements  ActionListener {
 
     private Ecole ecole;
 
+    /**
+     * permet l'affichage graphique du menu avec quatre boutons : classe, eleve, enseignant et quitter et une image de fond
+     * @param ecole 
+     */
     public Menu(Ecole ecole)
     {
         this.ecole = ecole;
@@ -88,7 +92,10 @@ public class Menu extends JFrame implements  ActionListener {
         
     }
     
-    
+    /**
+     * cette fonction permet de realiser des actions lorqu'on clique sur les boutons 
+     * @param arg0 
+     */
      @Override
     public void actionPerformed(ActionEvent arg0) {      
         if(arg0.getSource()==this.eleves)

@@ -28,7 +28,13 @@ import javax.swing.JPanel;
  *
  * @author adrienbuot
  */
+
+
 public class DisplayBulletin extends JFrame implements ActionListener{
+   
+    /**
+     * attributs de la classe : boutons, Jpanel
+     */
     Bulletin bulletin;
 
     JPanel cadreTrimestre = new JPanel();
@@ -41,6 +47,11 @@ public class DisplayBulletin extends JFrame implements ActionListener{
     private JButton quitter= new JButton("Quitter");
     private JButton retour= new JButton(new ImageIcon("r2.png")); 
     private JButton menu= new JButton("Menu");
+    
+    /**
+     * affichage d'un bulletin et toutes les informations qui vont avec : note, appreciation, trimestre
+     * @param bulletin 
+     */
     public DisplayBulletin(Bulletin bulletin){
         this.setTitle("Bulletin");
         this.titre.setText("Bulletin eleve");

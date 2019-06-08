@@ -68,7 +68,12 @@ public class DisplayEnseignant extends JFrame implements  ActionListener {
     
     private Enseignant enseignant;
     
-    
+    /**
+     * permet d'afficher tous les details de l'enseignant : son nom, prenom, discipline(s) enseignees, ses classe
+     * ajout d'un bouton pour modifier les donnees de l'enseignant
+     * ajout de boutons pour : aller au menu, retourner à la page précédente et quitter
+     * @param enseignant 
+     */
     public DisplayEnseignant(Enseignant enseignant){
         
     
