@@ -11,8 +11,11 @@ import static java.awt.BorderLayout.*;
 import java.awt.event.*;
 import java.io.File;
 import static java.lang.Thread.sleep;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.layout.Border;
 import javax.swing.*;
 
@@ -21,13 +24,15 @@ import javax.swing.*;
  * @author Admin
  */
 public class DisplayClasse extends JFrame implements  ActionListener {
-    
-   // private JButton eleves= new JButton("Eleves");
-    //private JButton enseignants= new JButton("Enseignants");
-   // private JButton classes= new JButton("Classes");
+   
+    /**
+     * attributs de la classe 
+     */
     private JButton quitter= new JButton("Quitter");
     private JButton retour= new JButton(new ImageIcon("r2.png")); 
-    private JButton modifier= new JButton(new ImageIcon("modifier.png")); 
+    private JButton modifier= new JButton(new ImageIcon("modifier.png"));
+    private JButton ajouter= new JButton(new ImageIcon("ajouter.png")); 
+    private JButton ajoutEnseignement = new JButton("Envoyer");
     private JButton menu= new JButton("Menu");
     private JPanel container = new JPanel();
     private JPanel container2 = new JPanel();
@@ -38,6 +43,8 @@ public class DisplayClasse extends JFrame implements  ActionListener {
     private JPanel pan2= new JPanel();
     private JPanel pan= new JPanel();
     private JPanel pan3= new JPanel();
+    private JComboBox discipline;
+    private JComboBox enseignant;
     private ArrayList<JButton> supprimer= new ArrayList <JButton>();
     
    
@@ -48,6 +55,8 @@ public class DisplayClasse extends JFrame implements  ActionListener {
         private JLabel l1=new JLabel("Nom :");  
         private JLabel l2=new JLabel("Niveau :"); 
         private JLabel l3=new JLabel("Annee:"); 
+        private JLabel dis=new JLabel("Discipline :"); 
+        private JLabel ens=new JLabel("Enseignant :"); 
         private JLabel error = new JLabel("");
         private JTextField nomclasse= new JTextField();
 	private JTextField niveau = new JTextField();
@@ -56,34 +65,29 @@ public class DisplayClasse extends JFrame implements  ActionListener {
      
         private JFrame f=new JFrame("LOGIN");
         private JButton bouton = new JButton("ENTRER");
-       // private JButton quitter= new JButton("Quitter");
-        /*
-        private JLabel label_titre=new JLabel("MODIFIDICATION DES DONNEES DE L'ENSEIGNANT:");
-        private JLabel label_nomclass=new JLabel("Nom des classes :");  
-        private JLabel label_niveau=new JLabel("Niveau des classes:"); 
-        private JLabel label_discipline=new JLabel("Discipline(s) enseignée(s):"); 
-        private JLabel error = new JLabel("");
-        private JTextField nomclass = new JTextField();
-        private JTextField niveau = new JTextField(); 
-        private JTextField discipline = new JTextField(); */
     
     private Classe classe;
     
-    
+    /**
+     * Permet l'affichage graphique d'une classe en particulier avec toutes les informations liee a une classe : nom, niveau, discpiline
+     * ajout de bouton pour modifier les informations d'une classe
+     * @param classe 
+     */
     public DisplayClasse(Classe classe){
         
     
      
 
         setTitle("Classe");
-        //this.eleves.setSize(2,2);
-        //this.eleves.addActionListener(this);
-        //this.enseignants.addActionListener(this);
-        //this.classes.addActionListener(this);
+        
         this.quitter.addActionListener(this);
         this.modifier.addActionListener(this);
-       // this.pan.setSize(500,500);
-       // final JLabel label = new JLabel("",JLabel.CENTER);
+        this.ajouter.addActionListener(this);
+        this.menu.addActionListener(this);
+        this.retour.addActionListener(this);
+        /**
+         * titre en haut de la page graphique
+         */
         this.titre.setText("Fiche classe");
         
         
@@ -91,9 +95,14 @@ public class DisplayClasse extends JFrame implements  ActionListener {
         pan2.setLayout(new BorderLayout());
         pan3.setLayout(new BorderLayout());
         
-         
-       this.titre.setFont(new Font("Serif", Font.BOLD, 50));  
+         /**
+          * taille du titre
+          */
+       this.titre.setFont(new Font("Serif", Font.BOLD, 50)); 
        pan.setPreferredSize(new Dimension(450,300));
+       /**
+        * on ajoute le titre au panel nomme pan
+        */
        this.pan.add(this.titre,BorderLayout.NORTH);
        
          this.classe = classe;
@@ -102,10 +111,11 @@ public class DisplayClasse extends JFrame implements  ActionListener {
           
         this.pan.add(info);
 
+        /**
+         * on cree un container pour afficher les infos d'une classe : nom classe, niveau et discipline
+         */
         this.getContentPane().add("North",pan);
-        
-        //this.container.setPreferredSize(new Dimension(450,300));
-         this.container.setLayout(new GridLayout(this.classe.getEnseignements().size()+1,4));
+         this.container.setLayout(new GridLayout(this.classe.getEnseignements().size()+2,4));
          this.container.add(new JLabel("Nom Classe"));
          this.container.add(new JLabel("Niveau "));
          this.container.add(new JLabel("Discipline "));
@@ -122,8 +132,16 @@ public class DisplayClasse extends JFrame implements  ActionListener {
             this.container.add(this.supprimer.get(this.supprimer.size()-1));
             
         }
+          
+         this.container.add(new JLabel(""));
+         this.container.add(new JLabel(""));
+         this.container.add(this.ajouter);
+         this.container.add(new JLabel(""));
           this.add(this.container);
           
+         /**
+          * on affiche le nom et prenom des eleves dans la classe
+          */
          this.container2.setLayout(new GridLayout(this.classe.getInscriptions().size()+1,2));
          this.container2.add(new JLabel("Nom"));
           this.container2.add(new JLabel("Prenom"));
@@ -153,9 +171,9 @@ public class DisplayClasse extends JFrame implements  ActionListener {
        pan2.setPreferredSize(new Dimension(300,50));
        pan3.setPreferredSize(new Dimension(250,50));
         
-        //this.pan2.add(this.nom,BorderLayout.WEST);
-        //this.pan2.add(this.modifier,BorderLayout.EAST);
-       // this.pan2.add(this.prenom,BorderLayout.EAST);
+       /**
+        * on ajoute les boutons au panel
+        */
         this.pan2.add(this.modifier,BorderLayout.CENTER);
         this.pan3.add(this.retour,BorderLayout.WEST);
         this.pan3.add(this.menu,BorderLayout.CENTER);
@@ -178,6 +196,9 @@ public class DisplayClasse extends JFrame implements  ActionListener {
    
     
      @Override
+     /**
+      * cette fonction permet de realiser des actions lorqu'on clique sur les boutons 
+      */
     public void actionPerformed(ActionEvent arg0) {      
        if(arg0.getSource()==this.quitter)
         {
@@ -185,32 +206,58 @@ public class DisplayClasse extends JFrame implements  ActionListener {
             System.exit(0);
         }
        else if(arg0.getSource()==this.menu){
-           
-           //this.ecole.setVisibleMenu(true);
+           this.setVisible(false);
+           this.classe.getEcole().setVisibleMenu(true);
        }
        
         else if(arg0.getSource()==this.retour){
-           //this.ecole.setVisibleDisplayEnseignant(false);
-           //this.ecole.setVisibleMenu(true);
-       }
-        else if(arg0.getSource()==this.retour){
-           //this.ecole.setVisibleDisplayEnseignant(false);
-           //this.ecole.setVisibleMenu(true);
+           f.setVisible(false);
+           this.setVisible(false);
+           this.classe.getEcole().setVisibleDisplayClasses(true);
        }
        else if(arg0.getSource()==this.modifier){
            //this.ecole.setVisibleDisplayEnseignant(false);
            //this.ecole.setVisibleMenu(true);
            this.dispose();
            modifier();
+       }else if(arg0.getSource()==this.ajouter){
+            this.setVisible(false);
+            this.ajouter();
+       }else if(arg0.getSource()==this.ajoutEnseignement){
+           f.setVisible(false);
+           Discipline discipline = this.classe.getEcole().getDisciplines().get(0);
+           Enseignant enseignant = this.classe.getEcole().getEnseignants().get(0);
+           Object objDiscipline = this.discipline.getSelectedItem();
+           Object objEnseignant = this.enseignant.getSelectedItem();
+           for(Discipline d : this.classe.getEcole().getDisciplines()){
+               if(d.getNom().equals(objDiscipline.toString())){
+                   discipline = d;
+                   break;
+               }
+           }
+           for(Enseignant e : this.classe.getEcole().getEnseignants()){
+               if(e.getNom().equals(objEnseignant.toString())){
+                   enseignant = e;
+                   break;
+               }
+           }
+           try {
+               this.classe.getEcole().ajoutEnseignement(enseignant, this.classe, discipline);
+           } catch (SQLException ex) {
+               Logger.getLogger(DisplayClasse.class.getName()).log(Level.SEVERE, null, ex);
+           }
+           this.classe.reload();
        }
        
        
        for(int i=0; i<this.supprimer.size();i++){
            if(arg0.getSource()==this.supprimer.get(i)){
-               this.dispose();
-               
-                //this.ecole.getEnseignant(i).setVisible(true);
-                //this.ecole.setVisibleDisplayEnseignant(false);
+               this.setVisible(false);
+               try {
+                   this.classe.supprimerEnseignement(this.classe.getEnseignements().get(i));
+               } catch (SQLException ex) {
+                   Logger.getLogger(DisplayClasse.class.getName()).log(Level.SEVERE, null, ex);
+               }
            }
        }
       
@@ -218,7 +265,9 @@ public class DisplayClasse extends JFrame implements  ActionListener {
     } 
     
    
-
+/**
+ * affichage graphique d'une page pour modifier les infos d'une classe : nom de la classe, niveau et annee scolaire
+ */
     private void modifier() {
         setTitle("MODIFICICATION"); 
 		setSize(830,730); 
@@ -235,9 +284,9 @@ public class DisplayClasse extends JFrame implements  ActionListener {
                 pan3.setLayout(new BorderLayout()); 
               
                   
-               this.nomclasse.setText(classe.getNom()+"   ");
-               this.niveau.setText(classe.getNiveau().getNom()+"   ");
-               this.annee.setText(String.valueOf(classe.getAnneeScolaire().getAnnee())+"   ");
+               this.nomclasse.setText(classe.getNom());
+               this.niveau.setText(classe.getNiveau().getNom());
+               this.annee.setText(String.valueOf(classe.getAnneeScolaire().getAnnee()));
                //this.discipline.setText(enseignement.getDiscipline().getNom()+"   ");
                 
                    
@@ -284,6 +333,68 @@ public class DisplayClasse extends JFrame implements  ActionListener {
                 f.setLayout(null); 
                 f.setLocationRelativeTo(null);
                 f.setVisible(true);
+                f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+    }
+    private void ajouter() {
+        setTitle("AJOUT"); 
+        setSize(830,730); 
+        setLocationRelativeTo(null); 
+        setResizable(false); 
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+        
+        this.quitter.addActionListener(this);
+        this.ajoutEnseignement.addActionListener(this);
+        this.retour.addActionListener(this);
+        JPanel panel2 = new JPanel();
+        final JLabel label2 = new JLabel();            
+        label2.setBounds(20,250, 200,50);
+        pan3.setLayout(new BorderLayout()); 
+
+        String[] nomDisciplines = new String[this.classe.getEcole().getDisciplines().size()];
+        String[] nomEnseignants = new String[this.classe.getEcole().getEnseignants().size()];
+        for(int i= 0; i< this.classe.getEcole().getDisciplines().size(); i++){
+            nomDisciplines[i] = this.classe.getEcole().getDisciplines().get(i).getNom();
+        }
+        for(int i= 0; i< this.classe.getEcole().getEnseignants().size(); i++){
+            nomEnseignants[i] = this.classe.getEcole().getEnseignants().get(i).getNom();
+        }
+        this.discipline = new JComboBox(nomDisciplines);
+        this.enseignant = new JComboBox(nomEnseignants);
+
+        l.setBounds(10,5, 700,100); 
+        l.setFont(new Font("Serif", Font.BOLD, 30)); 
+        dis.setBounds(20,100, 130,30);      
+        ens.setBounds(20,150, 130,30);
+        ajoutEnseignement.setBounds(100,290, 150,30); 
+        retour.setBounds(350,290, 400,60);  
+        discipline.setBounds(140,100, 100,30); 
+        enseignant.setBounds(140,150, 100,30); 
+        error.setBounds(50,350,400,30);
+        error.setForeground(Color.red);
+        error.setFont(new Font("Serif", Font.BOLD, 25));
+        f.add(l); 
+        f.add(l1); 
+        f.add(l2);
+        f.add(discipline);
+        f.add(enseignant);
+        f.add(retour);
+        f.add(ajoutEnseignement);
+
+        f.add(this.error);
+
+
+
+
+
+
+
+        f.setSize(830,730); 
+        f.setBackground(Color.PINK);
+        f.setLayout(null); 
+        f.setLocationRelativeTo(null);
+        f.setVisible(true);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
     }
     

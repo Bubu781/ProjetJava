@@ -15,7 +15,13 @@ public class DetailBulletin {
     private Bulletin bulletin;
     private ArrayList<Evaluation> evals = new ArrayList<Evaluation>();
 
-    
+    /**
+     * Constructeur surchargé
+     * @param connexion
+     * @param id
+     * @param ecole
+     * @throws SQLException 
+     */
     public DetailBulletin(Connexion connexion, int id, Ecole ecole) throws SQLException{
         ArrayList<String> requetes;
         this.id = id;
@@ -24,6 +30,13 @@ public class DetailBulletin {
         this.appreciation = requetes.get(0).substring(0,requetes.get(0).length()-1);
     }
     
+    /**
+     * Constructeur surchargé
+     * @param connexion
+     * @param enseignement
+     * @param ecole
+     * @throws SQLException 
+     */
     public DetailBulletin(Connexion connexion, Enseignement enseignement, Ecole ecole) throws SQLException{
          ArrayList<String> requetes;
         connexion.executeUpdate("INSERT INTO DetailBulletin(enseignement) VALUES("+enseignement+");");
@@ -31,8 +44,17 @@ public class DetailBulletin {
         this.id = Integer.parseInt(requetes.get(0).substring(0, requetes.get(0).length()-1));
         this.enseignement= enseignement;
         this.ecole= ecole;
-        this.display = new DisplayDetailBulletin(this);
+        this.reload();
     }
+    
+    /**
+     * Remplissage du detail bulletin
+     * @param connexion
+     * @param enseignements
+     * @param bulletins
+     * @param evaluations
+     * @throws SQLException 
+     */
     public void remplirClasses(Connexion connexion, ArrayList<Enseignement> enseignements, ArrayList<Bulletin> bulletins, ArrayList<Evaluation> evaluations) throws SQLException{
         ArrayList<String> requetes;
         requetes = connexion.remplirChampsRequete("SELECT enseignement FROM DetailBulletin WHERE Id = '"+this.id+"'");
@@ -60,21 +82,49 @@ public class DetailBulletin {
         this.display = new DisplayDetailBulletin(this);
     }
     
-    public void modifier(String appreciation){
+    /**
+     * Modification 
+     * @param appreciation 
+     */
+    public void modifier(String appreciation) throws SQLException{
+        this.ecole.getConnexion().executeUpdate("UPDATE DetailBulletin SET appreciation = '"+appreciation+"' WHERE id = '"+this.id+"'");
         this.appreciation = appreciation;
+        this.reload();
     }
     
-    public void suppression(){
+    /**
+     * Suppression de detail bulletin
+     */
+    public void suppression() throws SQLException{
+        for(Evaluation eval : this.evals){
+            this.ecole.getConnexion().executeUpdate("DELETE FROM Evaluation WHERE id = '"+eval.getId()+"'");
+        }
         this.evals.removeAll(this.evals);
     }
-   
+    public void reload(){
+        this.display = new DisplayDetailBulletin(this);
+        this.bulletin.reload();
+    }
+    
+    /**
+     * Getter d'appreciation
+     * @return appreciation
+     */
     public String getAppreciation(){
         return this.appreciation;
     }
+    /**
+     * Getter d'id
+     * @return id
+     */
     public int getId(){
         return this.id;
     }
     
+    /**
+     * Fonction affichage detail bulletin
+     * @return affichage
+     */
     public DisplayDetailBulletin getDisplay(){
         return this.display;
     }
@@ -89,12 +139,23 @@ public class DetailBulletin {
         return this.evals;
     }
     
+    /**
+     * Donction d'ajout d'enseignement
+     * @param enseignement 
+     */
     public void ajoutEnseignement(Enseignement enseignement){
         this.enseignement= enseignement;
     }
     
-    public void ajoutEvaluation(Connexion connexion, int note, String appreciation) throws SQLException{
-        Evaluation evaluation= new Evaluation(connexion, appreciation, note, this.ecole);
+    /**
+     * Fonction d'ajout d'evaluation
+     * @param connexion
+     * @param note
+     * @param appreciation
+     * @throws SQLException 
+     */
+    public void ajoutEvaluation(int note, String appreciation) throws SQLException{
+        Evaluation evaluation= new Evaluation(appreciation, note, this.ecole, this);
         evals.add(evaluation);
     }
     

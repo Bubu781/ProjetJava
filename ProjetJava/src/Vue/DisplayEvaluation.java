@@ -15,9 +15,13 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author adrienbuot
+ * @author Admin
  */
 public class DisplayEvaluation extends JPanel{
+    
+    /**
+     * attributs de la classe : initialisation de JPanel
+     */
     Evaluation evaluation;
     JPanel cadreAppreciation = new JPanel();
     JPanel cadreNote = new JPanel();
@@ -25,9 +29,13 @@ public class DisplayEvaluation extends JPanel{
     JLabel appreciation;
     JLabel note;
     
+    /**
+     * affichage graphisme pour l'evaluation avec utilisation d'un container 
+     * @param evaluation 
+     */
     public DisplayEvaluation(Evaluation evaluation){
         this.setLayout(new BorderLayout());
-        setPreferredSize(new Dimension(200,200));
+        setPreferredSize(new Dimension(200,33));
         this.evaluation = evaluation;
         this.appreciation = new JLabel(this.evaluation.getAppreciation());
         this.note = new JLabel(String.valueOf(this.evaluation.getNote()));

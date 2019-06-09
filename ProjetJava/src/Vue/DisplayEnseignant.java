@@ -10,8 +10,11 @@ import static java.awt.BorderLayout.*;
 import java.awt.event.*;
 import java.io.File;
 import static java.lang.Thread.sleep;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.layout.Border;
 import javax.swing.*;
 
@@ -68,7 +71,12 @@ public class DisplayEnseignant extends JFrame implements  ActionListener {
     
     private Enseignant enseignant;
     
-    
+    /**
+     * permet d'afficher tous les details de l'enseignant : son nom, prenom, discipline(s) enseignees, ses classe
+     * ajout d'un bouton pour modifier les donnees de l'enseignant
+     * ajout de boutons pour : aller au menu, retourner à la page précédente et quitter
+     * @param enseignant 
+     */
     public DisplayEnseignant(Enseignant enseignant){
         
     
@@ -175,6 +183,7 @@ public class DisplayEnseignant extends JFrame implements  ActionListener {
        }
        
         else if(arg0.getSource()==this.retour){
+            f.setVisible(false);
            this.enseignant.setVisible(false);
            this.enseignant.getEcole().setVisibleDisplayEnseignants(true);
        }
@@ -186,11 +195,17 @@ public class DisplayEnseignant extends JFrame implements  ActionListener {
        }
        
        else if(arg0.getSource()==this.entrer){
+           f.setVisible(false);
            //this.enseignant.setVisible(false);
            //this.enseignant.getEcole().setVisibleMenu(true);
            String nom =nomtext.getText();
            String prenom=prenomtext.getText();
-           this.enseignant.modifier(nom,prenom);
+           try {
+               System.out.println(nom + prenom);
+               this.enseignant.modifier(nom,prenom);
+           } catch (SQLException ex) {
+               Logger.getLogger(DisplayEnseignant.class.getName()).log(Level.SEVERE, null, ex);
+           }
            
            this.enseignant.setVisible(true);
        }

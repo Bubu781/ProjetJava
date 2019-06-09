@@ -5,10 +5,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Niveau {
+    /**
+     * attributs prives de la classe Niveau
+     */
     private Ecole ecole;
     private int id;
     private String nom;
 
+    /**
+     * Constructeur surchargé
+     * @param connexion
+     * @param id
+     * @param ecole
+     * @throws SQLException 
+     */
     public Niveau(Connexion connexion, int id, Ecole ecole) throws SQLException {
         ArrayList<String> requetes;
         this.id = id;
@@ -17,6 +27,13 @@ public class Niveau {
         this.ecole=ecole;
     }
     
+    /**
+     * Constructeur surchargé
+     * @param connexion
+     * @param nom
+     * @param ecole
+     * @throws SQLException 
+     */
     public Niveau(Connexion connexion, String nom, Ecole ecole) throws SQLException
     {
         ArrayList<String> requetes;
@@ -27,14 +44,28 @@ public class Niveau {
         this.ecole=ecole;
         
     }
-    public void modifier(String nom){
+    
+    /**
+     * modifier le nom
+     * @param nom 
+     */
+    public void modifier(String nom) throws SQLException{
+        this.ecole.getConnexion().executeUpdate("UPDATE Niveau SET nom ='"+nom+"' WHERE id ='"+this.id+"'");
         this.nom = nom;
     }
     
+    /**
+     * getter de l'id
+     * @return id
+     */
     public int getId(){
         return this.id;
     }
     
+    /**
+     * getter du nom
+     * @return nom
+     */
     public String getNom(){
         return this.nom;
     }

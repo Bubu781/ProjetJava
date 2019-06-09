@@ -41,19 +41,28 @@ public class DisplayEleve extends JFrame implements  ActionListener {
     private ArrayList<JButton> supprimer= new ArrayList <JButton>();
     private Eleve eleve;
     
+      private JButton entrer = new JButton("ENTRER");
+    
     
     private JLabel l=new JLabel("MODIFICATION DES INFORMATIONS:");
-        private JLabel l1=new JLabel("Nom de la classe:");  
-        private JLabel l2=new JLabel("Niveau:"); 
+        private JLabel l1=new JLabel("Nom eleve:");  
+        private JLabel l2=new JLabel("Prenom eleve :"); 
         private JLabel l3=new JLabel("Annee scolaire:"); 
         private JLabel error = new JLabel("");
-        private JTextField nomclasse= new JTextField();
-	private JTextField niveau = new JTextField();
+        private JTextField nomtext= new JTextField();
+	private JTextField prenomtext = new JTextField();
         private JTextField anneescolaire = new JTextField(); 
         
      
         private JFrame f=new JFrame("Modifier");
         private JButton bouton = new JButton("MODFIER");
+        
+        /**
+         * permet d'afficher tous les details de l'eleve : son nom, prenom,son niveau, l'annee scolaire et sa classe
+         * ajout d'un bouton pour modifier les donnees de l'eleve
+         * ajout de boutons pour : aller au menu, retourner à la page précédente et quitter
+         * @param eleve 
+         */
     public DisplayEleve(Eleve eleve){
        this.eleve =eleve; 
     
@@ -148,27 +157,29 @@ public class DisplayEleve extends JFrame implements  ActionListener {
         
     }
     
+    /**
+     * fonction permet d'afficher une page graphique pour modifier les infos concernant un eleve 
+     */
      private void modifier() {
-        setTitle("MODIFICICATION"); 
-		setSize(830,730); 
+               
+          setTitle("MODIFICICATION"); 
+         setSize(830,730); 
 		setLocationRelativeTo(null); 
 		setResizable(false); 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
                  
                  this.quitter.addActionListener(this);
-                  this.bouton.addActionListener(this);
+                  this.entrer.addActionListener(this);
                   this.retour.addActionListener(this);
 		JPanel panel2 = new JPanel();
                 final JLabel label2 = new JLabel();            
                 label2.setBounds(20,250, 200,50);
                 pan3.setLayout(new BorderLayout()); 
+               this.nomtext.setText(this.eleve.getNom()+"   ");
+               this.prenomtext.setText(this.eleve.getPrenom()+"   ");
+               
                 
-               this.nomclasse.setText(this.eleve.getInscription().getClasse().getNom()+"   ");
-               this.niveau.setText(this.eleve.getInscription().getClasse().getNiveau().getNom()+"   ");
-               this.anneescolaire.setText(this.eleve.getInscription().getClasse().getAnneeScolaire().getAnnee()+"   ");
-               //this.discipline.setText(enseignement.getDiscipline().getNom()+"   ");
-                
-                
+                   
         
     
        
@@ -181,23 +192,22 @@ public class DisplayEleve extends JFrame implements  ActionListener {
            
         l3.setBounds(20,200, 130,30);
           
-        bouton.setBounds(100,290, 150,30); 
+        entrer.setBounds(100,290, 150,30); 
         retour.setBounds(350,290, 400,60);  
-        nomclasse.setBounds(140,100, 100,30); 
-        niveau.setBounds(140,150, 100,30); 
-        anneescolaire.setBounds(140,200, 100,30); 
+        nomtext.setBounds(140,100, 100,30); 
+        prenomtext.setBounds(140,150, 100,30); 
         error.setBounds(50,350,400,30);
         error.setForeground(Color.red);
         error.setFont(new Font("Serif", Font.BOLD, 25));
                 f.add(l); 
                 f.add(l1); 
                 f.add(l2);
-                f.add(nomclasse);
-                f.add(l3);
-                f.add(niveau);
-                f.add(anneescolaire);
+                f.add(nomtext);
+               // f.add(l3);
+                f.add(prenomtext);
+                //f.add(discipline);
                 f.add(retour);
-                f.add(bouton);
+                f.add(entrer);
                 
                 f.add(this.error);
                
@@ -213,9 +223,21 @@ public class DisplayEleve extends JFrame implements  ActionListener {
                 f.setLocationRelativeTo(null);
                 f.setVisible(true);
         
+                
+             
+               //this.discipline.setText(enseignement.getDiscipline().getNom()+"   ");
+                
+                
+        
+    
+       
+        
     }
      
      @Override
+     /**
+      * fonction qui permet de réaliser des actions quand on clique sur les boutons 
+      */
     public void actionPerformed(ActionEvent arg0) {      
        if(arg0.getSource()==this.quitter)
         {
@@ -238,6 +260,7 @@ public class DisplayEleve extends JFrame implements  ActionListener {
            
        }
         else if(arg0.getSource()==this.retour){
+            f.setVisible(false);
            this.eleve.setVisible(false);
            this.eleve.getEcole().setVisibleDisplayEleves(true);
        }

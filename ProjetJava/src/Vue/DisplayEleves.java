@@ -19,6 +19,8 @@ import static java.lang.Thread.sleep;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.layout.Border;
 import javax.swing.*;
 
@@ -58,14 +60,20 @@ public class DisplayEleves extends JFrame implements  ActionListener{
         private JLabel error = new JLabel("");
         private JTextField nomtext= new JTextField();
         private JTextField prenomtext= new JTextField();
-        private JTextField nomclasse= new JTextField();
-	private JTextField niveau = new JTextField();
-        private JTextField anneescolaire = new JTextField(); 
+        private JComboBox classe;
+        private JLabel niveau;
+        private JLabel annee;
         
      
         private JFrame f=new JFrame("AJOUT");
         private JButton bouton = new JButton("AJOUTER");
         
+        
+         /**
+         * permet l'affichage d'une page graphique qui liste tous les eleves de l'ecole avec un bouton permet d'accéder à plus d'infos sur l'eleve et un autre pour supprimer un eleve
+         * un bouton pour ajouter un eleve est egalement present, et des boutons permettant de quitter et retourner au menu sont ajoutées
+         * @param ecole 
+         */
     public DisplayEleves(Ecole ecole){
         this.ecole = ecole;
     
@@ -156,22 +164,47 @@ public class DisplayEleves extends JFrame implements  ActionListener{
         
         
     }
+    /**
+     * fonction qui permet d'afficher une page graphique pour saisir toutes les donnees de l'eleve à ajouter
+     */
+  
      private void ajouter()
     {
         setTitle("AJOUTER"); 
-		setSize(830,730); 
-		setLocationRelativeTo(null); 
-		setResizable(false); 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-                 
-                 this.quitter.addActionListener(this);
-                  this.bouton.addActionListener(this);
-                  this.retour2.addActionListener(this);
-                  this.menu.addActionListener(this);
-		JPanel panel2 = new JPanel();
-                final JLabel label2 = new JLabel();            
-                label2.setBounds(20,250, 200,50);
-                pan3.setLayout(new BorderLayout()); 
+        setSize(830,730); 
+        setLocationRelativeTo(null); 
+        setResizable(false); 
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+        String[] nomClasse = new String[this.ecole.getClasses().size()];
+        for(int i = 0; i<this.ecole.getClasses().size(); i++){
+            nomClasse[i] = this.ecole.getClasses().get(i).getNom();
+        }
+        this.niveau = new JLabel(this.ecole.getClasses().get(0).getNiveau().getNom());
+        this.annee = new JLabel(String.valueOf(this.ecole.getClasses().get(0).getAnneeScolaire().getAnnee()));
+        this.classe = new JComboBox(nomClasse);
+        this.classe.addItemListener((ItemEvent e) -> {
+            int stateChange = e.getStateChange();
+            if(stateChange == 1){
+                Object objClasse = this.classe.getSelectedItem();
+                Classe classe = this.ecole.getClasses().get(0);
+                for(Classe c : this.ecole.getClasses()){
+                    if(c.getNom()==objClasse.toString()){
+                        classe = c;
+                        break;
+                    }
+                }
+                this.niveau.setText(classe.getNiveau().getNom());
+                this.annee.setText(String.valueOf(classe.getAnneeScolaire().getAnnee()));
+            }
+        });
+        this.quitter.addActionListener(this);
+        this.bouton.addActionListener(this);
+        this.retour2.addActionListener(this);
+        this.menu.addActionListener(this);
+        JPanel panel2 = new JPanel();
+        final JLabel label2 = new JLabel();            
+        label2.setBounds(20,250, 200,50);
+        pan3.setLayout(new BorderLayout()); 
                
                    
         
@@ -189,26 +222,26 @@ public class DisplayEleves extends JFrame implements  ActionListener{
         l5.setBounds(20,300, 130,30);
           
         bouton.setBounds(100,350, 150,30); 
-        retour2.setBounds(350,350, 400,60);  
-        nomclasse.setBounds(140,100, 100,30); 
-        niveau.setBounds(140,150, 100,30); 
-        anneescolaire.setBounds(140,200, 100,30); 
-        nomtext.setBounds(140,250, 100,30);
-        prenomtext.setBounds(140,300, 100,30);
+        retour2.setBounds(350,350, 400,60); 
+        nomtext.setBounds(140,100, 100,30);
+        prenomtext.setBounds(140,150, 100,30);
+        annee.setBounds(140,200, 100,30); 
+        classe.setBounds(140,250, 100,30); 
+        niveau.setBounds(140,300, 100,30);  
         error.setBounds(50,350,400,30);
         error.setForeground(Color.red);
         error.setFont(new Font("Serif", Font.BOLD, 25));
                 f.add(l); 
                 f.add(l1); 
-                f.add(l2);
                 f.add(nomtext);
-                f.add(l3);
+                f.add(l2);
                 f.add(prenomtext);
+                f.add(l3);
+                f.add(annee);
                 f.add(l4);
-                f.add(nomclasse);
+                f.add(classe);
                 f.add(l5);
                 f.add(niveau);
-                f.add(anneescolaire);
                 f.add(retour2);
                 f.add(bouton);
                 
@@ -225,10 +258,15 @@ public class DisplayEleves extends JFrame implements  ActionListener{
                 f.setLayout(null); 
                 f.setLocationRelativeTo(null);
                 f.setVisible(true);
+                f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
     
     }
     
+     /**
+      * cette fonction permet de realiser des actions lorqu'on clique sur les boutons 
+      * @param arg0 
+      */
      @Override
     public void actionPerformed(ActionEvent arg0) {      
        if(arg0.getSource()==this.quitter)
@@ -253,7 +291,23 @@ public class DisplayEleves extends JFrame implements  ActionListener{
        
        else if(arg0.getSource()==this.retour2){
            this.ecole.setVisibleDisplayEleves(true);
-       }
+       }else if(arg0.getSource()==this.bouton){
+            f.setVisible(false);
+            Classe classe = this.ecole.getClasses().get(0);
+            Object objClasse = this.classe.getSelectedItem();
+            for(Classe c : this.ecole.getClasses()){
+                if(c.getNom().equals(objClasse.toString())){
+                    classe = c;
+                    break;
+                }
+            }
+           try {
+               this.ecole.ajoutEleve(this.nomtext.getText(), this.prenomtext.getText(), classe);
+           } catch (SQLException ex) {
+               Logger.getLogger(DisplayEleves.class.getName()).log(Level.SEVERE, null, ex);
+           }
+           this.ecole.setVisibleDisplayEleves(true);
+        }
        
         
       
@@ -261,6 +315,16 @@ public class DisplayEleves extends JFrame implements  ActionListener{
            if(arg0.getSource()==this.rechercher.get(i)){
                 this.ecole.getEleve(i).setVisible(true);
                 this.ecole.setVisibleDisplayEleves(false);
+           }
+       }
+       for(int i=0; i<this.supprimer.size();i++){
+           if(arg0.getSource()==this.supprimer.get(i)){
+               this.setVisible(false);
+               try {
+                   this.ecole.supprimerEleve(this.ecole.getEleve(i));
+               } catch (SQLException ex) {
+                   Logger.getLogger(DisplayEleves.class.getName()).log(Level.SEVERE, null, ex);
+               }
            }
        }
       

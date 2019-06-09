@@ -6,6 +6,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Trimestre {
+    /**
+     * attributs prives de la classe Trimestre
+     */
     private Ecole ecole;
     private int id;
     private int numero;
@@ -13,7 +16,13 @@ public class Trimestre {
     private String debut;
     private String fin;
     
-    
+    /**
+     * Constructeur surchargé
+     * @param connexion
+     * @param id
+     * @param ecole
+     * @throws SQLException 
+     */
     public Trimestre(Connexion connexion, int id, Ecole ecole) throws SQLException{
         ArrayList<String> requetes;
         this.id = id;
@@ -25,6 +34,24 @@ public class Trimestre {
         requetes = connexion.remplirChampsRequete("SELECT fin FROM Trimestre WHERE id='"+id+"'");
         this.fin = requetes.get(0).substring(0,requetes.get(0).length()-1);
     }
+
+    public Trimestre(Connexion connexion, int numero, AnneeScolaire annee, String debut, String fin, Ecole ecole) throws SQLException {
+        ArrayList<String> requetes;
+        connexion.executeUpdate("INSERT INTO Trimestre(Numero, Debut, Fin, annee_scolaire) VALUES("+numero+",'"+debut+"','"+fin+"',"+annee.getId()+')');
+        requetes = connexion.remplirChampsRequete("SELECT Id FROM Trimestre WHERE numero = '"+numero+"' AND debut = '"+debut+"' AND fin = '"+fin+"' AND annee_scolaire = '"+annee.getId()+"'");
+        this.id = Integer.parseInt(requetes.get(0).substring(0,requetes.get(0).length()-1));
+        this.numero = numero;
+        this.annee = annee;
+        this.debut = debut;
+        this.fin = fin;
+        this.ecole = ecole;
+    }
+    /**
+     * Remplissage d'un trimestre dans la BDD
+     * @param connexion
+     * @param annees
+     * @throws SQLException 
+     */
     public void remplirClasses(Connexion connexion, ArrayList<AnneeScolaire> annees) throws SQLException{
         ArrayList<String> requetes;
         requetes = connexion.remplirChampsRequete("SELECT annee_scolaire FROM Trimestre WHERE Id = '"+this.id+"'");
@@ -36,26 +63,56 @@ public class Trimestre {
         }
     }
     
-    public void modifier(String debut, String fin, AnneeScolaire annee, int numero){
+    /**
+     * modifie les dates de debuts et fin de l'année, l'année scolaire et le numero
+     * @param debut
+     * @param fin
+     * @param annee
+     * @param numero 
+     */
+    public void modifier(String debut, String fin, AnneeScolaire annee, int numero) throws SQLException{
+        this.ecole.getConnexion().executeUpdate("UPDATE Trimestre SET debut ='"+debut+"', fin= '"+fin+"', annee = '"+annee.getId()+"', numero ='"+numero+"' WHERE id='"+this.id+"'");
         this.debut = debut;
         this.fin = fin;
         this.annee = annee;
         this.numero = numero;
     }
     
+    /**
+     * getter de l'annee scolaire
+     * @return l'annee scolaire
+     */
     public AnneeScolaire getAnneeScolaire(){
         return this.annee;
     }
     
+    /**
+     * getter de l'id
+     * @return id
+     */
      public int getId(){
         return this.id;
     }
+     
+     /**
+      * getter du numero
+      * @return numero
+      */
     public int getNumero(){
         return this.numero;
     }
+    /**
+     * getter des dates de debut de l'annee
+     * @return debut
+     */
     public String getDebut(){
         return this.debut;
     }
+    
+    /**
+     * getter des dates de fin de l'annee
+     * @return 
+     */
     public String getFin(){
         return this.fin;
     }

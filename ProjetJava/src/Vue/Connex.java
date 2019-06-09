@@ -30,7 +30,7 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author Mathilde
+ * @author Admin 
  */
 public class Connex extends JFrame implements  ActionListener{
        private JTextField serveur_base= new JTextField();
@@ -46,18 +46,36 @@ public class Connex extends JFrame implements  ActionListener{
         private JTextField login = new JTextField(); 
         private JPasswordField password = new JPasswordField(); 
 
-	//...
+
+        /**
+         * Constructeur
+         */
 public Connex(){
                  super();
             
 		build();
 }
+
+/**
+ * fonction qui permet d'afficher la page graphique de connexion
+ * zone de saisi de quatre paremetres : nom du serveur de la base,nom de la base, login et mdp et egalement deux boutons : un pour entrer et l'autre quitter
+ */
 private void build(){
                
-		setTitle("CONNEXION"); 
+		setTitle("CONNEXION");
+                /**
+                 * taille de la fenetre
+                 */
 		setSize(830,730); 
+                /**
+                 * on met la fenetre graphique au centre
+                 */
 		setLocationRelativeTo(null); 
 		setResizable(false); 
+                
+                /**
+                 * on peut quitter si on clique sur la croix
+                 */
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 		JPanel panel2 = new JPanel();
                 final JLabel label2 = new JLabel();            
@@ -65,7 +83,9 @@ private void build(){
                 this.nom_base.setText("school");
                 this.login.setText("root");
       
-       
+       /**
+        * on place les textes, les zones de saisi, le titre de la page et les boutons grâce à des coordonnées sur notre fênetre
+        */
      password.setBounds(140,250,100,30);  
          
         l.setBounds(10,5, 700,100); 
@@ -83,9 +103,15 @@ private void build(){
         nom_base.setBounds(140,150, 100,30); 
         login.setBounds(140,200, 100,30); 
         error.setBounds(50,350,400,30);
+        /**
+         * on cree un texte pour afficher un message en rouge et de couleur rouge
+         */
         error.setForeground(Color.red);
         error.setFont(new Font("Serif", Font.BOLD, 25));
         
+        /**
+         * on ajoute tous nos boutons, nos textes et zones de saisi
+         */
                 f.add(l);
                 f.add(password); 
                 f.add(l1); 
@@ -99,27 +125,51 @@ private void build(){
                 f.add(serveur_base);
                 f.add(this.error);
                 
+                /**
+                 * permet de savoir quand on clique sur le bouton quitter et le bouton qui permet d'entrer
+                 */
                  this.quitter.addActionListener(this);
                   this.bouton.addActionListener(this);
+                  /**
+                   * taille de la fenetre
+                   */
 		f.setSize(830,730); 
                 f.setBackground(Color.PINK);
                 f.setLayout(null); 
+                 /**
+                 * on met la fenetre graphique au centre
+                 */
                 f.setLocationRelativeTo(null);
+                /**
+                 * on affiche la fenetre
+                 */
                 f.setVisible(true);
 	}
 
 	
- 
+        /**
+         * getter du serveur de la base entre par l'utilisateur
+         * @return serveur_base
+         */
 	public JTextField getServeurBase(){
 		return serveur_base;
 	}
- 
+        
+        /**
+         * getter du nom de la base entre par l'utilisateur
+         * @return nom_base
+         */
 	public JTextField getNomBase(){
 		return nom_base;
 	}
 
    
      @Override
+     /**
+      * cette fonction permet de realiser des actions lorqu'on clique sur les boutons 
+      * Exemple : quand on clique sur quitter la fenetre se ferme 
+      * 2 eme exemple : quand on clique sur entrer mais que l'utilisateur n'a rempli aucune donnee de saisi, on affiche un message d'erreur
+      */
      public void actionPerformed(ActionEvent arg0) {
         if(arg0.getSource()==this.quitter)
         {
