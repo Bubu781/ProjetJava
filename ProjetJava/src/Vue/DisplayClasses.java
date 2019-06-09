@@ -15,8 +15,11 @@ import static java.awt.BorderLayout.*;
 import java.awt.event.*;
 import java.io.File;
 import static java.lang.Thread.sleep;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.layout.Border;
 import javax.swing.*;
 
@@ -55,8 +58,8 @@ public class DisplayClasses extends JFrame implements  ActionListener{
         private JLabel l3=new JLabel("Annee:");
         private JLabel error = new JLabel("");
         private JTextField nomclasse= new JTextField();
-        private JTextField niveau= new JTextField();
-        private JTextField annee = new JTextField(); 
+        private JComboBox niveau;
+        private JComboBox annee; 
         
      
         private JFrame f=new JFrame("LOGIN");
@@ -164,25 +167,28 @@ public class DisplayClasses extends JFrame implements  ActionListener{
      private void ajouter()
     {
         setTitle("AJOUTER"); 
-		setSize(830,730); 
-		setLocationRelativeTo(null); 
-		setResizable(false); 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-                 
-                 this.quitter.addActionListener(this);
-                  this.bouton.addActionListener(this);
-                  this.retour2.addActionListener(this);
-		JPanel panel2 = new JPanel();
-                final JLabel label2 = new JLabel();            
-                label2.setBounds(20,250, 200,50);
-                pan3.setLayout(new BorderLayout()); 
-               
-                   
+        setSize(830,730); 
+        setLocationRelativeTo(null); 
+        setResizable(false); 
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+        String[] nomNiveau = new String[this.ecole.getNiveaux().size()];
+        String[] nomAnnee = new String[this.ecole.getAnnees().size()];
+        for(int i=0; i<this.ecole.getNiveaux().size(); i++){
+            nomNiveau[i] = this.ecole.getNiveaux().get(i).getNom();
+        }
+        this.niveau = new JComboBox(nomNiveau);
+        for(int i=0; i<this.ecole.getAnnees().size(); i++){
+            nomAnnee[i] = String.valueOf(this.ecole.getAnnees().get(i).getAnnee());
+        }
+        this.annee = new JComboBox(nomAnnee);
+        this.quitter.addActionListener(this);
+        this.bouton.addActionListener(this);
+        this.retour2.addActionListener(this);
+        JPanel panel2 = new JPanel();
+        final JLabel label2 = new JLabel();            
+        label2.setBounds(20,250, 200,50);
+        pan3.setLayout(new BorderLayout()); 
         
-    
-       
- 
-         
         l.setBounds(10,5, 700,100); 
         l.setFont(new Font("Serif", Font.BOLD, 30)); 
         l1.setBounds(20,100, 130,30);      
@@ -210,12 +216,6 @@ public class DisplayClasses extends JFrame implements  ActionListener{
                 
                 f.add(this.error);
                
-                  
-             
-        
-
-       
-        
 		f.setSize(830,730); 
                 f.setBackground(Color.PINK);
                 f.setLayout(null); 
@@ -252,6 +252,31 @@ public class DisplayClasses extends JFrame implements  ActionListener{
            this.ecole.setVisibleMenu(true);
        }
        else if(arg0.getSource()==this.retour2){
+           this.setVisible(false);
+           this.ecole.setVisibleDisplayClasses(true);
+       }else if(arg0.getSource() == this.bouton){
+           Object objNiveau = this.niveau.getSelectedItem();
+           Object objAnnee = this.annee.getSelectedItem();
+           Niveau n = this.ecole.getNiveaux().get(0);
+           AnneeScolaire a = this.ecole.getAnnees().get(0);
+           for(Niveau niveau : this.ecole.getNiveaux()){
+               if(niveau.getNom() == objNiveau.toString()){
+                   n = niveau;
+                   break;
+               }
+           }
+           for(AnneeScolaire annee : this.ecole.getAnnees()){
+               if(String.valueOf(annee.getAnnee()) == objAnnee.toString()){
+                   a = annee;
+                   break;
+               }
+           }
+           try {
+               this.ecole.ajoutClasse(this.nomclasse.getText(), n, a);
+           } catch (SQLException ex) {
+               Logger.getLogger(DisplayClasses.class.getName()).log(Level.SEVERE, null, ex);
+           }
+           this.setVisible(false);
            this.ecole.setVisibleDisplayClasses(true);
        }
        for(int i=0; i<this.rechercher.size();i++){

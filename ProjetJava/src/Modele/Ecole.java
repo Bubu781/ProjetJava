@@ -178,9 +178,14 @@ public class Ecole {
      * @param nom
      * @throws SQLException 
      */
-    public void ajouterNiveau(String nom) throws SQLException{
+    public void ajoutNiveau(String nom) throws SQLException{
         Niveau niveau= new Niveau(this.connexion, nom, this);
         this.niveaux.add(niveau);
+    }
+    
+    public void ajoutClasse(String nom, Niveau niveau, AnneeScolaire annee) throws SQLException{
+        this.classes.add(new Classe(this.connexion, nom, niveau, annee, this));
+        this.reloadClasses();
     }
     /**
      * Suppression d'un eleve
@@ -218,6 +223,18 @@ public class Ecole {
      */
     public void modifier(String nom){
         this.nom = nom;
+    }
+    
+    public void reloadClasses(){
+        this.displayClasses = new DisplayClasses(this);
+    }
+    
+    public void reloadEleves(){
+        this.displayEleves = new DisplayEleves(this);
+    }
+    
+    public void reloadEnseignants(){
+        this.displayEnseignants = new DisplayEnseignants(this);
     }
     /**
      * Affichage de collection d'eleves
@@ -315,6 +332,13 @@ public class Ecole {
     }
     public Connexion getConnexion(){
         return this.connexion;
+    }
+    
+    public ArrayList<Niveau> getNiveaux(){
+        return this.niveaux;
+    }
+    public ArrayList<AnneeScolaire> getAnnees(){
+        return this.annees;
     }
     
 }

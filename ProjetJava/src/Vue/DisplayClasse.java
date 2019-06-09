@@ -189,17 +189,13 @@ public class DisplayClasse extends JFrame implements  ActionListener {
             System.exit(0);
         }
        else if(arg0.getSource()==this.menu){
-           
-           //this.ecole.setVisibleMenu(true);
+           this.setVisible(false);
+           this.classe.getEcole().setVisibleMenu(true);
        }
        
         else if(arg0.getSource()==this.retour){
-           //this.ecole.setVisibleDisplayEnseignant(false);
-           //this.ecole.setVisibleMenu(true);
-       }
-        else if(arg0.getSource()==this.retour){
-           //this.ecole.setVisibleDisplayEnseignant(false);
-           //this.ecole.setVisibleMenu(true);
+           this.setVisible(false);
+           this.classe.setVisible(true);
        }
        else if(arg0.getSource()==this.modifier){
            //this.ecole.setVisibleDisplayEnseignant(false);
