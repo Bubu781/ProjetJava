@@ -51,7 +51,7 @@ public class Evaluation {
         this.ecole=ecole;
         this.appreciation=appreciation;
         this.note=note;
-        
+        this.reload();
     }
     
     /**
@@ -75,9 +75,16 @@ public class Evaluation {
      * @param note
      * @param appreciation 
      */
-    public void modifier(int note, String appreciation){
+    public void modifier(int note, String appreciation) throws SQLException{
+        this.ecole.getConnexion().executeUpdate("UPDATE Evaluation SET note ='"+note+"', appreciation ='"+appreciation+"' WHERE id = '"+this.id+"'");
         this.note = note;
         this.appreciation = appreciation;
+        this.reload();
+    }
+    
+    public void reload(){
+        this.display = new DisplayEvaluation(this);
+        this.detail.reload();
     }
     /**
      * Affichage de l'évaluation

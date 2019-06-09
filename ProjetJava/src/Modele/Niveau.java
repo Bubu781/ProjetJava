@@ -49,7 +49,8 @@ public class Niveau {
      * modifier le nom
      * @param nom 
      */
-    public void modifier(String nom){
+    public void modifier(String nom) throws SQLException{
+        this.ecole.getConnexion().executeUpdate("UPDATE Niveau SET nom ='"+nom+"' WHERE id ='"+this.id+"'");
         this.nom = nom;
     }
     

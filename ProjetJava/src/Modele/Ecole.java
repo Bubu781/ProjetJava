@@ -178,16 +178,22 @@ public class Ecole {
      * @param nom
      * @throws SQLException 
      */
-    public void ajouterNiveau(String nom) throws SQLException{
+    public void ajoutNiveau(String nom) throws SQLException{
         Niveau niveau= new Niveau(this.connexion, nom, this);
         this.niveaux.add(niveau);
+    }
+    
+    public void ajoutClasse(String nom, Niveau niveau, AnneeScolaire annee) throws SQLException{
+        this.classes.add(new Classe(this.connexion, nom, niveau, annee, this));
+        this.reloadClasses();
     }
     /**
      * Suppression d'un eleve
      * @param eleve 
      */
-    public void supprimerEleve(Eleve eleve){
+    public void supprimerEleve(Eleve eleve) throws SQLException{
         eleve.suppression();
+        this.connexion.executeUpdate("DELETE FROM Eleve WHERE id ='"+eleve.getId()+"'");
         eleve = null;
     }
     
@@ -195,8 +201,9 @@ public class Ecole {
      * suppression d'un enseignant
      * @param enseignant 
      */
-    public void supprimerEnseignant(Enseignant enseignant){
+    public void supprimerEnseignant(Enseignant enseignant) throws SQLException{
         enseignant.suppression();
+        this.connexion.executeUpdate("DELETE FROM Enseignant WHERE id ='"+enseignant.getId()+"'");
         enseignant = null;
     }
     
@@ -204,8 +211,9 @@ public class Ecole {
      * Suppression de classe
      * @param classe 
      */
-    public void supprimerClasse(Classe classe){
+    public void supprimerClasse(Classe classe) throws SQLException{
         classe.suppression();
+        this.connexion.executeUpdate("DELETE FROM Classe WHERE id ='"+classe.getId()+"'");
         classe = null;
     }
     
@@ -215,6 +223,18 @@ public class Ecole {
      */
     public void modifier(String nom){
         this.nom = nom;
+    }
+    
+    public void reloadClasses(){
+        this.displayClasses = new DisplayClasses(this);
+    }
+    
+    public void reloadEleves(){
+        this.displayEleves = new DisplayEleves(this);
+    }
+    
+    public void reloadEnseignants(){
+        this.displayEnseignants = new DisplayEnseignants(this);
     }
     /**
      * Affichage de collection d'eleves
@@ -310,6 +330,15 @@ public class Ecole {
     public String getNom(){
         return this.nom;
     }
-
+    public Connexion getConnexion(){
+        return this.connexion;
+    }
+    
+    public ArrayList<Niveau> getNiveaux(){
+        return this.niveaux;
+    }
+    public ArrayList<AnneeScolaire> getAnnees(){
+        return this.annees;
+    }
     
 }

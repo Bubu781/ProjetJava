@@ -80,9 +80,10 @@ public class Inscription {
     /**
      * Suppression d'un bulletin
      */
-    public void suppression(){
+    public void suppression() throws SQLException{
         for(Bulletin bulletin : this.bulletins){
             bulletin.suppression();
+            this.ecole.getConnexion().executeUpdate("DELETE FROM Bulletin WHERE id='"+bulletin.getId()+"'");
         }
         this.bulletins.removeAll(this.bulletins);
     }

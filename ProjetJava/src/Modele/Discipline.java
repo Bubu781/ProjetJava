@@ -29,7 +29,8 @@ public class Discipline {
      * Modification
      * @param nom 
      */
-    public void modifier(String nom){
+    public void modifier(String nom) throws SQLException{
+        this.ecole.getConnexion().executeUpdate("UPDATE Discipline SET nom = '"+nom+"' WHERE Id = '"+this.id+"'");
         this.nom = nom;
     }
     

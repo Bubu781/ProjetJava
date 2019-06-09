@@ -64,8 +64,15 @@ public class Enseignant extends Personne {
     /**
      * Suppression d'un enseignant dans une ecole
      */
-    public void suppression(){
+    public void suppression() throws SQLException{
+        for(Enseignement enseignement : this.enseignements){
+            this.ecole.getConnexion().executeUpdate("DELETE FROM Enseignement WHERE id = '"+enseignement.getId()+"'");
+        }
         this.enseignements.removeAll(this.enseignements);
+    }
+    @Override
+    public void reload(){
+        this.display = new DisplayEnseignant(this);
     }
    
     /**

@@ -31,6 +31,18 @@ public class Classe {
         this.nom = requetes.get(0).substring(0,requetes.get(0).length()-1);
     }
     
+    public Classe(Connexion connexion, String nom, Niveau niveau, AnneeScolaire annee, Ecole ecole) throws SQLException{
+        ArrayList<String> requetes;
+        connexion.executeUpdate("INSERT INTO Classe(nom, ecole, niveau, annee_scolaire) VALUES('"+nom+"',1,"+String.valueOf(niveau.getId())+","+String.valueOf(annee.getId())+")");
+        requetes = connexion.remplirChampsRequete("SELECT Id FROM Classe WHERE nom='"+nom+"' AND niveau ='"+String.valueOf(niveau.getId())+"' AND annee_scolaire = '"+String.valueOf(annee.getId())+"'");
+        this.id = parseInt(requetes.get(0).substring(0,requetes.get(0).length()-1));
+        this.ecole = ecole;
+        this.nom = nom;
+        this.niveau = niveau;
+        this.annee = annee;
+        this.reload();
+    }
+    
     /**
      * Fonction de remplissage des classes d'apres la BDD
      * @param connexion
@@ -81,10 +93,12 @@ public class Classe {
      * @param annee
      * @param niveau 
      */
-    public void modifier(String nom, AnneeScolaire annee, Niveau niveau){
+    public void modifier(String nom, AnneeScolaire annee, Niveau niveau) throws SQLException{
+        this.ecole.getConnexion().executeUpdate("UPDATE Classe SET nom = '"+nom+"', annee = '"+annee.getId()+"', niveau = '"+niveau.getId()+"' WHERE id = '"+this.id+"'");
         this.nom = nom;
         this.annee = annee;
         this.niveau = niveau;
+        this.reload();
     }
     
     /**
@@ -106,12 +120,17 @@ public class Classe {
     /**
      * Fonction de suppression d'une classe
      */
-    public void suppression(){
+    public void suppression() throws SQLException{
         for(Inscription inscription : this.inscriptions){
             inscription.suppression();
+            this.ecole.getConnexion().executeUpdate("DELETE FROM Inscription WHERE id = '"+inscription.getId()+"'");
         }
         this.inscriptions.removeAll(this.inscriptions);
         this.enseignements.removeAll(this.enseignements);
+    }
+    
+    public void reload(){
+        this.display = new DisplayClasse(this);
     }
     /**
      * Geter de id

@@ -58,7 +58,8 @@ public class Trimestre {
      * @param annee
      * @param numero 
      */
-    public void modifier(String debut, String fin, AnneeScolaire annee, int numero){
+    public void modifier(String debut, String fin, AnneeScolaire annee, int numero) throws SQLException{
+        this.ecole.getConnexion().executeUpdate("UPDATE Trimestre SET debut ='"+debut+"', fin= '"+fin+"', annee = '"+annee.getId()+"', numero ='"+numero+"' WHERE id='"+this.id+"'");
         this.debut = debut;
         this.fin = fin;
         this.annee = annee;
