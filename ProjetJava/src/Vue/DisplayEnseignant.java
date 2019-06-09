@@ -183,6 +183,7 @@ public class DisplayEnseignant extends JFrame implements  ActionListener {
        }
        
         else if(arg0.getSource()==this.retour){
+            f.setVisible(false);
            this.enseignant.setVisible(false);
            this.enseignant.getEcole().setVisibleDisplayEnseignants(true);
        }
@@ -194,6 +195,7 @@ public class DisplayEnseignant extends JFrame implements  ActionListener {
        }
        
        else if(arg0.getSource()==this.entrer){
+           f.setVisible(false);
            //this.enseignant.setVisible(false);
            //this.enseignant.getEcole().setVisibleMenu(true);
            String nom =nomtext.getText();

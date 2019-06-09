@@ -181,6 +181,7 @@ public class DisplayEnseignants extends JFrame implements  ActionListener{
            this.ecole.setVisibleMenu(true);
        }
        else if(arg0.getSource()==this.retour2){
+           f.setVisible(false);
            this.ecole.setVisibleDisplayEnseignants(true);
        }else if(arg0.getSource()==this.bouton){
            f.setVisible(false);

@@ -260,6 +260,7 @@ public class DisplayEleve extends JFrame implements  ActionListener {
            
        }
         else if(arg0.getSource()==this.retour){
+            f.setVisible(false);
            this.eleve.setVisible(false);
            this.eleve.getEcole().setVisibleDisplayEleves(true);
        }

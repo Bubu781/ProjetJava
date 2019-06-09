@@ -83,6 +83,8 @@ public class DisplayClasse extends JFrame implements  ActionListener {
         this.quitter.addActionListener(this);
         this.modifier.addActionListener(this);
         this.ajouter.addActionListener(this);
+        this.menu.addActionListener(this);
+        this.retour.addActionListener(this);
         /**
          * titre en haut de la page graphique
          */
@@ -209,8 +211,9 @@ public class DisplayClasse extends JFrame implements  ActionListener {
        }
        
         else if(arg0.getSource()==this.retour){
+           f.setVisible(false);
            this.setVisible(false);
-           this.classe.setVisible(true);
+           this.classe.getEcole().setVisibleDisplayClasses(true);
        }
        else if(arg0.getSource()==this.modifier){
            //this.ecole.setVisibleDisplayEnseignant(false);
