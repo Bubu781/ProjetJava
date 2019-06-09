@@ -186,8 +186,9 @@ public class Ecole {
      * Suppression d'un eleve
      * @param eleve 
      */
-    public void supprimerEleve(Eleve eleve){
+    public void supprimerEleve(Eleve eleve) throws SQLException{
         eleve.suppression();
+        this.connexion.executeUpdate("DELETE FROM Eleve WHERE id ='"+eleve.getId()+"'");
         eleve = null;
     }
     
@@ -195,8 +196,9 @@ public class Ecole {
      * suppression d'un enseignant
      * @param enseignant 
      */
-    public void supprimerEnseignant(Enseignant enseignant){
+    public void supprimerEnseignant(Enseignant enseignant) throws SQLException{
         enseignant.suppression();
+        this.connexion.executeUpdate("DELETE FROM Enseignant WHERE id ='"+enseignant.getId()+"'");
         enseignant = null;
     }
     
@@ -204,8 +206,9 @@ public class Ecole {
      * Suppression de classe
      * @param classe 
      */
-    public void supprimerClasse(Classe classe){
+    public void supprimerClasse(Classe classe) throws SQLException{
         classe.suppression();
+        this.connexion.executeUpdate("DELETE FROM Classe WHERE id ='"+classe.getId()+"'");
         classe = null;
     }
     
@@ -310,6 +313,8 @@ public class Ecole {
     public String getNom(){
         return this.nom;
     }
-
+    public Connexion getConnexion(){
+        return this.connexion;
+    }
     
 }

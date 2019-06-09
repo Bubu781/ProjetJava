@@ -54,11 +54,15 @@ public class Personne {
      * @param nom
      * @param prenom 
      */
-    public void modifier(String nom, String prenom){
+    public void modifier(String nom, String prenom) throws SQLException{
+        this.ecole.getConnexion().executeUpdate("UPDATE Personne SET nom ='"+nom+"', prenom = '"+prenom+"' WHERE id = '"+this.id+"'");
         this.nom = nom;
         this.prenom = prenom;
+        this.reload();
     }
-    
+    public void reload(){
+        
+    }
     /**
      * getter de l'id
      * @return l'id

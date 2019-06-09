@@ -81,10 +81,12 @@ public class Classe {
      * @param annee
      * @param niveau 
      */
-    public void modifier(String nom, AnneeScolaire annee, Niveau niveau){
+    public void modifier(String nom, AnneeScolaire annee, Niveau niveau) throws SQLException{
+        this.ecole.getConnexion().executeUpdate("UPDATE Classe SET nom = '"+nom+"', annee = '"+annee.getId()+"', niveau = '"+niveau.getId()+"' WHERE id = '"+this.id+"'");
         this.nom = nom;
         this.annee = annee;
         this.niveau = niveau;
+        this.reload();
     }
     
     /**
@@ -106,12 +108,17 @@ public class Classe {
     /**
      * Fonction de suppression d'une classe
      */
-    public void suppression(){
+    public void suppression() throws SQLException{
         for(Inscription inscription : this.inscriptions){
             inscription.suppression();
+            this.ecole.getConnexion().executeUpdate("DELETE FROM Inscription WHERE id = '"+inscription.getId()+"'");
         }
         this.inscriptions.removeAll(this.inscriptions);
         this.enseignements.removeAll(this.enseignements);
+    }
+    
+    public void reload(){
+        this.display = new DisplayClasse(this);
     }
     /**
      * Geter de id

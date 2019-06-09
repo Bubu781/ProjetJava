@@ -241,9 +241,9 @@ public class DisplayClasse extends JFrame implements  ActionListener {
                 pan3.setLayout(new BorderLayout()); 
               
                   
-               this.nomclasse.setText(classe.getNom()+"   ");
-               this.niveau.setText(classe.getNiveau().getNom()+"   ");
-               this.annee.setText(String.valueOf(classe.getAnneeScolaire().getAnnee())+"   ");
+               this.nomclasse.setText(classe.getNom());
+               this.niveau.setText(classe.getNiveau().getNom());
+               this.annee.setText(String.valueOf(classe.getAnneeScolaire().getAnnee()));
                //this.discipline.setText(enseignement.getDiscipline().getNom()+"   ");
                 
                    

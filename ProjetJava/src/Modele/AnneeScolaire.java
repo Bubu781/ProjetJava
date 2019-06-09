@@ -35,7 +35,8 @@ public class AnneeScolaire {
      * @param annee 
      * fonction de modification d'année
      */
-    public void modifier(int annee){
+    public void modifier(Connexion connexion, int annee) throws SQLException{
+        connexion.executeUpdate("UPDATE AnneeScolaire SET annee ='"+annee+"' WHERE id='"+this.id+"'");
         this.annee = annee;
     }
     

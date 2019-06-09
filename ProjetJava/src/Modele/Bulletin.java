@@ -101,19 +101,25 @@ public class Bulletin {
      * @param appreciation
      * @param trimestre 
      */
-    public void modifier(String appreciation, Trimestre trimestre){
+    public void modifier( String appreciation, Trimestre trimestre) throws SQLException{
+        this.ecole.getConnexion().executeUpdate("UPDATE Bulletin SET appreciation='"+appreciation+"', trimestre = '"+trimestre.getId()+"' WHERE id = '"+this.id+"'");
         this.appreciation = appreciation;
         this.trimestre = trimestre;
+        this.reload();
     }
     
     /**
      * Fonction de suppression de bulletin
      */
-    public void suppression(){
+    public void suppression() throws SQLException{
         for(DetailBulletin detail : this.details){
             detail.suppression();
+            this.ecole.getConnexion().executeUpdate("DELETE FROM DetailBulletin WHERE id='"+detail.getId()+"'");
         }
         this.details.removeAll(this.details);
+    }
+    public void reload(){
+        this.display = new DisplayBulletin(this);
     }
     
     /**

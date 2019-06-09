@@ -73,9 +73,14 @@ public class Eleve extends Personne {
     /**
      * Suppression d'un eleve dans une ecole
      */
-    public void suppression(){
+    public void suppression() throws SQLException{
         this.inscription.suppression();
+        this.ecole.getConnexion().executeUpdate("DELETE FROM Inscription WHERE id='"+this.inscription.getId()+"'");
         this.inscription = null;
+    }
+    @Override
+    public void reload(){
+        this.display = new DisplayEleve(this);
     }
     
     /**

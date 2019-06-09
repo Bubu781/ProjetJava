@@ -44,7 +44,7 @@ public class DetailBulletin {
         this.id = Integer.parseInt(requetes.get(0).substring(0, requetes.get(0).length()-1));
         this.enseignement= enseignement;
         this.ecole= ecole;
-        this.display = new DisplayDetailBulletin(this);
+        this.reload();
     }
     
     /**
@@ -86,16 +86,26 @@ public class DetailBulletin {
      * Modification 
      * @param appreciation 
      */
-    public void modifier(String appreciation){
+    public void modifier(String appreciation) throws SQLException{
+        this.ecole.getConnexion().executeUpdate("UPDATE DetailBulletin SET appreciation = '"+appreciation+"' WHERE id = '"+this.id+"'");
         this.appreciation = appreciation;
+        this.reload();
     }
     
     /**
      * Suppression de detail bulletin
      */
-    public void suppression(){
+    public void suppression() throws SQLException{
+        for(Evaluation eval : this.evals){
+            this.ecole.getConnexion().executeUpdate("DELETE FROM Evaluation WHERE id = '"+eval.getId()+"'");
+        }
         this.evals.removeAll(this.evals);
     }
+    public void reload(){
+        this.display = new DisplayDetailBulletin(this);
+        this.bulletin.reload();
+    }
+    
     /**
      * Getter d'appreciation
      * @return appreciation
