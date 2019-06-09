@@ -221,7 +221,7 @@ public class DisplayClasses extends JFrame implements  ActionListener{
                 f.setLayout(null); 
                 f.setLocationRelativeTo(null);
                 f.setVisible(true);
-        
+                f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     
     }
      @Override
@@ -255,18 +255,19 @@ public class DisplayClasses extends JFrame implements  ActionListener{
            this.setVisible(false);
            this.ecole.setVisibleDisplayClasses(true);
        }else if(arg0.getSource() == this.bouton){
+           f.setVisible(false);
            Object objNiveau = this.niveau.getSelectedItem();
            Object objAnnee = this.annee.getSelectedItem();
            Niveau n = this.ecole.getNiveaux().get(0);
            AnneeScolaire a = this.ecole.getAnnees().get(0);
            for(Niveau niveau : this.ecole.getNiveaux()){
-               if(niveau.getNom() == objNiveau.toString()){
+               if(niveau.getNom().equals(objNiveau.toString())){
                    n = niveau;
                    break;
                }
            }
            for(AnneeScolaire annee : this.ecole.getAnnees()){
-               if(String.valueOf(annee.getAnnee()) == objAnnee.toString()){
+               if(String.valueOf(annee.getAnnee()).equals(objAnnee.toString())){
                    a = annee;
                    break;
                }
@@ -283,6 +284,16 @@ public class DisplayClasses extends JFrame implements  ActionListener{
            if(arg0.getSource()==this.rechercher.get(i)){
                 this.ecole.getClasse(i).setVisible(true);
                 this.ecole.setVisibleDisplayClasses(false);
+           }
+       }
+       for(int i=0; i<this.supprimer.size();i++){
+           if(arg0.getSource()==this.supprimer.get(i)){
+               this.setVisible(false);
+               try {
+                   this.ecole.supprimerClasse(this.ecole.getClasse(i));
+               } catch (SQLException ex) {
+                   Logger.getLogger(DisplayClasses.class.getName()).log(Level.SEVERE, null, ex);
+               }
            }
        }
       

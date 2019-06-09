@@ -42,7 +42,7 @@ public class Inscription {
         this.eleve=eleve;
         
         //Creation d'un bulletin lors de l'inscription d'un eleve et son ajout dans l'arrayList bulletins
-        Bulletin bulletin = new Bulletin(connexion,this.ecole,classe);
+        Bulletin bulletin = new Bulletin(connexion,ecole,classe, this);
         this.bulletins.add(bulletin);
     }
     

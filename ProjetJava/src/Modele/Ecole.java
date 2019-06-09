@@ -149,6 +149,7 @@ public class Ecole {
         Inscription inscription = new Inscription(this.connexion, this, classe, eleve);
         eleve.remplirClasses(inscription);
         classe.ajoutInscription(inscription);
+        this.reloadEleves();
     }
     
     /**
@@ -160,6 +161,7 @@ public class Ecole {
     public void ajoutEnseignant(String nom, String prenom) throws SQLException{
         Enseignant enseignant= new Enseignant(this.connexion, nom, prenom, this);
         this.enseignants.add(enseignant);
+        this.reloadEnseignants();
     }
     
     /**
@@ -193,8 +195,12 @@ public class Ecole {
      */
     public void supprimerEleve(Eleve eleve) throws SQLException{
         eleve.suppression();
-        this.connexion.executeUpdate("DELETE FROM Eleve WHERE id ='"+eleve.getId()+"'");
+        this.connexion.executeUpdate("DELETE FROM Eleve WHERE personne ='"+eleve.getId()+"'");
+        this.connexion.executeUpdate("DELETE FROM Personne WHERE id ='"+eleve.getId()+"'");
+        this.eleves.remove(eleve);
         eleve = null;
+        this.reloadEleves();
+        this.setVisibleDisplayEleves(true);
     }
     
     /**
@@ -203,8 +209,12 @@ public class Ecole {
      */
     public void supprimerEnseignant(Enseignant enseignant) throws SQLException{
         enseignant.suppression();
-        this.connexion.executeUpdate("DELETE FROM Enseignant WHERE id ='"+enseignant.getId()+"'");
+        this.connexion.executeUpdate("DELETE FROM Enseignant WHERE personne ='"+enseignant.getId()+"'");
+        this.connexion.executeUpdate("DELETE FROM Personne WHERE id ='"+enseignant.getId()+"'");
+        this.enseignants.remove(enseignant);
         enseignant = null;
+        this.reloadEnseignants();
+        this.setVisibleDisplayEnseignants(true);
     }
     
     /**
@@ -214,7 +224,10 @@ public class Ecole {
     public void supprimerClasse(Classe classe) throws SQLException{
         classe.suppression();
         this.connexion.executeUpdate("DELETE FROM Classe WHERE id ='"+classe.getId()+"'");
+        this.classes.remove(classe);
         classe = null;
+        this.reloadClasses();
+        this.setVisibleDisplayClasses(true);
     }
     
     /**
@@ -315,6 +328,7 @@ public class Ecole {
         //System.out.print(this.eleves.get(0).getNom());
         return this.classes;
     }
+     
      /**
      * getter id
      * @return id
@@ -336,6 +350,9 @@ public class Ecole {
     
     public ArrayList<Niveau> getNiveaux(){
         return this.niveaux;
+    }
+    public ArrayList<Trimestre> getTrimestres(){
+        return this.trimestres;
     }
     public ArrayList<AnneeScolaire> getAnnees(){
         return this.annees;
