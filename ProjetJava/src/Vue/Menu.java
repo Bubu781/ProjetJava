@@ -23,6 +23,10 @@ public class Menu extends JFrame implements  ActionListener {
     private JButton eleves= new JButton("Eleves");
     private JButton enseignants= new JButton("Enseignants");
     private JButton classes= new JButton("Classes");
+    private JButton ajout_discipline= new JButton("Ajout discipline");
+    private JButton ajout_trimestre= new JButton("Ajout trimestre");
+    private JButton ajout_niveau= new JButton("Ajout niveau");
+    private JButton ajout_annee= new JButton("Ajout Annee");
     private JButton quitter= new JButton("Quitter");
  
     private JLabel label = new JLabel("");
@@ -56,6 +60,10 @@ public class Menu extends JFrame implements  ActionListener {
         this.eleves.addActionListener(this);
         this.enseignants.addActionListener(this);
         this.classes.addActionListener(this);
+        this.ajout_trimestre.addActionListener(this);
+        this.ajout_niveau.addActionListener(this);
+        this.ajout_discipline.addActionListener(this);
+        this.ajout_annee.addActionListener(this);
         this.quitter.addActionListener(this);
         
        // this.pan.setSize(500,500);
@@ -71,6 +79,10 @@ public class Menu extends JFrame implements  ActionListener {
         this.pan.add("South",this.eleves);
         this.pan.add("South",this.enseignants);
         this.pan.add("South",this.classes);
+        this.pan.add("South",this.ajout_discipline);
+        this.pan.add("South",this.ajout_trimestre);
+        this.pan.add("South",this.ajout_niveau);
+        this.pan.add("South",this.ajout_annee);
         this.pan.add("South",this.quitter);
         this.pan2.add("Center",this.label);
         
@@ -119,10 +131,41 @@ public class Menu extends JFrame implements  ActionListener {
         else if(arg0.getSource()==this.classes)
         { 
          this.ecole.setVisibleMenu(false);
-         this.ecole.setVisibleDisplayClasses(true);
          //this.ecole.getEnseignant().setVisible(false);
          //this.ecole.getEleve().setVisible(false);
           
+        }
+        else if(arg0.getSource()==this.ajout_trimestre)
+        {
+           this.ecole.setVisibleMenu(false);
+          
+           //this.ecole.getClasse().setVisible(false);
+           //this.ecole.getEleve().setVisible(false);
+           
+        }
+        else if(arg0.getSource()==this.ajout_discipline)
+        {
+           this.ecole.setVisibleMenu(false);
+           
+           //this.ecole.getClasse().setVisible(false);
+           //this.ecole.getEleve().setVisible(false);
+           
+        }
+        else if(arg0.getSource()==this.ajout_annee)
+        {
+           this.ecole.setVisibleMenu(false);
+         
+           //this.ecole.getClasse().setVisible(false);
+           //this.ecole.getEleve().setVisible(false);
+           
+        }
+        else if(arg0.getSource()==this.ajout_niveau)
+        {
+           this.ecole.setVisibleMenu(false);
+           
+           //this.ecole.getClasse().setVisible(false);
+           //this.ecole.getEleve().setVisible(false);
+           
         }
        else if(arg0.getSource()==this.quitter)
         {
