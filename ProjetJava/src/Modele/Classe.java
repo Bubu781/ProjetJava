@@ -116,6 +116,7 @@ public class Classe {
      */
     public void ajoutEnseignement(Enseignement enseignement){
         this.enseignements.add(enseignement);
+        this.reload();
         this.setVisible(true);
     }
     

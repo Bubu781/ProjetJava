@@ -34,6 +34,18 @@ public class Trimestre {
         requetes = connexion.remplirChampsRequete("SELECT fin FROM Trimestre WHERE id='"+id+"'");
         this.fin = requetes.get(0).substring(0,requetes.get(0).length()-1);
     }
+
+    public Trimestre(Connexion connexion, int numero, AnneeScolaire annee, String debut, String fin, Ecole ecole) throws SQLException {
+        ArrayList<String> requetes;
+        connexion.executeUpdate("INSERT INTO Trimestre(Numero, Debut, Fin, annee_scolaire) VALUES("+numero+",'"+debut+"','"+fin+"',"+annee.getId()+')');
+        requetes = connexion.remplirChampsRequete("SELECT Id FROM Trimestre WHERE numero = '"+numero+"' AND debut = '"+debut+"' AND fin = '"+fin+"' AND annee_scolaire = '"+annee.getId()+"'");
+        this.id = Integer.parseInt(requetes.get(0).substring(0,requetes.get(0).length()-1));
+        this.numero = numero;
+        this.annee = annee;
+        this.debut = debut;
+        this.fin = fin;
+        this.ecole = ecole;
+    }
     /**
      * Remplissage d'un trimestre dans la BDD
      * @param connexion

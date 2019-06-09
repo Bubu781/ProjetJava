@@ -29,6 +29,15 @@ public class AnneeScolaire {
         this.annee=Integer.parseInt(requetes.get(0).substring(0,requetes.get(0).length()-1));
         this.ecole = ecole;
     }
+    public AnneeScolaire(Connexion connexion, String annee, Ecole ecole) throws SQLException
+    {
+        ArrayList<String> requetes;
+        connexion.executeUpdate("INSERT INTO AnneeScolaire(annee) VALUES("+annee+");");
+        requetes = connexion.remplirChampsRequete("SELECT Id FROM AnneeScolaire WHERE annee = '"+annee+"'");
+        this.id = Integer.parseInt(requetes.get(0).substring(0,requetes.get(0).length()-1));
+        this.annee=Integer.parseInt(annee);
+        this.ecole = ecole;
+    }
     
     /**
      * 

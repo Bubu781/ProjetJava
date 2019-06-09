@@ -8,6 +8,7 @@ import Vue.Menu;
 import static java.lang.Integer.parseInt;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.JTextField;
 
 public class Ecole {
     private Connexion connexion;
@@ -195,6 +196,15 @@ public class Ecole {
     public void ajoutClasse(String nom, Niveau niveau, AnneeScolaire annee) throws SQLException{
         this.classes.add(new Classe(this.connexion, nom, niveau, annee, this));
         this.reloadClasses();
+    }
+    public void ajoutTrimestre(int numero, AnneeScolaire annee, String debut, String fin) throws SQLException {
+        this.trimestres.add(new Trimestre(this.connexion, numero, annee, debut, fin, this));
+    }
+    public void ajoutDiscipline(String nom) throws SQLException{
+        this.disciplines.add(new Discipline(this.connexion, nom, this));
+    }
+    public void ajoutAnnee(String annee) throws SQLException{
+        this.annees.add(new AnneeScolaire(this.connexion, annee, this));
     }
     /**
      * Suppression d'un eleve
