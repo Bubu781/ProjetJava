@@ -174,6 +174,13 @@ public class Ecole {
     public void ajoutEnseignement(Enseignant enseignant, Classe classe, Discipline discipline) throws SQLException{
         Enseignement enseignement= new Enseignement(this.connexion, enseignant, classe,  discipline,this);
         classe.ajoutEnseignement(enseignement);
+        for(Eleve eleve : this.eleves){
+            if(eleve.getInscription().getClasse() == classe){
+                for(DetailBulletin detail : eleve.getInscription().getBulletin().getDetails()){
+                    detail.ajoutEnseignement(enseignement);
+                }
+            }
+        }
     }
     /**
      * Ajout d'un niveau
@@ -356,6 +363,9 @@ public class Ecole {
     }
     public ArrayList<AnneeScolaire> getAnnees(){
         return this.annees;
+    }
+    public ArrayList<Discipline> getDisciplines(){
+        return this.disciplines;
     }
     
 }

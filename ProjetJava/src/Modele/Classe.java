@@ -26,6 +26,7 @@ public class Classe {
      */
     public Classe(Connexion connexion, int id, Ecole ecole) throws SQLException{
         ArrayList<String> requetes;
+        this.ecole = ecole;
         this.id = id;
         requetes = connexion.remplirChampsRequete("SELECT nom FROM Classe WHERE id = '"+id+"'");
         this.nom = requetes.get(0).substring(0,requetes.get(0).length()-1);
@@ -115,6 +116,7 @@ public class Classe {
      */
     public void ajoutEnseignement(Enseignement enseignement){
         this.enseignements.add(enseignement);
+        this.setVisible(true);
     }
     
     /**

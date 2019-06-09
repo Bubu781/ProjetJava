@@ -39,7 +39,7 @@ public class Enseignement {
         
         ArrayList<String> requetes;
         connexion.executeUpdate("INSERT INTO Enseignement(classe,discipline, enseignant) VALUES("+classe.getId()+","+discipline.getId()+","+enseignant.getId()+");");
-        requetes = connexion.remplirChampsRequete("SELECT Id FROM Enseignement WHERE classe = '"+classe+"' AND discipline = '"+discipline+"'AND enseignant = '"+enseignant+"'");
+        requetes = connexion.remplirChampsRequete("SELECT Id FROM Enseignement WHERE classe = '"+classe.getId()+"' AND discipline = '"+discipline.getId()+"'AND enseignant = '"+enseignant.getId()+"'");
         this.id = Integer.parseInt(requetes.get(0).substring(0, requetes.get(0).length()-1));        
         this.enseignant=enseignant;
         this.enseignant.ajoutEnseignement(this);

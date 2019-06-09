@@ -11,8 +11,11 @@ import static java.awt.BorderLayout.*;
 import java.awt.event.*;
 import java.io.File;
 import static java.lang.Thread.sleep;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.layout.Border;
 import javax.swing.*;
 
@@ -29,6 +32,7 @@ public class DisplayClasse extends JFrame implements  ActionListener {
     private JButton retour= new JButton(new ImageIcon("r2.png")); 
     private JButton modifier= new JButton(new ImageIcon("modifier.png"));
     private JButton ajouter= new JButton(new ImageIcon("ajouter.png")); 
+    private JButton ajoutEnseignement = new JButton("Envoyer");
     private JButton menu= new JButton("Menu");
     private JPanel container = new JPanel();
     private JPanel container2 = new JPanel();
@@ -39,6 +43,8 @@ public class DisplayClasse extends JFrame implements  ActionListener {
     private JPanel pan2= new JPanel();
     private JPanel pan= new JPanel();
     private JPanel pan3= new JPanel();
+    private JComboBox discipline;
+    private JComboBox enseignant;
     private ArrayList<JButton> supprimer= new ArrayList <JButton>();
     
    
@@ -49,6 +55,8 @@ public class DisplayClasse extends JFrame implements  ActionListener {
         private JLabel l1=new JLabel("Nom :");  
         private JLabel l2=new JLabel("Niveau :"); 
         private JLabel l3=new JLabel("Annee:"); 
+        private JLabel dis=new JLabel("Discipline :"); 
+        private JLabel ens=new JLabel("Enseignant :"); 
         private JLabel error = new JLabel("");
         private JTextField nomclasse= new JTextField();
 	private JTextField niveau = new JTextField();
@@ -209,13 +217,39 @@ public class DisplayClasse extends JFrame implements  ActionListener {
            //this.ecole.setVisibleMenu(true);
            this.dispose();
            modifier();
+       }else if(arg0.getSource()==this.ajouter){
+            this.setVisible(false);
+            this.ajouter();
+       }else if(arg0.getSource()==this.ajoutEnseignement){
+           f.setVisible(false);
+           Discipline discipline = this.classe.getEcole().getDisciplines().get(0);
+           Enseignant enseignant = this.classe.getEcole().getEnseignants().get(0);
+           Object objDiscipline = this.discipline.getSelectedItem();
+           Object objEnseignant = this.enseignant.getSelectedItem();
+           for(Discipline d : this.classe.getEcole().getDisciplines()){
+               if(d.getNom().equals(objDiscipline.toString())){
+                   discipline = d;
+                   break;
+               }
+           }
+           for(Enseignant e : this.classe.getEcole().getEnseignants()){
+               if(e.getNom().equals(objEnseignant.toString())){
+                   enseignant = e;
+                   break;
+               }
+           }
+           try {
+               this.classe.getEcole().ajoutEnseignement(enseignant, this.classe, discipline);
+           } catch (SQLException ex) {
+               Logger.getLogger(DisplayClasse.class.getName()).log(Level.SEVERE, null, ex);
+           }
+           this.classe.reload();
        }
        
        
        for(int i=0; i<this.supprimer.size();i++){
            if(arg0.getSource()==this.supprimer.get(i)){
                this.dispose();
-               
                 //this.ecole.getEnseignant(i).setVisible(true);
                 //this.ecole.setVisibleDisplayEnseignant(false);
            }
@@ -293,6 +327,68 @@ public class DisplayClasse extends JFrame implements  ActionListener {
                 f.setLayout(null); 
                 f.setLocationRelativeTo(null);
                 f.setVisible(true);
+                f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+    }
+    private void ajouter() {
+        setTitle("AJOUT"); 
+        setSize(830,730); 
+        setLocationRelativeTo(null); 
+        setResizable(false); 
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+        
+        this.quitter.addActionListener(this);
+        this.ajoutEnseignement.addActionListener(this);
+        this.retour.addActionListener(this);
+        JPanel panel2 = new JPanel();
+        final JLabel label2 = new JLabel();            
+        label2.setBounds(20,250, 200,50);
+        pan3.setLayout(new BorderLayout()); 
+
+        String[] nomDisciplines = new String[this.classe.getEcole().getDisciplines().size()];
+        String[] nomEnseignants = new String[this.classe.getEcole().getEnseignants().size()];
+        for(int i= 0; i< this.classe.getEcole().getDisciplines().size(); i++){
+            nomDisciplines[i] = this.classe.getEcole().getDisciplines().get(i).getNom();
+        }
+        for(int i= 0; i< this.classe.getEcole().getEnseignants().size(); i++){
+            nomEnseignants[i] = this.classe.getEcole().getEnseignants().get(i).getNom();
+        }
+        this.discipline = new JComboBox(nomDisciplines);
+        this.enseignant = new JComboBox(nomEnseignants);
+
+        l.setBounds(10,5, 700,100); 
+        l.setFont(new Font("Serif", Font.BOLD, 30)); 
+        dis.setBounds(20,100, 130,30);      
+        ens.setBounds(20,150, 130,30);
+        ajoutEnseignement.setBounds(100,290, 150,30); 
+        retour.setBounds(350,290, 400,60);  
+        discipline.setBounds(140,100, 100,30); 
+        enseignant.setBounds(140,150, 100,30); 
+        error.setBounds(50,350,400,30);
+        error.setForeground(Color.red);
+        error.setFont(new Font("Serif", Font.BOLD, 25));
+        f.add(l); 
+        f.add(l1); 
+        f.add(l2);
+        f.add(discipline);
+        f.add(enseignant);
+        f.add(retour);
+        f.add(ajoutEnseignement);
+
+        f.add(this.error);
+
+
+
+
+
+
+
+        f.setSize(830,730); 
+        f.setBackground(Color.PINK);
+        f.setLayout(null); 
+        f.setLocationRelativeTo(null);
+        f.setVisible(true);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
     }
     
