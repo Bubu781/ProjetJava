@@ -159,6 +159,10 @@ public class Bulletin {
         return this.inscription;
     }
     
+    public Ecole getEcole(){
+        return this.ecole;
+    }
+    
     /**
      * getter d'appreciation
      * @return appreciation

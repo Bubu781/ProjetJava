@@ -45,6 +45,7 @@ public class DisplayBulletin extends JFrame implements ActionListener{
     private JLabel titre = new JLabel("");
     private JButton quitter= new JButton("Quitter");
     private JButton retour= new JButton(new ImageIcon("r2.png")); 
+    private JButton ajoutBulletin= new JButton("Ajouter un bulletin");
     private JButton menu= new JButton("Menu");
     private JPanel pan2= new JPanel();
     private JPanel pan= new JPanel();
@@ -61,6 +62,7 @@ public class DisplayBulletin extends JFrame implements ActionListener{
         this.quitter.addActionListener(this);
         this.retour.addActionListener(this);
         this.menu.addActionListener(this);
+        this.ajoutBulletin.addActionListener(this);
 
         this.titre.setFont(new Font("Serif", Font.BOLD, 50));
         pan.setLayout(new BorderLayout());
@@ -89,17 +91,14 @@ public class DisplayBulletin extends JFrame implements ActionListener{
         this.quitter.setSize(200,200);
          pan3.setLayout(new BorderLayout());
 
-       pan3.setPreferredSize(new Dimension(250,50));
-       
-
-      
-     
-       pan3.setPreferredSize(new Dimension(250,50));
+       pan3.setPreferredSize(new Dimension(250,80));
+   
         
 
         this.pan3.add(this.retour,BorderLayout.WEST);
         this.pan3.add(this.menu,BorderLayout.CENTER);
         this.pan3.add(this.quitter,BorderLayout.EAST);
+        this.pan3.add(this.ajoutBulletin, BorderLayout.NORTH);
         
         
         
@@ -140,13 +139,19 @@ public class DisplayBulletin extends JFrame implements ActionListener{
           System.exit(0);
             
         }
+        
+        else if(arg0.getSource()==this.ajoutBulletin){
+            this.bulletin.setVisible(false);
+        }
         else if(arg0.getSource()==this.menu){
            
-          
+         this.bulletin.setVisible(false);
+         this.bulletin.getEcole().setVisibleMenu(true);
+         
        }
         else if(arg0.getSource()==this.retour){
-           
-          
+          this.bulletin.setVisible(false);
+          this.bulletin.getInscription().getEleve().setVisible(true);
        }
       
      }
