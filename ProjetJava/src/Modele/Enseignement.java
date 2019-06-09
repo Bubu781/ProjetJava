@@ -75,6 +75,10 @@ public class Enseignement {
             }
         }
     }
+    
+    public void suppression(){
+        this.enseignant.supprimerEnseignement(this);
+    }
     /**
      * getter de l'id
      * @return l'identifiant, l'attribut nomme id dans les attributs de la classe

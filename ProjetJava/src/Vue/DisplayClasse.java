@@ -249,9 +249,12 @@ public class DisplayClasse extends JFrame implements  ActionListener {
        
        for(int i=0; i<this.supprimer.size();i++){
            if(arg0.getSource()==this.supprimer.get(i)){
-               this.dispose();
-                //this.ecole.getEnseignant(i).setVisible(true);
-                //this.ecole.setVisibleDisplayEnseignant(false);
+               this.setVisible(false);
+               try {
+                   this.classe.supprimerEnseignement(this.classe.getEnseignements().get(i));
+               } catch (SQLException ex) {
+                   Logger.getLogger(DisplayClasse.class.getName()).log(Level.SEVERE, null, ex);
+               }
            }
        }
       

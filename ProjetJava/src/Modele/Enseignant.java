@@ -70,6 +70,11 @@ public class Enseignant extends Personne {
         }
         this.enseignements.removeAll(this.enseignements);
     }
+    
+    public void supprimerEnseignement(Enseignement enseignement){
+        this.enseignements.remove(enseignement);
+        this.reload();
+    }
     @Override
     public void reload(){
         this.display = new DisplayEnseignant(this);

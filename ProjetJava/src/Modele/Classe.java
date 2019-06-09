@@ -119,6 +119,14 @@ public class Classe {
         this.setVisible(true);
     }
     
+    public void supprimerEnseignement(Enseignement enseignement) throws SQLException{
+        this.ecole.getConnexion().executeUpdate("DELETE FROM Enseignement WHERE id='"+enseignement.getId()+"'");
+        enseignement.suppression();
+        this.enseignements.remove(enseignement);
+        this.reload();
+        this.setVisible(true);
+    }
+    
     /**
      * Fonction de suppression d'une classe
      */
