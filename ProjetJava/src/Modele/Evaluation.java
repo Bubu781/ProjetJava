@@ -37,7 +37,6 @@ public class Evaluation {
     
     /**
      * Constructeur surchargé
-     * @param connexion
      * @param appreciation
      * @param note
      * @param ecole

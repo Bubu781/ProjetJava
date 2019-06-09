@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 /**
  *
- * @author iGamer
+ * @author adrienbuot
  */
 public class ProjetJava {
 

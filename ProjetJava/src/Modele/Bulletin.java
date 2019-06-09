@@ -126,7 +126,6 @@ public class Bulletin {
     
     /**
      * Fonction d'ajout d'evalution
-     * @param connexion
      * @param enseignement
      * @param note
      * @param appreciation

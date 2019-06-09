@@ -149,7 +149,6 @@ public class DetailBulletin {
     
     /**
      * Fonction d'ajout d'evaluation
-     * @param connexion
      * @param note
      * @param appreciation
      * @throws SQLException 
