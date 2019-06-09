@@ -123,7 +123,10 @@ public class Classe {
     public void suppression() throws SQLException{
         for(Inscription inscription : this.inscriptions){
             inscription.suppression();
-            this.ecole.getConnexion().executeUpdate("DELETE FROM Inscription WHERE id = '"+inscription.getId()+"'");
+            this.ecole.getConnexion().executeUpdate("DELETE FROM Inscription WHERE id='"+inscription.getId()+"'");
+        }
+        for(Enseignement enseignement : this.enseignements){
+            this.ecole.getConnexion().executeUpdate("DELETE FROM Enseignement WHERE id = '"+enseignement.getId()+"'");
         }
         this.inscriptions.removeAll(this.inscriptions);
         this.enseignements.removeAll(this.enseignements);
@@ -131,6 +134,7 @@ public class Classe {
     
     public void reload(){
         this.display = new DisplayClasse(this);
+        this.ecole.reloadClasses();
     }
     /**
      * Geter de id

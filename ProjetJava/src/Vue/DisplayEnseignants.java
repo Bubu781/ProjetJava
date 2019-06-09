@@ -15,8 +15,11 @@ import static java.awt.BorderLayout.*;
 import java.awt.event.*;
 import java.io.File;
 import static java.lang.Thread.sleep;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.layout.Border;
 import javax.swing.*;
 
@@ -51,15 +54,9 @@ public class DisplayEnseignants extends JFrame implements  ActionListener{
      private JLabel l=new JLabel("AJOUT D'UN ENSEIGNANT:");
         private JLabel l1=new JLabel("Nom :");  
         private JLabel l2=new JLabel("Prenom :"); 
-        private JLabel l3=new JLabel("Discipline enseignée:");
-        private JLabel l4=new JLabel("Classe:");
-        private JLabel l5=new JLabel("Niveau:");
         private JLabel error = new JLabel("");
         private JTextField nomtext= new JTextField();
         private JTextField prenomtext= new JTextField();
-        private JTextField nomclasse= new JTextField();
-	private JTextField niveau = new JTextField();
-        private JTextField discipline = new JTextField(); 
         
      
         private JFrame f=new JFrame("LOGIN");
@@ -185,12 +182,30 @@ public class DisplayEnseignants extends JFrame implements  ActionListener{
        }
        else if(arg0.getSource()==this.retour2){
            this.ecole.setVisibleDisplayEnseignants(true);
+       }else if(arg0.getSource()==this.bouton){
+           f.setVisible(false);
+           try {
+               this.ecole.ajoutEnseignant(this.nomtext.getText(), this.prenomtext.getText());
+           } catch (SQLException ex) {
+               Logger.getLogger(DisplayEnseignants.class.getName()).log(Level.SEVERE, null, ex);
+           }
+           this.ecole.setVisibleDisplayEnseignants(true);
        }
        
        for(int i=0; i<this.rechercher.size();i++){
            if(arg0.getSource()==this.rechercher.get(i)){
                 this.ecole.getEnseignant(i).setVisible(true);
                 this.ecole.setVisibleDisplayEnseignants(false);
+           }
+       }
+       for(int i=0; i<this.supprimer.size();i++){
+           if(arg0.getSource()==this.supprimer.get(i)){
+               this.setVisible(false);
+               try {
+                   this.ecole.supprimerEnseignant(this.ecole.getEnseignants().get(i));
+               } catch (SQLException ex) {
+                   Logger.getLogger(DisplayEnseignants.class.getName()).log(Level.SEVERE, null, ex);
+               }
            }
        }
       
@@ -226,18 +241,11 @@ public class DisplayEnseignants extends JFrame implements  ActionListener{
         l.setFont(new Font("Serif", Font.BOLD, 30)); 
         l1.setBounds(20,100, 130,30);      
         l2.setBounds(20,150, 130,30);
-           
-        l3.setBounds(20,200, 130,30);
-        l4.setBounds(20,250, 130,30);
-        l5.setBounds(20,300, 130,30);
           
         bouton.setBounds(100,350, 150,30); 
         retour2.setBounds(350,350, 400,60);  
-        nomclasse.setBounds(140,100, 100,30); 
-        niveau.setBounds(140,150, 100,30); 
-        discipline.setBounds(140,200, 100,30); 
-        nomtext.setBounds(140,250, 100,30);
-        prenomtext.setBounds(140,300, 100,30);
+        nomtext.setBounds(140,100, 100,30);
+        prenomtext.setBounds(140,150, 100,30);
         error.setBounds(50,350,400,30);
         error.setForeground(Color.red);
         error.setFont(new Font("Serif", Font.BOLD, 25));
@@ -245,13 +253,7 @@ public class DisplayEnseignants extends JFrame implements  ActionListener{
                 f.add(l1); 
                 f.add(l2);
                 f.add(nomtext);
-                f.add(l3);
                 f.add(prenomtext);
-                f.add(l4);
-                f.add(nomclasse);
-                f.add(l5);
-                f.add(niveau);
-                f.add(discipline);
                 f.add(retour2);
                 f.add(bouton);
                 
@@ -268,6 +270,7 @@ public class DisplayEnseignants extends JFrame implements  ActionListener{
                 f.setLayout(null); 
                 f.setLocationRelativeTo(null);
                 f.setVisible(true);
+                f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
     
     }

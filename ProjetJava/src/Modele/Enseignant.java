@@ -73,6 +73,7 @@ public class Enseignant extends Personne {
     @Override
     public void reload(){
         this.display = new DisplayEnseignant(this);
+        this.ecole.reloadEnseignants();
     }
    
     /**

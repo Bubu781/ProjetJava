@@ -33,7 +33,6 @@ public class Eleve extends Personne {
         super(connexion, nom, prenom, ecole);
         connexion.executeUpdate("INSERT INTO Eleve(personne) VALUES("+this.id+");");
         
-        this.display=new DisplayEleve(this);
         
     }
     
@@ -68,6 +67,7 @@ public class Eleve extends Personne {
      */
     public void remplirClasses(Inscription inscription){
         this.inscription = inscription;
+        this.display=new DisplayEleve(this);
     }
     
     /**
@@ -81,6 +81,7 @@ public class Eleve extends Personne {
     @Override
     public void reload(){
         this.display = new DisplayEleve(this);
+        this.ecole.reloadEleves();
     }
     
     /**

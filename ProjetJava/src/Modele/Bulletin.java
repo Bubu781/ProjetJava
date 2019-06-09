@@ -42,12 +42,14 @@ public class Bulletin {
      * @throws SQLException 
      * 
      */
-    public Bulletin(Connexion connexion, Ecole ecole, Classe classe) throws SQLException{
+    public Bulletin(Connexion connexion, Ecole ecole, Classe classe, Inscription inscription) throws SQLException{
         ArrayList<String> requetes;
-        connexion.executeUpdate("INSERT INTO Bulletin() VALUES("+")");
+        connexion.executeUpdate("INSERT INTO Bulletin(appreciation, trimestre, inscription) VALUES('',1,"+inscription.getId()+")");
         requetes = connexion.remplirChampsRequete("SELECT MAX(Id) FROM Bulletin ");
         this.id = Integer.parseInt(requetes.get(0).substring(0, requetes.get(0).length()-1));
         this.ecole= ecole;
+        this.inscription = inscription;
+        this.trimestre = ecole.getTrimestres().get(0);
         for(Enseignement enseignement : classe.getEnseignements()){
             this.details.add(new DetailBulletin(connexion, enseignement, ecole));
         }
