@@ -27,7 +27,8 @@ public class DisplayClasse extends JFrame implements  ActionListener {
      */
     private JButton quitter= new JButton("Quitter");
     private JButton retour= new JButton(new ImageIcon("r2.png")); 
-    private JButton modifier= new JButton(new ImageIcon("modifier.png")); 
+    private JButton modifier= new JButton(new ImageIcon("modifier.png"));
+    private JButton ajouter= new JButton(new ImageIcon("ajouter.png")); 
     private JButton menu= new JButton("Menu");
     private JPanel container = new JPanel();
     private JPanel container2 = new JPanel();
@@ -73,6 +74,7 @@ public class DisplayClasse extends JFrame implements  ActionListener {
         
         this.quitter.addActionListener(this);
         this.modifier.addActionListener(this);
+        this.ajouter.addActionListener(this);
         /**
          * titre en haut de la page graphique
          */
@@ -103,7 +105,7 @@ public class DisplayClasse extends JFrame implements  ActionListener {
          * on cree un container pour afficher les infos d'une classe : nom classe, niveau et discipline
          */
         this.getContentPane().add("North",pan);
-         this.container.setLayout(new GridLayout(this.classe.getEnseignements().size()+1,4));
+         this.container.setLayout(new GridLayout(this.classe.getEnseignements().size()+2,4));
          this.container.add(new JLabel("Nom Classe"));
          this.container.add(new JLabel("Niveau "));
          this.container.add(new JLabel("Discipline "));
@@ -120,6 +122,11 @@ public class DisplayClasse extends JFrame implements  ActionListener {
             this.container.add(this.supprimer.get(this.supprimer.size()-1));
             
         }
+          
+         this.container.add(new JLabel(""));
+         this.container.add(new JLabel(""));
+         this.container.add(this.ajouter);
+         this.container.add(new JLabel(""));
           this.add(this.container);
           
          /**

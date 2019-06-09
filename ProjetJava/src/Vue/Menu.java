@@ -131,6 +131,7 @@ public class Menu extends JFrame implements  ActionListener {
         else if(arg0.getSource()==this.classes)
         { 
          this.ecole.setVisibleMenu(false);
+         this.ecole.setVisibleDisplayClasses(true);
          //this.ecole.getEnseignant().setVisible(false);
          //this.ecole.getEleve().setVisible(false);
           
