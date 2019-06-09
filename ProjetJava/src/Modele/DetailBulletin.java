@@ -154,8 +154,8 @@ public class DetailBulletin {
      * @param appreciation
      * @throws SQLException 
      */
-    public void ajoutEvaluation(Connexion connexion, int note, String appreciation) throws SQLException{
-        Evaluation evaluation= new Evaluation(connexion, appreciation, note, this.ecole);
+    public void ajoutEvaluation(int note, String appreciation) throws SQLException{
+        Evaluation evaluation= new Evaluation(appreciation, note, this.ecole, this);
         evals.add(evaluation);
     }
     

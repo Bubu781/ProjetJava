@@ -17,12 +17,17 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -45,11 +50,24 @@ public class DisplayBulletin extends JFrame implements ActionListener{
     private JLabel titre = new JLabel("");
     private JButton quitter= new JButton("Quitter");
     private JButton retour= new JButton(new ImageIcon("r2.png")); 
-    private JButton ajoutBulletin= new JButton("Ajouter un bulletin");
+    private JButton ajoutBulletin= new JButton("Ajouter une evaluation");
     private JButton menu= new JButton("Menu");
+    private JButton ajoutEvaluation = new JButton("Ajouter");
+    
+    private JLabel titreAjout = new JLabel("Ajouter une appréciation");
+    private JLabel lenseignement = new JLabel("Enseignement : ");
+    private JLabel lnote = new JLabel("Note : ");
+    private JLabel lappreciation = new JLabel("Appreciation :");
+    
+    private JComboBox enseignement;
+    private JTextField note = new JTextField();
+    private JTextField appreciation = new JTextField();
+    
     private JPanel pan2= new JPanel();
     private JPanel pan= new JPanel();
     private JPanel pan3= new JPanel();
+    
+    private JFrame f = new JFrame("AJOUTER");
     
     /**
      * affichage d'un bulletin et toutes les informations qui vont avec : note, appreciation, trimestre
@@ -82,6 +100,7 @@ public class DisplayBulletin extends JFrame implements ActionListener{
         this.cadreTrimestre.add(this.trimestre);
         this.cadreTrimestre.setBounds(140,350, 300,30);
         this.cadreTrimestre.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
+        this.container.setSize(200, 330);
         this.container.setLayout(new GridLayout(1,this.bulletin.getDetails().size()+2));
         for(DetailBulletin detail : this.bulletin.getDetails()){
             this.container.add(detail.getDisplay());
@@ -141,7 +160,8 @@ public class DisplayBulletin extends JFrame implements ActionListener{
         }
         
         else if(arg0.getSource()==this.ajoutBulletin){
-            this.bulletin.setVisible(false);
+            this.setVisible(false);
+            this.ajouter();
         }
         else if(arg0.getSource()==this.menu){
            
@@ -152,7 +172,68 @@ public class DisplayBulletin extends JFrame implements ActionListener{
         else if(arg0.getSource()==this.retour){
           this.bulletin.setVisible(false);
           this.bulletin.getInscription().getEleve().setVisible(true);
+       }else if(arg0.getSource()==this.ajoutEvaluation){
+           f.setVisible(false);
+           Object objEnseignement = this.enseignement.getSelectedItem();
+           DetailBulletin detail = null;
+           for(DetailBulletin d : this.bulletin.getDetails()){
+               if(objEnseignement.toString().equals(d.getEnseignement().getDiscipline().getNom() + " - " + d.getEnseignement().getEnseignant().getNom())){
+                   detail = d;
+                   break;
+               }
+           }
+            try {
+                this.bulletin.ajouterEvaluation(detail.getEnseignement(), Integer.parseInt(this.note.getText()), this.appreciation.getText());
+            } catch (SQLException ex) {
+                Logger.getLogger(DisplayBulletin.class.getName()).log(Level.SEVERE, null, ex);
+            }
        }
       
      }
+      private void ajouter() {
+        setTitle("AJOUT"); 
+        setSize(830,730); 
+        setLocationRelativeTo(null); 
+        setResizable(false); 
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+        
+        this.quitter.addActionListener(this);
+        this.ajoutEvaluation.addActionListener(this);
+        this.retour.addActionListener(this);
+        pan3.setLayout(new BorderLayout()); 
+
+        String[] nomEnseignements = new String[this.bulletin.getDetails().size()];
+        for(int i= 0; i< this.bulletin.getDetails().size(); i++){
+            nomEnseignements[i] = this.bulletin.getDetails().get(i).getEnseignement().getDiscipline().getNom() + " - " + this.bulletin.getDetails().get(i).getEnseignement().getEnseignant().getNom();
+        }
+        this.enseignement = new JComboBox(nomEnseignements);
+
+        titreAjout.setBounds(10,5, 700,100); 
+        titreAjout.setFont(new Font("Serif", Font.BOLD, 30)); 
+        lenseignement.setBounds(20,100, 130,30);      
+        lnote.setBounds(20,150, 130,30);
+        lappreciation.setBounds(20,200, 130,30);
+        ajoutEvaluation.setBounds(100,290, 150,30); 
+        retour.setBounds(350,290, 400,60);  
+        enseignement.setBounds(140,100, 100,30); 
+        note.setBounds(140,150, 100,30); 
+        appreciation.setBounds(140,200, 100,30); 
+        
+        f.add(titreAjout); 
+        f.add(lenseignement); 
+        f.add(lnote);
+        f.add(lappreciation);
+        f.add(enseignement);
+        f.add(note);
+        f.add(appreciation);
+        f.add(retour);
+        f.add(ajoutEvaluation);
+        
+        f.setSize(830,730); 
+        f.setBackground(Color.PINK);
+        f.setLayout(null); 
+        f.setLocationRelativeTo(null);
+        f.setVisible(true);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
 }

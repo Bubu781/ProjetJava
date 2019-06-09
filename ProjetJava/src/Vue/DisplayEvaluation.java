@@ -35,7 +35,7 @@ public class DisplayEvaluation extends JPanel{
      */
     public DisplayEvaluation(Evaluation evaluation){
         this.setLayout(new BorderLayout());
-        setPreferredSize(new Dimension(200,200));
+        setPreferredSize(new Dimension(200,33));
         this.evaluation = evaluation;
         this.appreciation = new JLabel(this.evaluation.getAppreciation());
         this.note = new JLabel(String.valueOf(this.evaluation.getNote()));

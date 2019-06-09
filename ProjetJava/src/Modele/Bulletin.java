@@ -132,12 +132,14 @@ public class Bulletin {
      * @param appreciation
      * @throws SQLException 
      */
-     public void ajouterEvaluation(Connexion connexion, Enseignement enseignement, int note, String appreciation) throws SQLException{
+     public void ajouterEvaluation(Enseignement enseignement, int note, String appreciation) throws SQLException{
         for(DetailBulletin detail : this.details){
             if(enseignement==detail.getEnseignement()){
-                detail.ajoutEvaluation(connexion, note, appreciation);
+                detail.ajoutEvaluation(note, appreciation);
             }
         }
+        this.reload();
+        this.setVisible(true);
     }
      /**
       * Getter de l'id

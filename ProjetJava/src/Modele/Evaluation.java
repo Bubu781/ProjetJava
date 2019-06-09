@@ -43,14 +43,15 @@ public class Evaluation {
      * @param ecole
      * @throws SQLException 
      */
-    public Evaluation(Connexion connexion, String appreciation,int note,Ecole ecole) throws SQLException{
+    public Evaluation( String appreciation,int note,Ecole ecole, DetailBulletin detail) throws SQLException{
         ArrayList<String> requetes;
-        connexion.executeUpdate("INSERT INTO Evaluation(Appreciation, Note) VALUES("+appreciation+","+note+");");
-        requetes = connexion.remplirChampsRequete("SELECT MAX(Id) FROM Evaluation WHERE Appreciation = '"+appreciation+"' AND Note = '"+note+"'");
+        ecole.getConnexion().executeUpdate("INSERT INTO Evaluation(Appreciation, Note, detail_bulletin) VALUES('"+appreciation+"',"+note+","+detail.getId()+");");
+        requetes = ecole.getConnexion().remplirChampsRequete("SELECT MAX(Id) FROM Evaluation WHERE Appreciation = '"+appreciation+"' AND Note = '"+note+"'");
         this.id = Integer.parseInt(requetes.get(0).substring(0, requetes.get(0).length()-1));
         this.ecole=ecole;
         this.appreciation=appreciation;
         this.note=note;
+        this.detail = detail;
         this.reload();
     }
     

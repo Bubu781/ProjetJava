@@ -35,14 +35,14 @@ public class DisplayDetailBulletin extends JPanel{
      */
     public DisplayDetailBulletin(DetailBulletin detail){
         this.setLayout(new BorderLayout());
-        setPreferredSize(new Dimension(300,300));
+        setPreferredSize(new Dimension(200,330));
         this.detail = detail;
         this.enseignement = new JLabel(detail.getEnseignement().getDiscipline().getNom()+" - "+ detail.getEnseignement().getEnseignant().getNom());
         this.appreciation = new JLabel(detail.getAppreciation());
         this.cadreEnseignement.add(this.enseignement);
         this.cadreEnseignement.add(this.appreciation);
         this.cadreEnseignement.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
-        this.container.setLayout(new GridLayout(1,this.detail.getEvaluations().size()));
+        this.container.setLayout(new GridLayout(this.detail.getEvaluations().size(),1));
         for(Evaluation evaluation : this.detail.getEvaluations()){
             this.container.add(evaluation.getDisplay());
         }
