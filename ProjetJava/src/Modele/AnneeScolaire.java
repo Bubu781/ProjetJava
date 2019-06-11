@@ -37,6 +37,7 @@ public class AnneeScolaire {
         this.id = Integer.parseInt(requetes.get(0).substring(0,requetes.get(0).length()-1));
         this.annee=Integer.parseInt(annee);
         this.ecole = ecole;
+        this.ecole.reloadClasses();
     }
     
     /**

@@ -244,7 +244,7 @@ public class DisplayClasses extends JFrame implements  ActionListener{
         {
             //action a faire quand on clique sur le bouton4
             //System.exit(0);
-            this.dispose();
+            this.setVisible(false);
             ajouter();
         }
        else if(arg0.getSource()==this.retour){
@@ -252,7 +252,7 @@ public class DisplayClasses extends JFrame implements  ActionListener{
            this.ecole.setVisibleMenu(true);
        }
        else if(arg0.getSource()==this.retour2){
-           this.setVisible(false);
+           f.setVisible(false);
            this.ecole.setVisibleDisplayClasses(true);
        }else if(arg0.getSource() == this.bouton){
            f.setVisible(false);
@@ -277,7 +277,6 @@ public class DisplayClasses extends JFrame implements  ActionListener{
            } catch (SQLException ex) {
                Logger.getLogger(DisplayClasses.class.getName()).log(Level.SEVERE, null, ex);
            }
-           this.setVisible(false);
            this.ecole.setVisibleDisplayClasses(true);
        }
        for(int i=0; i<this.rechercher.size();i++){

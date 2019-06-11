@@ -37,12 +37,12 @@ public class Niveau {
     public Niveau(Connexion connexion, String nom, Ecole ecole) throws SQLException
     {
         ArrayList<String> requetes;
-        connexion.executeUpdate("INSERT INTO Niveau(Nom) VALUES("+nom +");");
+        connexion.executeUpdate("INSERT INTO Niveau(Nom) VALUES('"+nom +"');");
         requetes = connexion.remplirChampsRequete("SELECT Id FROM Niveau WHERE Nom = '"+nom+"'");
         this.id = Integer.parseInt(requetes.get(0).substring(0, requetes.get(0).length()-1));
         this.nom=nom;
         this.ecole=ecole;
-        
+        this.ecole.reloadClasses();
     }
     
     /**

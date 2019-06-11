@@ -37,13 +37,14 @@ public class DetailBulletin {
      * @param ecole
      * @throws SQLException 
      */
-    public DetailBulletin(Connexion connexion, Enseignement enseignement, Ecole ecole) throws SQLException{
+    public DetailBulletin(Connexion connexion, Enseignement enseignement,Bulletin bulletin, Ecole ecole) throws SQLException{
          ArrayList<String> requetes;
-        connexion.executeUpdate("INSERT INTO DetailBulletin(enseignement) VALUES("+enseignement+");");
-        requetes = connexion.remplirChampsRequete("SELECT Id FROM DetailBulletin WHERE enseignemenent = '"+enseignement+"'");
+        connexion.executeUpdate("INSERT INTO DetailBulletin(enseignement, bulletin) VALUES("+enseignement.getId()+","+bulletin.getId()+");");
+        requetes = connexion.remplirChampsRequete("SELECT Id FROM DetailBulletin WHERE enseignement = '"+enseignement.getId()+"'");
         this.id = Integer.parseInt(requetes.get(0).substring(0, requetes.get(0).length()-1));
         this.enseignement= enseignement;
         this.ecole= ecole;
+        this.bulletin = bulletin;
         this.reload();
     }
     
@@ -145,6 +146,7 @@ public class DetailBulletin {
      */
     public void ajoutEnseignement(Enseignement enseignement){
         this.enseignement= enseignement;
+        this.reload();
     }
     
     /**

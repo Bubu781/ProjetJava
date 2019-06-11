@@ -177,9 +177,8 @@ public class Ecole {
         classe.ajoutEnseignement(enseignement);
         for(Eleve eleve : this.eleves){
             if(eleve.getInscription().getClasse() == classe){
-                for(DetailBulletin detail : eleve.getInscription().getBulletin().getDetails()){
-                    detail.ajoutEnseignement(enseignement);
-                }
+                eleve.getInscription().getBulletin().ajouterDetail(enseignement);
+                eleve.reload();
             }
         }
     }

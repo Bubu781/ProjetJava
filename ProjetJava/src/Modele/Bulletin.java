@@ -51,7 +51,7 @@ public class Bulletin {
         this.inscription = inscription;
         this.trimestre = ecole.getTrimestres().get(0);
         for(Enseignement enseignement : classe.getEnseignements()){
-            this.details.add(new DetailBulletin(connexion, enseignement, ecole));
+            this.details.add(new DetailBulletin(connexion, enseignement,this, ecole));
         }
         this.display = new DisplayBulletin(this);
     }
@@ -180,5 +180,9 @@ public class Bulletin {
      */
     public void setVisible(boolean bool){
         this.display.setVisible(bool);
+    }
+
+    void ajouterDetail(Enseignement enseignement) throws SQLException {
+        this.details.add(new DetailBulletin(this.ecole.getConnexion(),enseignement,this, this.ecole));
     }
 }

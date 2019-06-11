@@ -31,6 +31,7 @@ public class Discipline {
         this.id = Integer.parseInt(requetes.get(0).substring(0,requetes.get(0).length()-1));
         this.nom = nom;
         this.ecole = ecole;
+        this.ecole.reloadClasses();
     }
     
     /**

@@ -179,13 +179,13 @@ private void build(){
        else if(arg0.getSource()==this.bouton && !nom_base.getText().equals("")&& !login.getText().equals(""))
         { 
             try {
-                f.dispose();
                 Ecole ecole = new Ecole(new Connexion(nom_base.getText(),login.getText(),password.getText()));
+                f.dispose();
                 
             } catch (SQLException ex) {
-                this.error.setText("Impossible de ce connecter à la BDD");
+                this.error.setText("Impossible de se connecter à la BDD");
             } catch (ClassNotFoundException ex) {
-                this.error.setText("Impossible de ce connecter à la BDD");
+                this.error.setText("Impossible de se connecter à la BDD");
             }
             
         }
